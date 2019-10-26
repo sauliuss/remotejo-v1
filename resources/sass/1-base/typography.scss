@@ -1,0 +1,100 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700);
+
+@mixin helvetica-neue-black                  {font-family: "HelveticaNeueBlack", "HelveticaNeue-Black", "Helvetica Neue Black", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Arial Black", sans-serif; font-weight:800; font-stretch:normal;}
+@mixin helvetica-neue-heavy                  {font-family: "HelveticaNeueHeavy", "HelveticaNeue-Heavy", "Helvetica Neue Heavy", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Arial Black", sans-serif; font-weight:700; font-stretch:normal;}
+@mixin helvetica-neue-bold                   {font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; font-weight:600; font-stretch:normal;}
+@mixin helvetica-neue-medium                 {font-family: "HelveticaNeueMedium", "HelveticaNeue-Medium", "Helvetica Neue Medium", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; font-weight:500; font-stretch:normal;}
+@mixin helvetica-neue-regular                {font-family: "HelveticaNeue", "Helvetica Neue", "HelveticaNeueRoman", "HelveticaNeue-Roman", "Helvetica Neue Roman", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; font-weight:400; font-stretch:normal;}
+@mixin helvetica-neue-light                  {font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; font-weight:300; font-stretch:normal;}
+@mixin helvetica-neue-thin                   {font-family: "HelveticaNeueThin", "HelveticaNeue-Thin", "Helvetica Neue Thin", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Arial", sans-serif; font-weight:200; font-stretch:normal;}
+@mixin helvetica-neue-ultra-light            {font-family: "HelveticaNeueUltraLight", "HelveticaNeue-Ultra-Light", "Helvetica Neue Ultra Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Arial", sans-serif; font-weight:100; font-stretch:normal;}
+
+@mixin poppins-black                         {font-family: 'Poppins', sans-serif; font-weight: 700;}
+@mixin poppins-semi-bold                     {font-family: 'Poppins', sans-serif; font-weight: 600;}
+@mixin poppins-medium                        {font-family: 'Poppins', sans-serif; font-weight: 500;}
+@mixin poppins-regular                       {font-family: 'Poppins', sans-serif; font-weight: 400;}
+@mixin poppins-light                         {font-family: 'Poppins', sans-serif; font-weight: 300;}
+
+@mixin text-micro                           {font-size: 0.75em;}
+@mixin text-small                           {font-size: 0.875em; line-height: 1.5;}
+@mixin text-normal                          {font-size: 1em;}
+@mixin text-large                           {font-size: 1.25em; line-height: 1.5;}
+
+body{
+	@include helvetica-neue-regular;
+}
+
+h1, .h1{
+	@include poppins-black;
+	font-size: 2em;
+	text-align: center;
+  color:#040111;
+
+	&--dark{
+		
+	}
+
+  &--bold{
+  }
+
+  &--aligned-left{
+    text-align: left;
+  }
+}
+
+h2, .h2{
+	@include helvetica-neue-medium;
+	width: 100%;
+	font-size: 1.375rem;
+	text-align: center;
+	color: #111;
+
+	&--dark{
+		
+	}
+
+	&--aligned-left{
+		text-align: left;
+	}
+}
+
+h3, .h3{
+	@include helvetica-neue-bold;
+	width: 100%;
+	text-align: left;
+	color: #111;
+	margin: 0;
+	margin-bottom: 0.75rem;
+	font-size: 1rem;
+}
+
+.subtitle{
+	@include helvetica-neue-light;
+	@include text-normal;
+	color: set-colors('grey', 'light');
+	flex: 1 1 100%;
+	text-align: center;
+	margin-bottom: 1.5em;
+	position: relative;
+	line-height: 1.5;
+	z-index: 99;
+}
+
+p, .p{
+  @include helvetica-neue-light;
+  color: set-colors('grey', 'light');
+  margin-bottom: 1.25em;
+  line-height: 1.5em;
+ }
+
+ a{
+ 	color: set-colors('blue', 'base');
+ 	
+ 	&:hover{
+ 		text-decoration: underline;
+ 	}
+
+ 	&:visited{
+ 		color: set-colors('blue', 'base');
+ 	}
+ }

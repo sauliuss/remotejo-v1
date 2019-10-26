@@ -1,0 +1,151 @@
+/* Loader icon animation */
+@mixin loader($bgcolor) {
+  $color: #fff;
+  font-size: 10px;
+  text-indent: -9999em;
+  width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  background: $color;
+  background: linear-gradient(to right, $color 10%, rgba(255, 255, 255, 0) 42%);
+  position: relative;
+  animation: load 1.4s infinite linear;
+  transform: translateZ(0);
+  &:before {
+    width: 50%;
+    height: 50%;
+    background: $color;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+  }
+  &:after {
+    background: $bgcolor;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  @keyframes load {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* Input placeholder styling */
+@mixin input-placeholder{
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: set-colors('grey', 'base');
+    opacity: 0.5;
+  }
+  &::-moz-placeholder { /* Firefox 19+ */
+    color:set-colors('grey', 'base');
+    opacity: 0.5;
+  }
+  &:-ms-input-placeholder { /* IE 10+ */
+    color: set-colors('grey', 'base');
+    opacity: 0.5;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    color: set-colors('grey', 'base');
+    opacity: 0.5;
+  }
+}
+
+/* NAVIGATION MENU BAR LINE ANIMATION */
+@mixin line {
+    $w: 4px;
+    content: '';
+
+    width: $w;
+    height: 4px;
+    border-radius: 2px;
+
+    background-color: set-colors('yellow', 'base');
+
+    bottom: 0;
+    position: absolute;
+    visibility: hidden;
+
+    transition: 0.5s;   
+}
+
+
+/* MEDIA QUERIES MIXINS */
+$body: 16px;
+
+$sm: 40;
+$md: 52;
+$lg: 65;
+$xl: 114;
+
+$smem: $sm * 1em;
+$mdem: $md * 1em;
+$lgem: $lg * 1em;
+$xlem: $xl * 1em;
+
+
+$mobile: 320px;
+$phoblet: $body * $sm; /*768px*/
+$tablet: $body * $md; /*992px*/
+$desktop: $body * $lg; /*1200px*/
+$desktop-lg: $body * $xl; /*1824px*/
+
+/* Mobile */
+@mixin mobile {
+  @media (min-width: #{$mobile}) and (max-width: #{$phoblet - 1px}) {
+    @content;
+  }
+}
+
+
+/* Phoblet */
+@mixin phoblet {
+  @media (min-width: #{$phoblet}) and (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+
+/* Tablet */
+@mixin tablet {
+  @media (min-width: #{$tablet}) and (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+
+/* Desktop */
+@mixin desktop {
+  @media (min-width: #{$desktop}) and (max-width: #{$desktop-lg - 1px}) {
+    @content;
+  }
+}
+
+
+// HD DESKTOP
+@mixin desktop-lg {
+  @media (min-width: #{$desktop-lg + 1}) {
+    @content;
+  }
+}
+
+@mixin resize_img($width, $height, $new_height) {
+  height: $new_height;
+  width: $new_height * ($width/$height);
+}
+
+
+

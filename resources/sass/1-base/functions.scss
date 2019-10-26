@@ -1,0 +1,4 @@
+@function set-colors($name: 'grey', $variant: $app-color-key) {
+    $color-spectrum: map-get($app-colors, $name);
+    @return map-get($color-spectrum, $variant);
+}

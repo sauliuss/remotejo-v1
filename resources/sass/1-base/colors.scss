@@ -1,0 +1,113 @@
+$color-twitter: hsl(196, 100%, 46%);
+$color-facebook: hsl(221, 44%, 41%);
+$color-linkedin: hsl(199, 100%, 35%);
+$color-instagram: hsl(276, 51%, 47%);
+
+$green-050: hsl(168, 97%, 95%);
+$green-100: hsl(168, 97%, 65%);
+$green-200: hsl(168, 97%, 45%);
+$green-300: hsl(168, 97%, 40%);
+$green-400: hsl(168, 97%, 20%);
+
+$red-050: hsl(5, 96%, 97%);
+$red-100: hsl(5, 96%, 70%);
+$red-200: hsl(5, 96%, 61%);
+
+$yellow-040: hsl(51,100%,95%);
+$yellow-050: hsl(51,100%,80%);
+$yellow-100: hsl(51,100%,70%);
+$yellow-200: hsl(51,100%,50%);
+$yellow-300: hsl(51,100%,45%);
+
+$blue-050: hsl(221, 100%, 75%);;
+$blue-100: hsl(221, 100%, 63%);
+$blue-200: hsl(243, 85%, 55%);
+$blue-300: hsl(243, 85%, 45%);
+$blue-400: hsl(248, 84%, 7%);
+
+$purple-025: hsl(248, 100%, 95%);
+$purple-050: hsl(248, 100%, 80%);
+$purple-100: hsl(248, 100%, 75%);
+$purple-200: hsl(248, 100%, 65%);
+$purple-300: hsl(248, 100%, 60%);
+$purple-400: hsl(248, 100%, 45%);
+
+$grey-000: hsl(0, 0%, 100%);
+$grey-050: hsl(60,25%,99%);
+$grey-075: hsl(60,25%,97%);
+$grey-100: hsl(0, 0%, 85%);
+$grey-200: hsl(0,0%,30%);
+$grey-300: hsl(60,13%,6%);
+
+$c1: hsl(248, 100%, 65%);
+$c2: hsl(243, 85%, 55%);
+$c3: hsl(221, 100%, 63%);
+
+
+$app-color-key: 'base' !default;
+
+$app-colors: (
+  'grey': (
+    'dark': $grey-300,
+    'base': $grey-200,
+    'light': $grey-100,
+    'lighter': $grey-075,
+    'lightest': $grey-050
+  ),
+  'purple': (
+    'darker': $purple-400, 
+    'dark': $purple-300,  
+    'base': $purple-200,
+    'light': $purple-100,
+    'lighter': $purple-050,
+    'lightest': $purple-025
+  ),
+  'blue': (
+    'base': $blue-300,
+    'light': $blue-200,
+    'lighter': $blue-100,
+    'lightest': $blue-050,
+    'dark': $blue-400
+
+  ),
+  'green': (
+      'base': $green-200,
+      'light': $green-100,
+      'lighter': $green-050,
+      'dark': $green-300,
+      'darker': $green-400
+  ),
+  'yellow': (
+      'base': $yellow-200,
+      'light': $yellow-100,
+      'lighter': $yellow-050,
+      'lightest': $yellow-040,
+      'dark': $yellow-300
+  ),
+  'red': (
+      'base': $red-200,
+      'light': $red-100,
+      'lighter': $red-050
+  ),
+  'status': (
+    'success': $green-200,
+    'error': $red-100
+  ),
+  'social': (
+    'facebook': $color-facebook,
+    'twitter': $color-twitter,
+    'linkedin': $color-linkedin,
+    'instagram': $color-instagram
+    )
+);
+
+$gradient-black: linear-gradient(0deg, set-colors('grey', 'dark'),set-colors('grey', 'base'));
+$gradient-green: linear-gradient(to top, set-colors('green', 'dark'),hsl(168,97%,44%));
+$gradient-grey: linear-gradient(to bottom,hsl(0,0%,100.0%),hsl(60.0,25.0%,96.86%));
+$gradient-grey-hover: linear-gradient(to bottom,hsl(60.0,25.0%,96.86%),hsl(60.0,25.0%,96.86%));
+$gradient-yellow: linear-gradient(to bottom,set-colors('yellow', 'base'), set-colors('yellow', 'lighter'));
+
+$bg-black:  #171113;
+
+
+

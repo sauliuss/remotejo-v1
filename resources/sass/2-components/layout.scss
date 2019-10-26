@@ -1,0 +1,308 @@
+html,body{
+}
+
+body{
+  ::selection {
+    background: set-colors('yellow', 'light'); /* WebKit/Blink Browsers */
+  }
+  ::-moz-selection {
+    background: set-colors('yellow', 'light'); /* Gecko Browsers */
+  }
+ 
+}
+
+
+.wrapper{
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+}
+
+.loadbar{
+  width: 100%;
+  height: 4px;
+  background: $gradient-yellow;
+}
+
+.nav{
+  background-color: $bg-black;
+  width: 100%;
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  box-shadow: 0 1px 3px 0px rgba(0,0,0,0.5);
+  z-index: 99999;
+
+  // Component: LOGO
+  .logo{
+      align-self: center;
+      @include mobile{
+          margin-right: 0.5rem;
+          order: 1;
+      }
+  }
+  .logo__img{
+      $w: 229px;
+      $h: 55px;
+      $ratio: $w/$h;
+      $newheight: 2rem;
+      $newheight-mobile: 1.5rem;
+      height: $newheight;
+      width: $newheight*$ratio;
+      fill: set-colors('yellow', 'base');
+      @include phoblet{
+          $newheight: 1.75rem;     
+          height: $newheight;
+          width: $newheight*$ratio;        
+      }
+      @include mobile{    
+          height: $newheight-mobile;
+          width: $newheight-mobile * $ratio;
+          
+      }
+
+      &.is-secondary{
+          fill: #fff;
+      }
+
+      &.is-large{
+          $newheight: 2.5rem;
+          height: $newheight;
+          width: $newheight*$ratio; 
+
+          @include mobile{
+              height: $newheight-mobile;
+              width: $newheight-mobile*$ratio;        
+          }      
+      }
+  }
+
+  .nav-menu{
+    @include poppins-regular;
+    flex: 0 1 1080px;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    @include mobile{
+      padding: 0 1rem;
+    }
+
+    a{
+      text-decoration: none;
+      &:visited{
+        text-decoration: none;
+      }
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  .nav-menu__group{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    color: set-colors('yellow', 'lighter');
+
+    &:nth-of-type(1){
+      margin-left: 1rem;
+      margin-right: auto;
+    }
+
+    &:nth-of-type(2){
+      @include mobile{
+        display: none;  
+      }
+    }
+
+    @include mobile{
+      order: 2; 
+    }
+  }
+
+  .nav-menu__item{
+    $p: 1rem;
+    padding: 1.5rem;
+    position: relative;
+    color: set-colors('yellow', 'lightest');
+    transition: 0.4s;
+    cursor: pointer;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    @include text-small;
+    
+    @include mobile{
+      white-space: nowrap;
+      padding: 1.5rem 1rem;
+    }
+
+    &:before{
+      @include line;
+      left: $p;
+
+    }
+    &:after{
+      @include line;
+      right: $p;
+    }
+
+
+    &:visited{
+      color: inherit;
+    }
+
+    &:hover{
+      $w: 52%;
+      $w-m: 40%;
+      color: set-colors('yellow', 'lighter');
+
+      &:before{
+        width: $w;
+        visibility: visible;
+        @include mobile{
+          width: $w-m;
+        }
+      }
+
+      &:after{
+        width: $w;
+        visibility: visible;
+        @include mobile{
+          width: $w-m;
+        }
+      }
+    }
+  }
+
+  .btn-show-menu{
+    display: none;
+
+    @include mobile{
+      padding-right: 0;
+      display: flex;  
+      order: 3;
+    }
+  }
+
+  .btn-show-menu-user{
+    padding: 1rem 1rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: set-colors('yellow', 'lighter');
+    cursor: pointer;
+
+    &:hover{
+      background-color: set-colors('yellow', 'light');
+    }
+  }
+}
+
+.content{
+  padding: 6rem 0;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 960px;
+  flex: 0 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  &--company{
+    padding: 0 0 6rem;
+    width: 100%;
+    max-width: 1080px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
+
+.sidebar{
+  min-height: 100px;
+  width: 12rem;
+  margin-top: 8rem;
+  margin-right: 2rem;
+}
+
+.main{
+  width: 600px;
+  flex: 0 1 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 200px;
+  margin-top: 2rem;
+
+  &__section{
+    margin-top: 3rem;
+    flex: 1 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+footer, .footer{
+  flex: 1 1 100%;
+  color: set-colors('grey', 'light');
+  font-size: 0.75em;
+  margin-top: 2rem;
+
+  &__body{
+    flex: 1 1 20%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin:0 auto 2rem;
+  }
+
+  &__item{
+    flex: 0 1 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+
+  a{
+    display: flex;
+    color: set-colors('grey', 'light');
+    &:visited{
+      color: set-colors('grey', 'light');
+    }
+    &:hover{
+      color: set-colors('grey', 'base');
+      text-decoration: none;
+    }
+  }
+}
+

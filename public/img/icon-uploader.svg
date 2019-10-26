@@ -1,0 +1,5 @@
+<svg id="Layer_1" class="icon-uploader" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><style>.icon-uploader {
+  -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .1));
+  filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .1));
+  /* Similar syntax to box-shadow */
+} .cls-1{fill:none;}.cls-2{fill:#fff;}</style></defs><title>icon-uploader</title><g id="_.icon-photo" data-name=".icon-photo"><rect class="cls-1" width="120" height="120"/><polygon class="cls-2" points="67.11 52.97 51.99 68.09 45.42 61.52 20.07 86.87 33.22 86.87 70.76 86.87 101 86.87 67.11 52.97"/><circle class="cls-2" cx="44.47" cy="45.94" r="8.31"/></g></svg>

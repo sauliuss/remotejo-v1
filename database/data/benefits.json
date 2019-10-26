@@ -1,0 +1,44 @@
+[
+    {
+        "category": "Health and Wellness",
+        "benefits": [
+                        "Health insurance",
+                        "Dental insurance",
+                        "Vision insurance",
+                        "Life insurance",
+                        "Disability insurance"
+                    ]
+    },
+    {
+        "category": "Compensation",
+        "benefits": [
+                        "401(k) matching",
+                        "Stock options",
+                        "Company profit sharing",
+                        "Anual rises and bonuses"
+                    ]
+    },
+    {
+        "category": "Work, Family and Time-Off",
+        "benefits": [
+                        "Paid paternity and maternity leave",
+                        "Shorter work week",
+                        "Flexible working hours",
+                        "Unlimited day-offs",
+                        "Paid time-off",
+                        "Company retreats"
+                    ]
+    },
+    {
+        "category": "Other Perks",
+        "benefits": [
+                        "Coworking-space budget",
+                        "New tech/office equipment budget",
+                        "Paid gym membership",
+                        "Internet/phone bill reimbursement",
+                        "Personal development and education stipend",
+                        "Tuition reimbursement"
+                    ]
+    }
+
+]

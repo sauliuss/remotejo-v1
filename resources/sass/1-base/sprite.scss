@@ -1,0 +1,75 @@
+@mixin sprite { 
+	background: url(/img/sprite.svg); 
+	background-size: 1920px 1080px; 
+}
+
+.icon-dribbble, .icon-photo { @include sprite; }
+
+.icon-dribbble { background-position: -125px -18px; width: 24px; height: 24px; }
+.icon-photo { background-position: -25px -18px; width: 80px; height: 80px; }
+
+.logo { background-position: -38px -24px; width: 158px; height: 31px; }
+
+%icon{
+	$s: 1.5rem;
+	height: $s;
+	width: $s;
+	margin-left: 8px;
+	fill: none;	
+	stroke: set-colors('grey', 'base');
+	stroke-miterlimit: 10;
+	stroke-width: 4px;
+	stroke-linecap: round;
+	transition: all 0.5s ease;
+}
+
+
+.icon-close{
+	@extend %icon;
+
+	&--small{
+		$s: 6px;
+		height: $s;
+		width: $s;
+		margin: 0;
+		stroke: #fff;
+	}
+
+	&--normal{
+		stroke-width: 4px;
+		$s: 12px;
+		height: $s;
+		width: $s;
+		margin: 0;
+		stroke: #fff;
+	}
+
+	&--large{
+		stroke-width: 2px;
+		$s: 24px;
+		height: $s;
+		width: $s;
+		margin: 0;
+		stroke: #fff;
+	}
+
+	&--dark{
+		stroke: set-colors('grey', 'base');
+	}
+}
+
+.icon-twitter, .icon-github, .icon-facebook{
+	$s: 1rem;	
+	height: $s;
+	width: $s;
+	margin-right: 0.5rem;
+	fill: set-colors('yellow', 'lighter');
+}
+
+.icon-tag{
+	@extend %icon;
+}
+
+.logo{
+	fill: set-colors('yellow', 'base');
+}
