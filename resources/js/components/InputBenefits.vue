@@ -60,7 +60,6 @@
 
                 this.selection = merged;
 
-                console.log(merged);
             }
         }
 </script>

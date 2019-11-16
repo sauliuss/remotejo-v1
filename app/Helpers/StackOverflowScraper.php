@@ -260,12 +260,14 @@ class StackOverflowScraper
 
 				   		$tool = Tool::firstOrCreate(
 				   						['name' => $tool],
-				   						['slug' => str_slug($tool)]
+				   						[
+				   							'slug' => str_slug($tool),
+				   							'type_id' => 0
+				   						]
 				   					);
 				   		array_push($tool_ids, $tool->id);
 
 				   	}
-				   	$company->tools()->sync($tool_ids);
 
 
 

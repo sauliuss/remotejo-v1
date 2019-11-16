@@ -21,7 +21,7 @@
 
 .btn{
   @include text-small;
-  @include helvetica-neue-medium;
+  @include poppins-regular;
   padding: 0.5rem 1rem;
   color: set-colors('yellow', 'lightest');
   border: none;
@@ -32,6 +32,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  letter-spacing: 0.5px;
   z-index: 99;
   &:hover{
     text-decoration: none;
@@ -60,12 +61,7 @@
   }
 
   &--secondary{
-    background: linear-gradient(120deg, set-colors('purple', 'light'),set-colors('purple', 'base') 45%,set-colors('blue', 'base'));
-    background-size: 200%;
-    box-shadow: 0 8px 16px 0 hsla(221, 100%, 63%, 0.2);
     &:hover{
-      background-position: 100%;
-      box-shadow: 0 8px 20px 0 hsla(221, 100%, 63%, 0.4);
     }
   }
 
@@ -89,6 +85,7 @@
     box-shadow: 0 8px 16px 0 hsla(221, 100%, 63%, 0.1);
     background: linear-gradient(120deg, hsl(221, 100%, 98%) 10%,rgba(255,255,255,1) 45%,hsl(248, 100%, 98%));
     background-size: 200%;
+
     color: #111;
 
     &:hover{
@@ -101,6 +98,7 @@
     }
 
   }
+
 
   &--outline{
     border: 1px solid set-colors('grey', 'lighter');
@@ -115,9 +113,13 @@
     padding: 0.5rem;
   }
 
-  &--nav{
+  &--full-width{
+    width: 100%;
+    flex: 1 0 auto;
+  }
+
+  &--nav, &--claim{
     background: transparent;
-    border: 1px solid set-colors('yellow', 'base');
     box-shadow: none;
     color: set-colors('yellow', 'lightest');
     @include poppins-regular;
@@ -128,9 +130,22 @@
       color: set-colors('yellow', 'base');
       margin-right: 4px;
     }
+  }
 
+  &--nav{
+    border: 1px solid set-colors('yellow', 'base');
     &:hover{
       color: set-colors('yellow', 'lighter');
+    }
+
+    
+
+  }
+
+  &--claim{
+    border: 1px solid set-colors('green', 'base');
+    &:hover{
+      color: set-colors('green', 'lighter');
     }
   }
 
@@ -139,6 +154,7 @@
 
   &__icon{
     display: block;
+    
   }
 }
 
@@ -170,6 +186,10 @@
   align-items: center;
   margin-bottom: 3rem;
   position: relative;
+
+  &--claim, &--notify{
+    margin: 0;
+  }
 
   &--company-edit{
     margin-bottom: 14rem;
@@ -234,16 +254,20 @@
     justify-content: center;
     align-items: center;
     flex: 1 0 100%;
+  }
 
-    .form__section__title{
-      flex: 1 0 100%;
-      @include text-large;
-      @include helvetica-neue-bold;
-      text-align: left;
-      margin: 0;
-      padding-bottom: 0.5rem;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid set-colors('grey', 'light');
+  &__section__title{
+    flex: 1 0 100%;
+    @include text-large;
+    @include helvetica-neue-bold;
+    text-align: left;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid set-colors('grey', 'light');
+
+    &--light{
+      @include helvetica-neue-regular;
     }
   }
 }
@@ -379,11 +403,13 @@
   }
 
   &--title{
+    display: inline-block;
     text-transform: none;
-    color: set-colors('grey', 'base');
+    color: set-colors('grey', 'dark');
     @include helvetica-neue-regular;
     @include text-normal;
     cursor: pointer;
+    margin-bottom: 2rem;
   }
 }
 
@@ -464,6 +490,11 @@
       box-shadow: none;
     }
   }
+
+  &--small{
+    padding: 0.75rem 0.75rem;
+    @include text-micro;
+  }
 }
 
 .fieldset{
@@ -493,6 +524,15 @@
     margin: 0;
   }
 
+  &--full-width{
+    align-self: stretch;
+    flex: 1 0 auto;
+  }
+
+  &--notify{
+    margin: 2rem 0 0;
+  }
+
   .field-checkbox:last-of-type{
     margin-bottom: 0;
   }
@@ -515,7 +555,7 @@
     background-color: set-colors('grey', 'lighter');
 
     label{
-      border: 12px solid set-colors('yellow', 'base');
+      border: 12px solid set-colors('green', 'base');
     }
   }
 
@@ -545,7 +585,7 @@
   }
 
   input:checked + label{
-    border: 12px solid set-colors('yellow', 'base');
+    border: 12px solid set-colors('green', 'base');
     animation: shrink-bounce 250ms forwards;
 
     &:after{
@@ -591,7 +631,7 @@
 
 .input-checkbox{
   $s: 24px;
-  z-index: 99;
+  z-index: 9;
   position: relative;
 
   input{
@@ -607,13 +647,14 @@
     height: $s;
     border: 1px solid set-colors('grey', 'light');
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+    background-color: #fff;
     border-radius: 4px;
     position: relative;
     cursor: pointer;
   }
 
   input:checked + label{
-    border: 12px solid set-colors('yellow', 'base');
+    border: 12px solid set-colors('green', 'base');
     animation: shrink-bounce 250ms forwards;
 
     &:after{
@@ -831,3 +872,83 @@
     }
   }
 }
+
+.toggle{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 0.25rem;
+}
+
+.input-toggle{
+  margin-right: 1rem;
+
+  input {
+    display: none;
+
+    &,
+    &:after,
+    &:before,
+    & *,
+    & *:after,
+    & *:before,
+    & + label {
+      box-sizing: border-box;
+      &::selection {
+        background: none;
+      }
+    }
+    
+    + label {
+      outline: 0;
+      display: block;
+      width: 4em;
+      height: 2em;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      background: set-colors('grey', 'light');
+      border-radius: 2em;
+      padding: 2px;
+      transition: all .4s ease;
+      &:after,
+      &:before {
+        position: relative;
+        display: block;
+        content: "";
+        width: 50%;
+        height: 100%;
+      }
+      
+      &:after {
+        left: 0;
+        border-radius: 50%;
+        transition: all .2s ease;
+        background: #fff;
+        background: $gradient-grey;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      }
+      
+      &:before {
+        display: none;
+      }
+    }
+
+    &:checked + label {
+      background: set-colors('green', 'base');
+    }
+    
+    &:checked + label:after {
+      left: 50%;
+    }
+  }
+}
+
+.label--toggle{
+  @include text-small;
+  cursor: pointer;
+
+}
+
+

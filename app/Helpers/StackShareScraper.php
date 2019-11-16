@@ -9,7 +9,7 @@ use Image;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Tool;
-use App\Models\ToolType;
+use App\Models\Type;
 use App\Models\Company;
 
 class StackShareScraper

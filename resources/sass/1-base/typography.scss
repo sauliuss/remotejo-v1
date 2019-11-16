@@ -15,10 +15,11 @@
 @mixin poppins-regular                       {font-family: 'Poppins', sans-serif; font-weight: 400;}
 @mixin poppins-light                         {font-family: 'Poppins', sans-serif; font-weight: 300;}
 
+@mixin text-nano                           {font-size: 0.5em;}
 @mixin text-micro                           {font-size: 0.75em;}
 @mixin text-small                           {font-size: 0.875em; line-height: 1.5;}
 @mixin text-normal                          {font-size: 1em;}
-@mixin text-large                           {font-size: 1.25em; line-height: 1.5;}
+@mixin text-large                           {font-size: 1.125em; line-height: 1.5;}
 
 body{
 	@include helvetica-neue-regular;

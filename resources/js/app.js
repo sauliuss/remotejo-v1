@@ -6,6 +6,10 @@
 
 require('./bootstrap');
 import formcompany from './components/FormCompany';
+import formnotification from './components/FormNotification';
+import modalclaim from './components/ModalClaim';
+import filtercompanies from './components/FilterCompanies';
+import inputtimezones from './components/InputTimezones';
 
 window.Vue = require('vue');
 
@@ -33,5 +37,5 @@ const app = new Vue({
     	founded: '',
 
     },
-    components: {formcompany}
+    components: {formcompany, modalclaim, formnotification,filtercompanies, inputtimezones}
 });

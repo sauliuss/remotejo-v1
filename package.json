@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "places.js": "^1.16.6"
+        "places.js": "^1.16.6",
+        "qs": "^6.9.0"
     }
 }

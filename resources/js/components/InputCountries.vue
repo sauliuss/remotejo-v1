@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="input__container">
-                <input ref="location_input"  v-model="autocomplete_input" placeholder="Hiring in specific countries or continents?" type="text" class="input input--wrapped" @focus="show_dropdown = true;">
+                <input ref="location_input"  v-model="autocomplete_input" placeholder="Select a continent or country" type="text" class="input input--wrapped" :class="type" @focus="show_dropdown = true;">
                 <div v-if="show_dropdown" class="dropdown">
                     <div class="dropdown__outlay" v-if="show_dropdown" @click="show_dropdown = !show_dropdown"></div>
                     <div v-if="autocomplete_input.length == 0">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div role="option" :class="{is_active : item.active}" class="dropdown__item" @click="addItem(item)" v-for="(item, index) in getLocationsAutocomplete(autocomplete_input)" :key="item">
+                        <div role="option" :class="{is_active : item.active}" class="dropdown__item" @click="addItem(item)" v-for="(item, index) in getLocationsAutocomplete(autocomplete_input)" :key="index">
                             {{item.emoji}}{{item.name}}
                         </div>
                     </div>
@@ -43,6 +43,11 @@
                 }
             },
             props: {
+                size: {
+                    default: null,
+                    required: false,
+                    type: String
+                },
                 company_id: Number,
                 options: {
                             required: false, 

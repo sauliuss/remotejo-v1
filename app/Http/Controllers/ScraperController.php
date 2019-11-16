@@ -13,7 +13,7 @@ use App\Models\Job;
 use App\Models\Benefit;
 use App\Models\JobCategory;
 use App\Models\Tool;
-use App\Models\ToolType;
+use App\Models\Type;
 use App\Models\Rating;
 
 use App\Helpers\WeWorkRemotelyScraper;
@@ -161,21 +161,21 @@ class ScraperController extends Controller
 			if($stackshare_result['status'] == 200){
 				foreach ($stackshare_result['response'] as $item){
 
+					if(isset($item['category'])){
+						$type = Type::firstOrCreate(
+							['name' => $item['category']],
+							['slug' => str_slug($item['category'])]
+						);
+					}
+
 					$tool = Tool::updateOrCreate(
 					    ['name' => $item['name']],
 					    [
 					    	'logo' => $item['logo'],
-					    	'slug' => str_slug($item['name'])
+					    	'slug' => str_slug($item['name']),
+					    	'type_id' => $type->id
 					    ]
 					);
-
-					if(isset($item['category'])){
-						$type = ToolType::firstOrCreate(
-							['name' => $item['category']],
-							['slug' => str_slug($item['category'])]
-						);
-						$tool->types()->sync($type->id);
-					}
 					array_push($tool_ids, $tool->id);
 				}
 
@@ -203,7 +203,7 @@ class ScraperController extends Controller
 			if($result['status'] == 200){
 				$tool->logo = $result['response']['logo'];
 
-				$type = ToolType::firstOrCreate(
+				$type = Type::firstOrCreate(
 					['name' => $result['response']['category']],
 					['slug' => str_slug($result['response']['category'])]
 				);

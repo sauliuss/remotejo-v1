@@ -107,6 +107,8 @@ $gradient-grey: linear-gradient(to bottom,hsl(0,0%,100.0%),hsl(60.0,25.0%,96.86%
 $gradient-grey-hover: linear-gradient(to bottom,hsl(60.0,25.0%,96.86%),hsl(60.0,25.0%,96.86%));
 $gradient-yellow: linear-gradient(to bottom,set-colors('yellow', 'base'), set-colors('yellow', 'lighter'));
 
+$gradient-bg-light: linear-gradient(to bottom, #fff, hsl(60, 25%, 97%));
+
 $bg-black:  #171113;
 
 

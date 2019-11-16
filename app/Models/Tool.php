@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tool extends Model
 {
-	protected $fillable = ['name', 'description', 'made_by', 'logo', 'slug'];
-    protected $hidden = ['created_at', 'updated_at'];
+	protected $fillable = ['name', 'description', 'parent_id', 'type_id', 'made_by', 'logo', 'slug'];
+    protected $hidden = ['created_at', 'updated_at', 'pivot'];
 
-	public function types()
+	public function type()
     {
-    	return $this->belongsToMany('App\Models\ToolType');
+    	return $this->belongsTo('App\Models\Type');
     }
 
 	public function companies()

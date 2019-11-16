@@ -17,6 +17,7 @@ class CreateToolsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->integer('type_id');
             $table->integer('made_by')->nullable();
             $table->string('logo')->nullable();
             $table->string('slug');

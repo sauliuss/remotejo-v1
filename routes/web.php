@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'CompaniesController@showAll');
-Route::get('/company/{id}', 'CompaniesController@showCompany');
+Route::get('/companies', 'CompaniesController@showCompaniesByStack');
+Route::get('/companyid/{id}', 'CompaniesController@showCompanyById');
+Route::get('/company/{slug}', 'CompaniesController@showCompany');
 Route::get('/tool/{slug}', 'ToolsController@showTool');
 
 Route::get('/scraper/stackoverflow', 'ScraperController@scrapeStackOverflow');

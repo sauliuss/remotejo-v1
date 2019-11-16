@@ -8,7 +8,7 @@
         </a>
         <div class="nav-menu__group">
             <a href="/companies" class="nav-menu__item"><span class="link">Remote Companies</span></a>
-            <a href="/stacks" class="nav-menu__item"><span class="link">Tech Stacks</span></a>
+            <a href="/tech-stacks" class="nav-menu__item"><span class="link">Tech Stacks</span></a>
             <a href="/stacks" class="nav-menu__item"><span class="link">Hiring Regions</span></a>
         </div>
             <a href="/new" class="btn btn--small btn--nav"><span class="btn--nav__icon">+</span>Add Your Company</a>

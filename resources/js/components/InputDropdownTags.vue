@@ -1,7 +1,9 @@
 <template>
     <div class="select-regions">
-        <label :for="'industries_'+company_id" class="label">Select Industry</label>
-        <label :for="'industries_'+company_id" class="label label--helper">You may choose up to 3 industries</label>
+        <slot>
+            <label :for="'industries_'+company_id" class="label">Select Industry</label>
+            <label :for="'industries_'+company_id" class="label label--helper">You may choose up to 3 industries</label>
+        </slot>
         <div class="input-wrapper">
             <div class="selections" v-if="this.selection.length > 0">
                 <div class="selections__item"  v-for="(item, index) in selection">

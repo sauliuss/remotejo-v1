@@ -21,7 +21,8 @@ body{
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  background: hsl(60, 25%, 97%);
+  background: #fff;
 
 }
 
@@ -89,7 +90,7 @@ body{
 
   .nav-menu{
     @include poppins-regular;
-    flex: 0 1 1080px;
+    flex: 0 1 1200px;
     padding: 0;
     display: flex;
     flex-flow: row wrap;
@@ -227,11 +228,26 @@ body{
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
+  z-index: 9;
+  margin-top: 4rem;
+  overflow: visible;
 
   &--company{
     padding: 0 0 6rem;
     width: 100%;
-    max-width: 1080px;
+    max-width: 1200px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &--companies{
+    padding: 0;
+    margin-top: 0;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -240,10 +256,34 @@ body{
 }
 
 .sidebar{
-  min-height: 100px;
-  width: 12rem;
-  margin-top: 8rem;
-  margin-right: 2rem;
+
+  &--left{
+    min-height: 100px;
+    width: 12rem;
+    margin-top: 6rem;
+    margin-right: 4rem;
+  }
+
+  &--right{
+    flex: 1;
+    margin-left: 4rem;
+    min-height: 4rem;
+
+  }
+
+  &--filters{
+    flex: 0 1 540px;
+    padding: 4rem;
+    padding-left: 8rem;
+    border-right: 1px solid set-colors('grey', 'lighter');
+    background: $gradient-bg-light;
+    align-self: stretch;
+    position: sticky;
+    height: 100%;
+    max-height: 800px;
+    overflow-y: scroll;
+    top: 0;
+  }
 }
 
 .main{
@@ -254,32 +294,49 @@ body{
   justify-content: flex-start;
   align-items: flex-start;
   min-height: 200px;
-  margin-top: 2rem;
 
-  &__section{
-    margin-top: 3rem;
-    flex: 1 1 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: center;
+  &--companies{
+    padding: 4rem;
+    flex: 1;
   }
+
+}
+
+.section{
+  margin: 0 0 6rem;
+  flex: 1 1 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  &__title{
+    flex: 1 0 100%;
+    font-size: 1.5em;
+    @include helvetica-neue-black;
+    text-align: left;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid set-colors('grey', 'light');
+  }
+
+  &__subtitle{
+    flex: 1 0 100%;
+    text-align: left;
+    margin-bottom: 2rem;
+    @include helvetica-neue-bold;
+    color: set-colors('grey', 'dark');
+
+  }
+
 }
 
 footer, .footer{
-  flex: 1 1 100%;
-  color: set-colors('grey', 'light');
-  font-size: 0.75em;
-  margin-top: 2rem;
-
-  &__body{
-    flex: 1 1 20%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    margin:0 auto 2rem;
-  }
+  width: 100%;
+  flex: 1 0 100%;
+  padding: 4rem;
+  background-color: set-colors('grey', 'lightest');
 
   &__item{
     flex: 0 1 auto;
@@ -295,9 +352,9 @@ footer, .footer{
 
   a{
     display: flex;
-    color: set-colors('grey', 'light');
+    color: set-colors('grey', 'base');
     &:visited{
-      color: set-colors('grey', 'light');
+      color: set-colors('grey', 'base');
     }
     &:hover{
       color: set-colors('grey', 'base');

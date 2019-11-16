@@ -3,9 +3,8 @@
 	background-size: 1920px 1080px; 
 }
 
-.icon-dribbble, .icon-photo { @include sprite; }
+.icon-photo { @include sprite; }
 
-.icon-dribbble { background-position: -125px -18px; width: 24px; height: 24px; }
 .icon-photo { background-position: -25px -18px; width: 80px; height: 80px; }
 
 .logo { background-position: -38px -24px; width: 158px; height: 31px; }
@@ -21,6 +20,10 @@
 	stroke-width: 4px;
 	stroke-linecap: round;
 	transition: all 0.5s ease;
+}
+
+.icon{
+	flex: 0 0 auto;
 }
 
 
@@ -58,17 +61,50 @@
 	}
 }
 
-.icon-twitter, .icon-github, .icon-facebook{
-	$s: 1rem;	
+.icon-social{
+	$s: 1.25rem;	
 	height: $s;
 	width: $s;
-	margin-right: 0.5rem;
+	margin-right: 0rem;
 	fill: set-colors('yellow', 'lighter');
 }
 
 .icon-tag{
-	@extend %icon;
+	$s: 1.5rem;	
+	height: $s;
+	width: $s;
+	margin-right: 0.5rem;
+	fill: set-colors('yellow', 'lighter');
+	stroke: none;
 }
+
+.icon-company-info{
+	$s: 1.25rem;	
+	height: $s;
+	width: $s;
+	margin-right: 0.5rem;
+
+	&--no-margin{
+		margin: 0;
+	}
+}
+
+.icon-benefit{
+	$s: 1.25rem;	
+	height: $s;
+	width: $s;
+	margin-right: 0;
+	fill: set-colors('grey', 'dark');
+}
+
+.icon-verified{
+	$s: 24px;	
+	height: $s;
+	width: $s;
+	margin-right: 0;
+}
+
+
 
 .logo{
 	fill: set-colors('yellow', 'base');

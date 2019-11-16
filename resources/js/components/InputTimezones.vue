@@ -1,10 +1,10 @@
 <template>
     <div class="editor-timezones">
         <div class="editor-timezones__footer">
-            <button @click.prevent="addAllTimezones()" class="btn btn--light btn--small">Select All Timezones</button>  
+            <button @click.prevent="addAllTimezones()" class="btn btn--light btn--small">Worldwide - All Timezones</button>  
             <button @click.prevent="removeAllTimezones()" class="btn btn--light btn--small">Reset</button>  
         </div>
-        <div class="editor-timezones__body">
+        <div class="editor-timezones__body" :class="type">
             <div class="editor-timezones__item" v-for="(item, index) in options">
                 <div class="timezone">
                     <input type="checkbox" :value="item" :id="'utc'+index+company_id" class="timezone__checkbox" v-model="selection">
@@ -35,11 +35,19 @@
                 }
             },
             props: {
-                company_id: Number,
+                company_id: {
+                    type: Number,
+                    required: false
+                },
                 options: Array,
                 selected: {
                     type: Array,
                     required: false
+                },
+                type: {
+                    type: String,
+                    required: false,
+                    default: ''
                 }
             },
             methods: {
