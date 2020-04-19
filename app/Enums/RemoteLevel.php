@@ -13,5 +13,5 @@ final class RemoteLevel extends Enum
 {
     const RemoteFriendly =   0;
     const RemoteFirst =   1;
-    const FullyRemote = 2;
+    const AllRemote = 2;
 }

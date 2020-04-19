@@ -7,7 +7,6 @@
     </button>
     <div class="modal-outlay" @click.self="closeModal()" v-show="state.active">
         <div class="modal">
-
           <div class="modal__header modal__header--claim">
             <span class="modal__title">Claim <b>{{ company_name }}</b> profile</span>
             <a href="#" class="btn-close" @click.prevent.stop="closeModal()">

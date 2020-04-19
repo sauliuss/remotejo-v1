@@ -8368,6 +8368,234 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DialogCompany.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DialogCompany.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "./resources/js/components/Icon.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'dialogcompany',
+  data: function data() {
+    return {
+      company: '',
+      state: {
+        loading: false,
+        active: false
+      }
+    };
+  },
+  computed: {},
+  mounted: function mounted() {
+    var _this = this;
+
+    // Focuses on the modal, so that keyup.esc can be triggered
+    document.addEventListener("keydown", function (e) {
+      if (e.keyCode == 27) {
+        _this.close();
+      }
+    });
+  },
+  watch: {
+    slug: {
+      deep: true,
+      handler: function handler() {
+        if (this.slug !== undefined && this.slug !== '') {
+          this.submit();
+        }
+      }
+    }
+  },
+  props: {
+    slug: {
+      type: [Number, String],
+      required: true
+    }
+  },
+  methods: {
+    close: function close() {
+      this.$emit('close', '');
+    },
+    submit: function submit() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/company/' + this.slug).then(function (response) {
+        console.log(response.data.data);
+        _this2.company = response.data.data;
+      })["catch"](function (error) {});
+    }
+  },
+  components: {
+    icon: _Icon__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilterCompanies.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilterCompanies.vue?vue&type=script&lang=js& ***!
@@ -8388,6 +8616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_InputCompanyType__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/InputCompanyType */ "./resources/js/components/InputCompanyType.vue");
 /* harmony import */ var _components_InputDropdownTags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/InputDropdownTags */ "./resources/js/components/InputDropdownTags.vue");
 /* harmony import */ var _components_InputLocation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/InputLocation */ "./resources/js/components/InputLocation.vue");
+/* harmony import */ var _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/DialogCompany.vue */ "./resources/js/components/DialogCompany.vue");
 //
 //
 //
@@ -8537,6 +8766,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -8556,6 +8799,7 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     return {
       settings: this.options,
       companies: '',
+      pagination: {},
       filters: {
         timezones: [],
         countries: [],
@@ -8568,7 +8812,8 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
       state: {
         loading: false
       },
-      filter: false
+      filter: false,
+      dialog_company: ''
     };
   },
   computed: {},
@@ -8585,8 +8830,11 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     options: Object
   },
   methods: {
-    showCompanyModal: function showCompanyModal() {
-      console.log('done');
+    showCompanyDialog: function showCompanyDialog(slug) {
+      var body = document.body;
+      body.classList.add("no-scroll");
+      history.replaceState(null, '', '/company/' + slug);
+      this.dialog_company = slug;
     },
     getIds: function getIds(array) {
       var ids = [];
@@ -8597,9 +8845,10 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
 
       return ids;
     },
-    submit: function submit() {
+    submit: function submit(page_number) {
       var _this = this;
 
+      var page = console.log(page_number);
       this.state.loading = false;
       var hiring_regions_ids = [];
 
@@ -8630,7 +8879,8 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
           industries: industry_ids,
           remote_level: this.filters.remote_level,
           size: this.filters.size,
-          type: this.filters.type
+          type: this.filters.type,
+          page: page_number || 1
         },
         paramsSerializer: function paramsSerializer(params) {
           return qs.stringify(params);
@@ -8638,7 +8888,9 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
       }).then(function (response) {
         // Enables actions on the form
         _this.state.loading = false;
-        _this.companies = response.data.response[0].data; // this.options = response.data.result;
+        _this.companies = response.data.response.data.data;
+        _this.pagination = response.data.response.pagination;
+        console.log(response.data.response.pagination); // this.options = response.data.result;
       })["catch"](function (error) {
         // Enables actions on the form again
         _this.state.loading = false;
@@ -8669,6 +8921,12 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     onTypeSelection: function onTypeSelection(value) {
       this.company.type = value;
     },
+    onDialogClose: function onDialogClose() {
+      this.dialog_company = '';
+      var body = document.body;
+      body.classList.remove("no-scroll");
+      history.replaceState(null, '', '/companies');
+    },
     fetchIDs: function fetchIDs(objects) {
       var ids = [];
       objects.forEach(function (selection) {
@@ -8684,7 +8942,8 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     inputbenefits: _components_InputBenefits__WEBPACK_IMPORTED_MODULE_6__["default"],
     inputcompanytype: _components_InputCompanyType__WEBPACK_IMPORTED_MODULE_7__["default"],
     inputdropdowntags: _components_InputDropdownTags__WEBPACK_IMPORTED_MODULE_8__["default"],
-    inputfilter: _components_InputFilter__WEBPACK_IMPORTED_MODULE_2__["default"]
+    inputfilter: _components_InputFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
+    dialogcompany: _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
   }
 });
 
@@ -9303,11 +9562,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    size: {
-      "default": null,
-      required: false,
-      type: String
-    },
     company_id: Number,
     options: {
       required: false,
@@ -9827,7 +10081,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "./resources/js/components/Icon.vue");
-//
 //
 //
 //
@@ -50090,6 +50343,530 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "fade" } }, [
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.slug !== "",
+            expression: "slug !== ''"
+          }
+        ],
+        staticClass: "outlay",
+        on: {
+          click: function($event) {
+            if ($event.target !== $event.currentTarget) {
+              return null
+            }
+            return _vm.close()
+          }
+        }
+      },
+      [
+        _c("transition", { attrs: { name: "slideright" } }, [
+          _vm.slug !== ""
+            ? _c("div", { staticClass: "dialog dialog--semi-full" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn-close btn-close--modal",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.close()
+                      }
+                    }
+                  },
+                  [_c("icon", { attrs: { name: "close--large" } })],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "hero" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn--small btn--new-window",
+                      attrs: {
+                        href: "/company/" + _vm.company.slug,
+                        target: "_blank"
+                      }
+                    },
+                    [_vm._v("Open in a new window")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "hero__container hero__container--dialog" },
+                    [
+                      _c("div", { staticClass: "avatar" }, [
+                        _vm.company.logo !== null
+                          ? _c("img", {
+                              staticClass:
+                                "avatar__img avatar__img--hero is-company is-large",
+                              attrs: {
+                                src: "/" + _vm.company.logo,
+                                alt: _vm.company.name + " logo"
+                              }
+                            })
+                          : _c("img", {
+                              staticClass:
+                                "avatar__img avatar__img--hero is-company is-large",
+                              attrs: {
+                                src: "/img/default.svg",
+                                alt: "No image icon"
+                              }
+                            })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "overview" }, [
+                        _c("div", { staticClass: "overview__header" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "company-title company-title--large"
+                            },
+                            [
+                              _vm._v(
+                                "\n                          " +
+                                  _vm._s(_vm.company.name) +
+                                  "\n                          "
+                              ),
+                              _vm.company.is_verified
+                                ? _c(
+                                    "span",
+                                    { staticClass: "badge badge--verified" },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "icon icon-verified",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-verified"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "overview__links" }, [
+                          _c("div", { staticClass: "overview__links__item" }, [
+                            _c(
+                              "a",
+                              {
+                                attrs: {
+                                  target: "_blank",
+                                  href: _vm.company.url
+                                }
+                              },
+                              [
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.company.url_host) +
+                                      "\n                                "
+                                  )
+                                ])
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm.company.twitter !== null
+                            ? _c(
+                                "div",
+                                { staticClass: "overview__links__item" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        target: "_blank",
+                                        href: _vm.company.twitter
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "icon icon-social",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-twitter"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.company.facebook !== null
+                            ? _c(
+                                "div",
+                                { staticClass: "overview__links__item" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        target: "_blank",
+                                        href: _vm.company.facebook
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "icon icon-social",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-facebook"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.company.github !== null
+                            ? _c(
+                                "div",
+                                { staticClass: "overview__links__item" },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        target: "_blank",
+                                        href: _vm.company.github
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "icon icon-social",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-github"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "content content--company content--dialog" },
+                  [
+                    _c("div", { staticClass: "sidebar sidebar--left" }, [
+                      _c("div", { staticClass: "list" }, [
+                        _vm.company.remote_level !== null
+                          ? _c("div", { staticClass: "list__item" }, [
+                              _vm.company.remote_level == 0
+                                ? _c("div", { staticClass: "title" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "icon-company-info",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-remote-friendly"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.company.remote_level_name
+                                          ) +
+                                          "\n                                "
+                                      )
+                                    ])
+                                  ])
+                                : _vm.company.remote_level == 1
+                                ? _c("div", { staticClass: "title" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "icon-company-info",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-remote-first"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.company.remote_level_name
+                                          ) +
+                                          "\n                                "
+                                      )
+                                    ])
+                                  ])
+                                : _vm.company.remote_level == 2
+                                ? _c("div", { staticClass: "title" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "icon-company-info",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-fully-remote"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.company.remote_level_name
+                                          ) +
+                                          "\n                                "
+                                      )
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.company.headquaters !== null
+                          ? _c("div", { staticClass: "list__item" }, [
+                              _c("div", { staticClass: "title" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "/img/svg_symbols.svg#icon-location"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.company.headquaters) +
+                                      "\n                                "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.company.type !== null
+                          ? _c("div", { staticClass: "list__item" }, [
+                              _c("div", { staticClass: "title" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "/img/svg_symbols.svg#icon-type"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.company.type) +
+                                      "\n                                "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.company.size !== null
+                          ? _c("div", { staticClass: "list__item" }, [
+                              _c("div", { staticClass: "title" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "/img/svg_symbols.svg#icon-people"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(_vm.company.size_alias) +
+                                      "\n                                "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.company.industries !== undefined &&
+                        _vm.company.industries.length > 0
+                          ? _c("div", { staticClass: "list__item" }, [
+                              _c(
+                                "div",
+                                { staticClass: "title" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "icon icon-company-info",
+                                      attrs: { "aria-hidden": "true" }
+                                    },
+                                    [
+                                      _c("use", {
+                                        attrs: {
+                                          "xlink:href":
+                                            "/img/svg_symbols.svg#icon-tag"
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.company.industries, function(
+                                    industry,
+                                    key
+                                  ) {
+                                    return _c("span", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "/industries/" + industry.slug
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(industry.name) +
+                                              "\n                                  "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "divider" }, [
+                                        _vm._v(" · ")
+                                      ])
+                                    ])
+                                  })
+                                ],
+                                2
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e()
+        ])
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FilterCompanies.vue?vue&type=template&id=75eb5fb0&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FilterCompanies.vue?vue&type=template&id=75eb5fb0& ***!
@@ -50105,492 +50882,593 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content content--companies" }, [
-    _c("div", { staticClass: "sidebar sidebar--filters" }, [
-      _c("form", { staticClass: "form form-company" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "form__section" },
-          [
-            _c("inputtimezones", {
-              attrs: {
-                selected: [],
-                type: "editor-timezones__body--small",
-                options: _vm.settings.hiring_regions.timezones,
-                company_id: 12
-              },
-              on: { selection: _vm.onTimezoneSelection }
-            }),
-            _vm._v(" "),
-            _c("inputcountries", {
-              attrs: {
-                size: "input--small",
-                selected: [],
-                options: _vm.settings.hiring_regions.regions,
-                company_id: 0
-              },
-              on: { selection: _vm.onRegionSelection }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "form__section" },
-          [
-            _c("inputtools", {
-              attrs: { company_tools: [] },
-              on: { selection: _vm.onToolSelection }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "form__section" },
-          [
-            _c(
-              "inputdropdowntags",
-              {
-                attrs: { options: _vm.settings.industries, selected: [] },
-                on: { selection: _vm.onIndustrySelection }
-              },
-              [_c("span")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "form__section" },
-          [
-            _c("inputfilter", {
-              attrs: {
-                title: "remote level",
-                options: _vm.settings.remote_level
-              },
-              on: { selection: _vm.onRemoteLevelSelection }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "form__section" },
-          [
-            _c("inputfilter", {
-              attrs: { title: "size", options: _vm.settings.size },
-              on: { selection: _vm.onSizeSelection }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "dummy" })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "main main--companies" }, [
+  return _c(
+    "div",
+    [
       _c(
         "div",
-        { staticClass: "list" },
-        _vm._l(_vm.companies, function(company) {
-          return _c(
-            "a",
-            {
-              staticClass: "company-thumbnail",
-              attrs: { href: "/company/" + company.slug },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.showCompanyModal()
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "avatar avatar--thumbnail" }, [
-                company.logo !== null
-                  ? _c("img", {
-                      staticClass: "avatar__img avatar__img--medium is-company",
-                      attrs: { src: company.logo, alt: company.name + " logo" }
-                    })
-                  : _c("img", {
-                      staticClass:
-                        "avatar__img avatar__img--medium is-company is-small",
-                      attrs: { src: "/img/default.svg", alt: "No image" }
-                    })
-              ]),
+        {
+          staticClass: "content content--companies",
+          class: { "content--pushed": _vm.dialog_company !== "" }
+        },
+        [
+          _c("div", { staticClass: "sidebar sidebar--filters" }, [
+            _c("form", { staticClass: "form form-company" }, [
+              _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "company-info" }, [
-                _c(
-                  "span",
-                  { staticClass: "company-title company-title--thumbnail" },
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c("inputtimezones", {
+                    attrs: {
+                      selected: [],
+                      type: "editor-timezones__body--small",
+                      options: _vm.settings.hiring_regions.timezones,
+                      company_id: 12
+                    },
+                    on: { selection: _vm.onTimezoneSelection }
+                  }),
+                  _vm._v(" "),
+                  _c("inputcountries", {
+                    attrs: {
+                      selected: [],
+                      options: _vm.settings.hiring_regions.regions,
+                      company_id: 0
+                    },
+                    on: { selection: _vm.onRegionSelection }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c("inputtools", {
+                    attrs: { company_tools: [] },
+                    on: { selection: _vm.onToolSelection }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c(
+                    "inputdropdowntags",
+                    {
+                      attrs: { options: _vm.settings.industries, selected: [] },
+                      on: { selection: _vm.onIndustrySelection }
+                    },
+                    [_c("span")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c("inputfilter", {
+                    attrs: {
+                      title: "remote level",
+                      options: _vm.settings.remote_level
+                    },
+                    on: { selection: _vm.onRemoteLevelSelection }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c("inputfilter", {
+                    attrs: { title: "size", options: _vm.settings.size },
+                    on: { selection: _vm.onSizeSelection }
+                  })
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "dummy" })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "main main--companies" }, [
+            _c("div", { staticClass: "main__header" }, [
+              _vm._v(
+                "Found " +
+                  _vm._s(_vm.pagination.total) +
+                  " " +
+                  _vm._s(_vm.pagination.total == 1 ? "company" : "companies")
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "list" },
+              _vm._l(_vm.companies, function(company) {
+                return _c(
+                  "a",
+                  {
+                    staticClass: "company-thumbnail",
+                    attrs: { href: "/company/" + company.slug },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.showCompanyDialog(company.slug)
+                      }
+                    }
+                  },
                   [
-                    _vm._v(
-                      "\n                  " +
-                        _vm._s(company.name) +
-                        "\n                    "
-                    ),
-                    company.is_claimed
-                      ? _c("span", { staticClass: "badge badge--verified" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon icon-verified",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href":
-                                    "/img/svg_symbols.svg#icon-verified"
-                                }
-                              })
-                            ]
-                          )
-                        ])
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                company.industries.length > 0
-                  ? _c(
-                      "ul",
-                      { staticClass: "grid grid--micro" },
-                      [
-                        _c(
-                          "li",
-                          { staticClass: "grid__item grid__item--micro" },
-                          [
-                            _c(
-                              "svg",
-                              {
-                                staticClass:
-                                  "icon-company-info icon-company-info--no-margin",
-                                attrs: { "aria-hidden": "true" }
-                              },
-                              [
-                                _c("use", {
-                                  attrs: {
-                                    "xlink:href": "img/svg_symbols.svg#icon-tag"
-                                  }
-                                })
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(company.industries, function(industry, index) {
-                          return _c(
-                            "li",
-                            { staticClass: "grid__item grid__item--micro" },
-                            [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "title title--small title--tag"
-                                },
+                    _c("div", { staticClass: "avatar avatar--thumbnail" }, [
+                      company.logo !== null
+                        ? _c("img", {
+                            staticClass:
+                              "avatar__img avatar__img--medium is-company",
+                            attrs: {
+                              src: company.logo,
+                              alt: company.name + " logo"
+                            }
+                          })
+                        : _c("img", {
+                            staticClass:
+                              "avatar__img avatar__img--medium is-company is-small",
+                            attrs: { src: "/img/default.svg", alt: "No image" }
+                          })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "company-info" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "company-title company-title--thumbnail"
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(company.name) +
+                              "\n                    "
+                          ),
+                          company.is_claimed
+                            ? _c(
+                                "span",
+                                { staticClass: "badge badge--verified" },
                                 [
                                   _c(
-                                    "a",
+                                    "svg",
                                     {
-                                      attrs: {
-                                        href: "/industries/" + industry.slug
-                                      }
+                                      staticClass: "icon icon-verified",
+                                      attrs: { "aria-hidden": "true" }
                                     },
-                                    [_vm._v(_vm._s(industry.name))]
+                                    [
+                                      _c("use", {
+                                        attrs: {
+                                          "xlink:href":
+                                            "/img/svg_symbols.svg#icon-verified"
+                                        }
+                                      })
+                                    ]
                                   )
                                 ]
                               )
-                            ]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("span", { staticClass: "company__description" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(company.description_short) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "grid grid--btm-mg-sm" }, [
-                  typeof company.remote_level !== "undefined" &&
-                  company.remote_level == 0
-                    ? _c("li", { staticClass: "grid__item" }, [
-                        _c("div", { staticClass: "title title--small" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon-company-info",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href":
-                                    "img/svg_symbols.svg#icon-remote-friendly"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.settings.remote_level[0]) +
-                                "\n                      "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  typeof company.remote_level !== "undefined" &&
-                  company.remote_level == 1
-                    ? _c("li", { staticClass: "grid__item" }, [
-                        _c("div", { staticClass: "title title--small" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon-company-info",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href":
-                                    "img/svg_symbols.svg#icon-remote-first"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.settings.remote_level[1]) +
-                                "\n                      "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  typeof company.remote_level !== "undefined" &&
-                  company.remote_level == 2
-                    ? _c("li", { staticClass: "grid__item" }, [
-                        _c("div", { staticClass: "title title--small" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon-company-info",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href":
-                                    "img/svg_symbols.svg#icon-fully-remote"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.settings.remote_level[2]) +
-                                "\n                      "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  typeof company.type !== "undefined" && company.type !== null
-                    ? _c("li", { staticClass: "grid__item" }, [
-                        _c("div", { staticClass: "title title--small" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon icon-company-info",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href": "img/svg_symbols.svg#icon-type"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.settings.type[company.type]) +
-                                "\n                      "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  typeof company.size !== "undefined"
-                    ? _c("li", { staticClass: "grid__item" }, [
-                        _c("div", { staticClass: "title title--small" }, [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "icon icon-company-info",
-                              attrs: { "aria-hidden": "true" }
-                            },
-                            [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href":
-                                    "img/svg_symbols.svg#icon-people"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.settings.size[company.size]) +
-                                "\n                      "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                company.hiring_regions.length > 0 &&
-                (_vm.filters.timezones.length > 0 ||
-                  _vm.filters.countries.length > 0)
-                  ? _c("div", { staticClass: "container" }, [
-                      _c("span", { staticClass: "title title--info" }, [
-                        _vm._v("Hires remotely")
-                      ]),
+                            : _vm._e()
+                        ]
+                      ),
                       _vm._v(" "),
-                      company.hiring_regions.length > 0
+                      company.industries.length > 0
                         ? _c(
                             "ul",
-                            { staticClass: "grid grid--align-center" },
-                            _vm._l(company.hiring_regions, function(
-                              hiring_region
-                            ) {
-                              return _vm
-                                .getIds(_vm.filters.countries)
-                                .indexOf(hiring_region.id) > -1 ||
-                                _vm
-                                  .getIds(_vm.filters.timezones)
-                                  .indexOf(hiring_region.id) > -1
-                                ? _c("li", { staticClass: "grid__item" }, [
-                                    hiring_region.type == "timezone"
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "thumbnail thumbnail--badge"
-                                          },
-                                          [
-                                            _vm._v(
-                                              " \n                        " +
-                                                _vm._s(
-                                                  "UTC " + hiring_region.name
-                                                ) +
-                                                "\n                       "
-                                            )
-                                          ]
-                                        )
-                                      : _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "thumbnail thumbnail--badge"
-                                          },
-                                          [
-                                            _vm._v(
-                                              " \n                         " +
-                                                _vm._s(hiring_region.name) +
-                                                "\n                       "
-                                            )
-                                          ]
-                                        )
-                                  ])
-                                : _vm._e()
-                            }),
-                            0
-                          )
-                        : _vm._e()
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                company.tools.length > 0 && _vm.filters.tools.length > 0
-                  ? _c("div", { staticClass: "container" }, [
-                      _c("span", { staticClass: "title title--info" }, [
-                        _vm._v("Stack includes")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "ul",
-                        { staticClass: "grid grid--align-center" },
-                        _vm._l(company.tools, function(tool) {
-                          return _vm
-                            .getIds(_vm.filters.tools)
-                            .indexOf(tool.id) > -1
-                            ? _c("li", { staticClass: "grid__item" }, [
-                                _c(
-                                  "div",
-                                  { staticClass: "thumbnail thumbnail--badge" },
+                            { staticClass: "grid grid--micro" },
+                            [
+                              _c(
+                                "li",
+                                { staticClass: "grid__item grid__item--micro" },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "icon-company-info icon-company-info--no-margin",
+                                      attrs: { "aria-hidden": "true" }
+                                    },
+                                    [
+                                      _c("use", {
+                                        attrs: {
+                                          "xlink:href":
+                                            "img/svg_symbols.svg#icon-tag"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(company.industries, function(
+                                industry,
+                                index
+                              ) {
+                                return _c(
+                                  "li",
+                                  {
+                                    staticClass: "grid__item grid__item--micro"
+                                  },
                                   [
-                                    _c("img", {
-                                      attrs: { src: tool.logo, alt: "" }
-                                    }),
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(tool.name) +
-                                        "\n                         "
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "title title--small title--tag"
+                                      },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href:
+                                                "/industries/" + industry.slug
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(industry.name))]
+                                        )
+                                      ]
                                     )
                                   ]
                                 )
+                              })
+                            ],
+                            2
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "company__description" }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(company.description_short) +
+                            "\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "grid grid--btm-mg-sm" }, [
+                        typeof company.remote_level !== "undefined" &&
+                        company.remote_level == 0
+                          ? _c("li", { staticClass: "grid__item" }, [
+                              _c("div", { staticClass: "title title--small" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "img/svg_symbols.svg#icon-remote-friendly"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.settings.remote_level[0]) +
+                                      "\n                      "
+                                  )
+                                ])
                               ])
-                            : _vm._e()
-                        }),
-                        0
-                      )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        typeof company.remote_level !== "undefined" &&
+                        company.remote_level == 1
+                          ? _c("li", { staticClass: "grid__item" }, [
+                              _c("div", { staticClass: "title title--small" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "img/svg_symbols.svg#icon-remote-first"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.settings.remote_level[1]) +
+                                      "\n                      "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        typeof company.remote_level !== "undefined" &&
+                        company.remote_level == 2
+                          ? _c("li", { staticClass: "grid__item" }, [
+                              _c("div", { staticClass: "title title--small" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "img/svg_symbols.svg#icon-fully-remote"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.settings.remote_level[2]) +
+                                      "\n                      "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        typeof company.type !== "undefined" &&
+                        company.type !== null
+                          ? _c("li", { staticClass: "grid__item" }, [
+                              _c("div", { staticClass: "title title--small" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "img/svg_symbols.svg#icon-type"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.settings.type[company.type]) +
+                                      "\n                      "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        typeof company.size !== "undefined"
+                          ? _c("li", { staticClass: "grid__item" }, [
+                              _c("div", { staticClass: "title title--small" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "icon icon-company-info",
+                                    attrs: { "aria-hidden": "true" }
+                                  },
+                                  [
+                                    _c("use", {
+                                      attrs: {
+                                        "xlink:href":
+                                          "img/svg_symbols.svg#icon-people"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _vm._v(
+                                    "\n                          " +
+                                      _vm._s(_vm.settings.size[company.size]) +
+                                      "\n                      "
+                                  )
+                                ])
+                              ])
+                            ])
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      company.hiring_regions.length > 0 &&
+                      (_vm.filters.timezones.length > 0 ||
+                        _vm.filters.countries.length > 0)
+                        ? _c("div", { staticClass: "container" }, [
+                            _c("span", { staticClass: "title title--info" }, [
+                              _vm._v("Hires remotely")
+                            ]),
+                            _vm._v(" "),
+                            company.hiring_regions.length > 0
+                              ? _c(
+                                  "ul",
+                                  { staticClass: "grid grid--align-center" },
+                                  _vm._l(company.hiring_regions, function(
+                                    hiring_region
+                                  ) {
+                                    return _vm
+                                      .getIds(_vm.filters.countries)
+                                      .indexOf(hiring_region.id) > -1 ||
+                                      _vm
+                                        .getIds(_vm.filters.timezones)
+                                        .indexOf(hiring_region.id) > -1
+                                      ? _c(
+                                          "li",
+                                          { staticClass: "grid__item" },
+                                          [
+                                            hiring_region.type == "timezone"
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "thumbnail thumbnail--badge"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " \n                        " +
+                                                        _vm._s(
+                                                          "UTC " +
+                                                            hiring_region.name
+                                                        ) +
+                                                        "\n                       "
+                                                    )
+                                                  ]
+                                                )
+                                              : _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "thumbnail thumbnail--badge"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " \n                         " +
+                                                        _vm._s(
+                                                          hiring_region.name
+                                                        ) +
+                                                        "\n                       "
+                                                    )
+                                                  ]
+                                                )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  }),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      company.tools.length > 0 && _vm.filters.tools.length > 0
+                        ? _c("div", { staticClass: "container" }, [
+                            _c("span", { staticClass: "title title--info" }, [
+                              _vm._v("Stack includes")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              { staticClass: "grid grid--align-center" },
+                              _vm._l(company.tools, function(tool) {
+                                return _vm
+                                  .getIds(_vm.filters.tools)
+                                  .indexOf(tool.id) > -1
+                                  ? _c("li", { staticClass: "grid__item" }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "thumbnail thumbnail--badge"
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: { src: tool.logo, alt: "" }
+                                          }),
+                                          _vm._v(
+                                            "\n                            " +
+                                              _vm._s(tool.name) +
+                                              "\n                         "
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e()
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e()
                     ])
-                  : _vm._e()
-              ])
-            ]
-          )
-        }),
-        0
-      )
-    ])
-  ])
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm.pagination.last_page > 1
+              ? _c("div", { staticClass: "main__footer" }, [
+                  _c("div", { staticClass: "pagination-container" }, [
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "pagination",
+                        attrs: { role: "navigation" }
+                      },
+                      _vm._l(_vm.pagination.last_page, function(n) {
+                        return _c(
+                          "li",
+                          {
+                            staticClass: "page-item",
+                            class:
+                              n == _vm.pagination.current_page ? "active" : ""
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "page-link",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.submit(n)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(n))]
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("dialogcompany", {
+        attrs: { slug: _vm.dialog_company },
+        on: {
+          close: function($event) {
+            return _vm.onDialogClose()
+          }
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -51678,7 +52556,6 @@ var render = function() {
           ],
           ref: "location_input",
           staticClass: "input input--wrapped",
-          class: _vm.type,
           attrs: { placeholder: "Select a continent or country", type: "text" },
           domProps: { value: _vm.autocomplete_input },
           on: {
@@ -64799,6 +65676,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./components/DialogCompany.vue": "./resources/js/components/DialogCompany.vue",
 	"./components/FilterCompanies.vue": "./resources/js/components/FilterCompanies.vue",
 	"./components/FormCompany.vue": "./resources/js/components/FormCompany.vue",
 	"./components/FormNotification.vue": "./resources/js/components/FormNotification.vue",
@@ -64955,6 +65833,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/DialogCompany.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/DialogCompany.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DialogCompany.vue?vue&type=template&id=15f2df3a& */ "./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a&");
+/* harmony import */ var _DialogCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DialogCompany.vue?vue&type=script&lang=js& */ "./resources/js/components/DialogCompany.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DialogCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DialogCompany.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DialogCompany.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/DialogCompany.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DialogCompany.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DialogCompany.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DialogCompany.vue?vue&type=template&id=15f2df3a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DialogCompany.vue?vue&type=template&id=15f2df3a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DialogCompany_vue_vue_type_template_id_15f2df3a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

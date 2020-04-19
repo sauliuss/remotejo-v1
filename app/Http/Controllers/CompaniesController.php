@@ -83,6 +83,30 @@ class CompaniesController extends Controller
         return view('company')->with(['data' => $company, 'meta_data' =>  $meta_data]);
     }
 
+    public function showCompanyBySlug($slug){;
+        $company  = Company::where('slug', $slug)->with(['tools', 'jobs', 'benefits', 'hiring_regions','industries'])->get();
+
+        $tools = $company[0]->tools->groupBy('type_id');
+
+
+        $meta_data = [
+                    'company_size' => CompanySize::getDescription($company[0]->size),
+                    'company_type' => CompanyType::getDescription($company[0]->type),
+                    'remote_level' => RemoteLevel::getDescription($company[0]->remote_level),
+                    'company_timezones' => $company[0]->hiring_regions->pluck('id')->toArray(),
+                    'timezones' => HiringRegion::where('type', 'timezone')->get(),
+                    'company_url_host' => preg_replace('#^www\.(.+\.)#i', '$1',parse_url($company[0]->url, PHP_URL_HOST)),
+                    'company_tools' => $tools,
+                    'job_categories' => JobCategory::all(),
+                    'notification' => JobCategory::where('id','>',2)->get(),
+                ];
+
+        return response()->json([
+                                    'data' => $company,
+                                    'meta_data' =>  $meta_data
+                                ]);
+    }
+
     public function showCompanyById($id){
         // $company  = Company::with(['tools.types', 'jobs', 'benefits', 'hiring_regions','industries'])->find($id);
         $company  = Company::where('id', $id)->with([ 'jobs', 'tools.type', 'benefits', 'hiring_regions','industries'])->get();
@@ -298,7 +322,16 @@ class CompaniesController extends Controller
         }
 
        $response = [
-                $results,
+                'data' => $results,
+                'pagination' => [
+                    'total' => $results->total(),
+                    'per_page' => $results->perPage(),
+                    'current_page' => $results->currentPage(),
+                    'last_page' => $results->lastPage(),
+                    'from' => $results->firstItem(),
+                    'to' => $results->lastItem(),
+                    'test' => $results->getUrlRange($results->firstItem(), $results->lastPage())
+                ],
                 'meta' => [
                             'result_count' => $results->total(),
                             'hiring_regions' => [
@@ -321,3 +354,9 @@ class CompaniesController extends Controller
         ],200);
     }
 }
+
+
+
+
+
+

@@ -118,7 +118,7 @@
     flex: 1 0 auto;
   }
 
-  &--nav, &--claim{
+  &--nav, &--claim, &--new-window{
     background: transparent;
     box-shadow: none;
     color: set-colors('yellow', 'lightest');
@@ -137,16 +137,22 @@
     &:hover{
       color: set-colors('yellow', 'lighter');
     }
-
-    
+  
 
   }
 
-  &--claim{
+  &--claim, &--new-window{
     border: 1px solid set-colors('green', 'base');
     &:hover{
       color: set-colors('green', 'lighter');
     }
+  }
+
+  &--new-window{
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+
   }
 
   &__text{
@@ -175,6 +181,12 @@
 
   &:hover{
     opacity: 1;
+  }
+
+  &--modal{
+    right: 0;
+    left: -3rem;
+    border-radius: 100%;
   }
 }
 
