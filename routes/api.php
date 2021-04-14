@@ -21,9 +21,13 @@ Route::group(['prefix' => 'v1'], function () {
 	// Route::post('/company/{slug}','CompaniesController@showCompanyBySlug');
 	Route::post('/company/{slug}', function($slug){
 		return new CompanyResource(
-			Company::where('slug', $slug)->with(['tools', 'jobs', 'benefits', 'hiring_regions','industries'])->first()
+			Company::where('slug', $slug)->with(['tools.type', 'jobs.categories', 'benefits', 'hiring_regions','industries'])->first()
 		);
 	});
+
+	Route::post('/alert', 'CompaniesController@alert');
+	Route::post('/report', 'CompaniesController@report');
+
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

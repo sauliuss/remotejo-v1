@@ -16,7 +16,7 @@
 }
 
 .slideright-enter-active, .slideright-leave-active {
-	transition: all 0.25s 0.1s;
+	transition: all 0.1s 0.1s;
 }
 
 .slideright-leave-active {
@@ -31,6 +31,24 @@
 .slideright-leave, .slideright-leave {
 	opacity: 0;
 	transform: translateX(-50%);
+}
+
+.slidebottom-enter-active, .slidebottom-leave-active {
+	transition: all 0.25s 0.05s;
+}
+
+.slidebottom-leave-active {
+	transition: all 0.5s;
+}
+
+.slidebottom-enter, .slidebottom-enter {
+	opacity: 0;
+	transform: translateY(50%);
+}
+
+.slidebottom-leave, .slidebottom-leave {
+	opacity: 0;
+	transform: translateY(-50%);
 }
 
 

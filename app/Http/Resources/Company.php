@@ -25,7 +25,7 @@ class Company extends JsonResource
             'url' => $this->url,
             'url_host' => preg_replace('#^www\.(.+\.)#i', '$1',parse_url($this->url, PHP_URL_HOST)),
             'logo' => $this->logo,
-            'is_verified' => $this->is_verified,
+            'is_claimed' => $this->is_claimed,
             'description_short' => $this->description_short,
             'founding_years' => $this->founding_years,
             'headquaters' => $this->headquaters,
@@ -34,15 +34,25 @@ class Company extends JsonResource
             'size' => $this->size,
             'size_alias' => CompanySize::getDescription($this->size),
             'type' => $this->type,
+            'type_alias' => CompanyType::getDescription($this->type),
             'twitter' => $this->twitter,
             'facebook' => $this->facebook,
             'github' => $this->github,            
 
             'industries' => $this->industries,
-            'tools' => $this->tools,
+            'tools' => $this->tools->groupBy('type_id'),
             'jobs' => $this->jobs,
-            'benefits' => $this->benefits,
+            // 'benefits' => $this->benefits,
+            'benefits' => [ 
+                            'health' => $this->when($this->benefits->where('parent_id', '=', '1')->count() > 0, $this->benefits->where('parent_id', '=', '1')),
+                            'compensation' => $this->when($this->benefits->where('parent_id', '=', '7')->count() > 0, $this->benefits->where('parent_id', '=', '7')),
+                            'timeoff' => $this->when($this->benefits->where('parent_id', '=', '12')->count() > 0, $this->benefits->where('parent_id', '=', '12')),
+                            'other' => $this->when($this->benefits->where('parent_id', '=', '19')->count() > 0, $this->benefits->where('parent_id', '=', '19')),
+                        ],
+            'timezones' => $this->hiring_regions->where('type', 'timezone'),
+            'regions' => $this->hiring_regions->where('type','!=', 'timezone'),
             'hiring_regions' => $this->hiring_regions,
+            'updated_at' => $this->updated_at->diffForHumans()
 
         ];
     }

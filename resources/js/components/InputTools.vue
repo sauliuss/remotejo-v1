@@ -5,7 +5,8 @@
                 <div class="selections__item" v-for="(tool, index) in selection">
                     <div class="selection" @click.stop="removeTool(index)">
                         <img v-if="tool.logo" class="selection__img" :src="tool.logo" alt="" title="" />
-                        <span class="selection__name">{{ tool.name }}</span>
+                        <span class="selection__name">{{ tool.name }}
+                        </span>
                         <span class="btn-remove">
                             <icon class="icon-close" :name="'close--small'"></icon>
                         </span>

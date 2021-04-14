@@ -8381,6 +8381,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "./resources/js/components/Icon.vue");
+/* harmony import */ var _ModalClaim__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModalClaim */ "./resources/js/components/ModalClaim.vue");
+/* harmony import */ var _FormAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormAlert */ "./resources/js/components/FormAlert.vue");
 //
 //
 //
@@ -8535,6 +8537,231 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -8574,23 +8801,39 @@ __webpack_require__.r(__webpack_exports__);
     slug: {
       type: [Number, String],
       required: true
+    },
+    settings: {
+      type: Object
     }
   },
   methods: {
+    sliceIndustries: function sliceIndustries(industries) {
+      return industries.shift();
+    },
     close: function close() {
       this.$emit('close', '');
     },
     submit: function submit() {
       var _this2 = this;
 
+      this.state.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/company/' + this.slug).then(function (response) {
-        console.log(response.data.data);
+        _this2.state.loading = false;
         _this2.company = response.data.data;
+        window.addEventListener('load', function () {
+          console.log("okkk");
+        }); // Creates an array of industries to show in a popup
+
+        if (_this2.company.industries.length > 1) {
+          _this2.company.industries_popup = _this2.company.industries.slice(1);
+        }
       })["catch"](function (error) {});
     }
   },
   components: {
-    icon: _Icon__WEBPACK_IMPORTED_MODULE_2__["default"]
+    icon: _Icon__WEBPACK_IMPORTED_MODULE_2__["default"],
+    modalclaim: _ModalClaim__WEBPACK_IMPORTED_MODULE_3__["default"],
+    formalert: _FormAlert__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 });
 
@@ -8617,6 +8860,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_InputDropdownTags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/InputDropdownTags */ "./resources/js/components/InputDropdownTags.vue");
 /* harmony import */ var _components_InputLocation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/InputLocation */ "./resources/js/components/InputLocation.vue");
 /* harmony import */ var _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/DialogCompany.vue */ "./resources/js/components/DialogCompany.vue");
+/* harmony import */ var _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Pagination.vue */ "./resources/js/components/Pagination.vue");
 //
 //
 //
@@ -8778,7 +9022,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -8832,8 +9076,8 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
   methods: {
     showCompanyDialog: function showCompanyDialog(slug) {
       var body = document.body;
-      body.classList.add("no-scroll");
-      history.replaceState(null, '', '/company/' + slug);
+      body.classList.add("no-scroll"); // history.replaceState(null, '', '/company/'+slug);
+
       this.dialog_company = slug;
     },
     getIds: function getIds(array) {
@@ -8848,8 +9092,15 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     submit: function submit(page_number) {
       var _this = this;
 
-      var page = console.log(page_number);
       this.state.loading = false;
+
+      if (page_number !== undefined) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
       var hiring_regions_ids = [];
 
       for (var i = 0; i < this.filters.timezones.length; i++) {
@@ -8943,7 +9194,76 @@ var qs = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
     inputcompanytype: _components_InputCompanyType__WEBPACK_IMPORTED_MODULE_7__["default"],
     inputdropdowntags: _components_InputDropdownTags__WEBPACK_IMPORTED_MODULE_8__["default"],
     inputfilter: _components_InputFilter__WEBPACK_IMPORTED_MODULE_2__["default"],
-    dialogcompany: _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+    dialogcompany: _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    pagination: _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormAlert.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormAlert.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'formalert',
+  data: function data() {
+    return {
+      state: {
+        loaded: false,
+        loading: false,
+        active: false,
+        error: false
+      }
+    };
+  },
+  watch: {},
+  computed: {},
+  mounted: function mounted() {},
+  props: {
+    company_name: {
+      required: true
+    }
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      var form_data = new FormData();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/v1/alert', form_data).then(function (response) {
+        // Enables actions on the form
+        _this.state.loading = false;
+      })["catch"](function (error) {
+        // Enables actions on the form again
+        _this.state.loading = false;
+      });
+    }
   }
 });
 
@@ -9688,7 +10008,8 @@ __webpack_require__.r(__webpack_exports__);
     selected: {
       type: Array,
       required: false
-    }
+    },
+    placeholder: String
   },
   computed: {
     checkIfMaxSelected: function checkIfMaxSelected() {
@@ -9758,9 +10079,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -9993,6 +10311,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'inputtools',
@@ -10118,6 +10437,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -10157,6 +10480,277 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     icon: _Icon__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pagination.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'pagination',
+  data: function data() {
+    return {};
+  },
+  computed: {
+    shownNumbers: function shownNumbers() {
+      var current_page = this.pages.current_page;
+      var total_pages = this.pages.last_page; // How many pages in total should be shown
+
+      var visible_pages_count = this.visible_pages; // Decides if the pagination is needed
+
+      if (visible_pages_count < total_pages) {
+        var visible_pages_array = []; // When the current page is in the beginning
+
+        if (current_page < visible_pages_count) {
+          for (var i = 1; i <= visible_pages_count; i++) {
+            visible_pages_array.push(i);
+          } // Adds the seperator "..." and the last page to the end
+
+
+          visible_pages_array.push(0, total_pages);
+        } // When the current page is in the end
+        else if (current_page > total_pages - visible_pages_count + 1) {
+            for (var _i = total_pages - visible_pages_count + 1; _i <= total_pages; _i++) {
+              visible_pages_array.push(_i);
+            } // Adds the first page and the seperator "..." to the start
+
+
+            visible_pages_array.unshift(1, 0);
+          } // When the current page is in the middle
+          else {
+              for (var _i2 = current_page - 1; _i2 <= current_page + 1; _i2++) {
+                visible_pages_array.push(_i2);
+              } // Adds Page 1 and the seperator "..." to the beginning
+
+
+              visible_pages_array.unshift(1, 0); // Adds the last page and the seperator "..." to the end
+
+              visible_pages_array.push(0, total_pages);
+            }
+
+        return visible_pages_array;
+      } // If a total page number is less than visible_pages, return a full aray of page numbers
+      else {
+          return this.pages.last_page;
+        }
+    }
+  },
+  props: {
+    pages: {
+      type: Object,
+      required: true
+    },
+    visible_pages: {
+      type: Number,
+      "default": 5,
+      required: false
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+/* harmony import */ var _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/DialogCompany.vue */ "./resources/js/components/DialogCompany.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'thumbnailcompany',
+  data: function data() {
+    return {
+      current_url: '',
+      pagination: {},
+      state: {
+        loading: false
+      },
+      dialog_company: ''
+    };
+  },
+  computed: {},
+  watch: {},
+  mounted: function mounted() {},
+  props: {
+    settings: Object,
+    company: Object
+  },
+  methods: {
+    showCompanyDialog: function showCompanyDialog(slug) {
+      var body = document.body;
+      this.current_url = window.location.href;
+      body.classList.add("no-scroll");
+      history.replaceState(null, '', '/company/' + slug);
+      this.dialog_company = slug;
+    },
+    onDialogClose: function onDialogClose() {
+      this.dialog_company = '';
+      var body = document.body;
+      body.classList.remove("no-scroll");
+      history.replaceState(null, '', this.current_url);
+    }
+  },
+  components: {
+    dialogcompany: _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -50383,334 +50977,737 @@ var render = function() {
       [
         _c("transition", { attrs: { name: "slideright" } }, [
           _vm.slug !== ""
-            ? _c("div", { staticClass: "dialog dialog--semi-full" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn-close btn-close--modal",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.close()
-                      }
-                    }
-                  },
-                  [_c("icon", { attrs: { name: "close--large" } })],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "hero" }, [
+            ? _c("div", { staticClass: "dialog-wrapper" }, [
+                _c("div", { staticClass: "dialog dialog--semi-full" }, [
                   _c(
-                    "a",
+                    "button",
                     {
-                      staticClass: "btn btn--small btn--new-window",
-                      attrs: {
-                        href: "/company/" + _vm.company.slug,
-                        target: "_blank"
+                      staticClass: "btn-close btn-close--modal",
+                      on: {
+                        click: function($event) {
+                          return _vm.close()
+                        }
                       }
                     },
-                    [_vm._v("Open in a new window")]
+                    [_c("icon", { attrs: { name: "close--large" } })],
+                    1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "hero__container hero__container--dialog" },
-                    [
-                      _c("div", { staticClass: "avatar" }, [
-                        _vm.company.logo !== null
-                          ? _c("img", {
-                              staticClass:
-                                "avatar__img avatar__img--hero is-company is-large",
+                  _c("div", { staticClass: "hero" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn--small btn--new-window",
+                        attrs: {
+                          href: "/company/" + _vm.company.slug,
+                          target: "_blank"
+                        }
+                      },
+                      [
+                        _c("span", [_vm._v("Open in a new window")]),
+                        _vm._v(" "),
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon-open",
+                            attrs: { "aria-hidden": "true" }
+                          },
+                          [
+                            _c("use", {
                               attrs: {
-                                src: "/" + _vm.company.logo,
-                                alt: _vm.company.name + " logo"
+                                "xlink:href": "/img/svg_symbols.svg#icon-open"
                               }
                             })
-                          : _c("img", {
-                              staticClass:
-                                "avatar__img avatar__img--hero is-company is-large",
-                              attrs: {
-                                src: "/img/default.svg",
-                                alt: "No image icon"
-                              }
-                            })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "overview" }, [
-                        _c("div", { staticClass: "overview__header" }, [
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "hero__container hero__container--dialog"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "avatar avatar--dialog",
+                            class: { "is-loading": this.state.loading }
+                          },
+                          [
+                            _vm.company.logo !== null && !this.state.loading
+                              ? _c("img", {
+                                  staticClass:
+                                    "avatar__img avatar__img--hero avatar__img--large is-company",
+                                  attrs: {
+                                    src: "/" + _vm.company.logo,
+                                    alt: _vm.company.name + " logo"
+                                  }
+                                })
+                              : _vm.company.logo == null && !this.state.loading
+                              ? _c("img", {
+                                  staticClass:
+                                    "avatar__img avatar__img--hero avatar__img--large is-company",
+                                  attrs: {
+                                    src: "/img/default.svg",
+                                    alt: "No image icon"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "avatar " })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "overview" }, [
+                          _c(
+                            "div",
+                            { staticClass: "overview__header" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "company-title company-title--large"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            " +
+                                      _vm._s(_vm.company.name) +
+                                      "\n                            "
+                                  ),
+                                  _vm.company.is_claimed
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass: "badge badge--verified"
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass: "icon icon-verified",
+                                              attrs: { "aria-hidden": "true" }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-verified"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              ),
+                              _vm._v(" "),
+                              !_vm.company.is_claimed
+                                ? _c("modalclaim", {
+                                    attrs: {
+                                      company_logo: _vm.company.logo,
+                                      company_url: _vm.company.url_host,
+                                      company_name: _vm.company.name
+                                    }
+                                  })
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
                           _c(
                             "div",
                             {
-                              staticClass: "company-title company-title--large"
+                              staticClass: "grid overview__info",
+                              class: { "is-loading": this.state.loading }
                             },
                             [
-                              _vm._v(
-                                "\n                          " +
-                                  _vm._s(_vm.company.name) +
-                                  "\n                          "
-                              ),
-                              _vm.company.is_verified
-                                ? _c(
-                                    "span",
-                                    { staticClass: "badge badge--verified" },
-                                    [
+                              _vm.company.type !== null
+                                ? _c("div", { staticClass: "grid__item" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "title title--light" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "icon icon--fill icon--left",
+                                            attrs: { "aria-hidden": "true" }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-type"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", [
+                                          _vm._v(
+                                            "\n                                      " +
+                                              _vm._s(_vm.company.type_alias) +
+                                              "\n                                  "
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.company.size !== null
+                                ? _c("div", { staticClass: "grid__item" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "title title--light" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "icon icon--left icon--fill",
+                                            attrs: { "aria-hidden": "true" }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-people"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", [
+                                          _vm._v(
+                                            "\n                                      " +
+                                              _vm._s(_vm.company.size_alias) +
+                                              "\n                                  "
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.company.industries !== undefined &&
+                              _vm.company.industries.length > 0
+                                ? _c("div", { staticClass: "grid__item" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "title title--light title--industries"
+                                      },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "icon icon icon--fill icon--left",
+                                            attrs: { "aria-hidden": "true" }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-tag"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", [
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href:
+                                                  "/industries/" +
+                                                  _vm.company.industries[0].slug
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                      " +
+                                                  _vm._s(
+                                                    _vm.company.industries[0]
+                                                      .name
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _vm.company.industries.length > 1
+                                          ? _c(
+                                              "div",
+                                              { staticClass: "btn--popup" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "popup--industries"
+                                                  },
+                                                  _vm._l(
+                                                    _vm.company
+                                                      .industries_popup,
+                                                    function(industry, key) {
+                                                      return _c("span", [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            attrs: {
+                                                              href:
+                                                                "/industries/" +
+                                                                industry.slug
+                                                            }
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              "\n                                          " +
+                                                                _vm._s(
+                                                                  industry.name
+                                                                ) +
+                                                                "\n                                        "
+                                                            )
+                                                          ]
+                                                        )
+                                                      ])
+                                                    }
+                                                  ),
+                                                  0
+                                                ),
+                                                _vm._v(
+                                                  "\n                                    ...\n                                  "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "overview__links" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "overview__links__item" },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          target: "_blank",
+                                          href: _vm.company.url
+                                        }
+                                      },
+                                      [
+                                        _c("span", [
+                                          _vm._v(
+                                            "\n                                          " +
+                                              _vm._s(_vm.company.url_host) +
+                                              "\n                                      "
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm.company.twitter !== null
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "overview__links__item" },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              target: "_blank",
+                                              href: _vm.company.twitter
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass:
+                                                  "icon icon--fill icon--left icon-social",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-twitter"
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.facebook !== null
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "overview__links__item" },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              target: "_blank",
+                                              href: _vm.company.facebook
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass:
+                                                  "icon icon--fill icon--left icon-social",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-facebook"
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.github !== null
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "overview__links__item" },
+                                      [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              target: "_blank",
+                                              href: _vm.company.github
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass:
+                                                  "icon icon--fill icon--left icon-social",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-github"
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "content content--company content--dialog" },
+                    [
+                      _c("div", { staticClass: "sidebar sidebar--left" }, [
+                        _c("div", { staticClass: "list" }, [
+                          this.state.loading
+                            ? _c("div", {
+                                staticClass: "list__item is-loading"
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          this.state.loading
+                            ? _c("div", {
+                                staticClass: "list__item is-loading"
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          this.state.loading
+                            ? _c("div", {
+                                staticClass: "list__item is-loading"
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.company.remote_level !== null
+                            ? _c("div", { staticClass: "list__item" }, [
+                                _vm.company.remote_level == 0
+                                  ? _c("div", { staticClass: "title" }, [
                                       _c(
                                         "svg",
                                         {
-                                          staticClass: "icon icon-verified",
+                                          staticClass:
+                                            "icon icon--fill icon--left",
                                           attrs: { "aria-hidden": "true" }
                                         },
                                         [
                                           _c("use", {
                                             attrs: {
                                               "xlink:href":
-                                                "/img/svg_symbols.svg#icon-verified"
+                                                "/img/svg_symbols.svg#icon-remote-friendly"
                                             }
                                           })
                                         ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          "\n                                      " +
+                                            _vm._s(
+                                              _vm.company.remote_level_name
+                                            ) +
+                                            "\n                                  "
+                                        )
+                                      ])
+                                    ])
+                                  : _vm.company.remote_level == 1
+                                  ? _c("div", { staticClass: "title" }, [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass:
+                                            "icon icon--fill icon--left",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-remote-first"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          "\n                                      " +
+                                            _vm._s(
+                                              _vm.company.remote_level_name
+                                            ) +
+                                            "\n                                  "
+                                        )
+                                      ])
+                                    ])
+                                  : _vm.company.remote_level == 2
+                                  ? _c("div", { staticClass: "title" }, [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass:
+                                            "icon icon--fill icon--left",
+                                          attrs: { "aria-hidden": "true" }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-fully-remote"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", [
+                                        _vm._v(
+                                          "\n                                      " +
+                                            _vm._s(
+                                              _vm.company.remote_level_name
+                                            ) +
+                                            "\n                                  "
+                                        )
+                                      ])
+                                    ])
+                                  : _vm._e()
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "list__item" }, [
+                            _c("div", { staticClass: "title" }, [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon icon--fill icon--left",
+                                  attrs: { "aria-hidden": "true" }
+                                },
+                                [
+                                  _c("use", {
+                                    attrs: {
+                                      "xlink:href":
+                                        "/img/svg_symbols.svg#icon-people"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                                    Hires remotely\n                                  "
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              { staticClass: "list list--regions" },
+                              [
+                                _vm._l(_vm.company.timezones, function(
+                                  timezone
+                                ) {
+                                  return _c(
+                                    "li",
+                                    {
+                                      staticClass:
+                                        "list__item list__item--regions"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                  UTC" +
+                                          _vm._s(timezone.name) +
+                                          "\n                                "
                                       )
                                     ]
                                   )
-                                : _vm._e()
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "overview__links" }, [
-                          _c("div", { staticClass: "overview__links__item" }, [
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  target: "_blank",
-                                  href: _vm.company.url
-                                }
-                              },
-                              [
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(_vm.company.url_host) +
-                                      "\n                                "
+                                }),
+                                _vm._v(" "),
+                                _vm._l(_vm.company.regions, function(region) {
+                                  return _c(
+                                    "li",
+                                    {
+                                      staticClass:
+                                        "list__item list__item--regions"
+                                    },
+                                    [
+                                      _c("span", [
+                                        _vm._v(_vm._s(region.emoji))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("span", [_vm._v(_vm._s(region.name))])
+                                    ]
                                   )
-                                ])
+                                })
+                              ],
+                              2
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _vm.company.headquaters !== null &&
+                          _vm.company.headquaters !== "null"
+                            ? _c("div", { staticClass: "list__item" }, [
+                                _c("div", { staticClass: "title" }, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "icon icon icon--fill icon--left",
+                                      attrs: { "aria-hidden": "true" }
+                                    },
+                                    [
+                                      _c("use", {
+                                        attrs: {
+                                          "xlink:href":
+                                            "/img/svg_symbols.svg#icon-location"
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                                      Office location\n                                  "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "ul",
+                                  { staticClass: "list list--regions" },
+                                  [
+                                    _c(
+                                      "li",
+                                      {
+                                        staticClass:
+                                          "list__item list__item--regions"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                  " +
+                                            _vm._s(_vm.company.headquaters) +
+                                            "\n                                "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "list__item" }, [
+                            _c(
+                              "span",
+                              { staticClass: "title title--disclaimer" },
+                              [
+                                _vm._v(
+                                  "\n                                  This profile was updated last time by " +
+                                    _vm._s(
+                                      _vm.company.is_verified
+                                        ? _vm.company.name
+                                        : "community"
+                                    ) +
+                                    " " +
+                                    _vm._s(_vm.company.updated_at) +
+                                    "\n                              "
+                                )
                               ]
                             )
                           ]),
                           _vm._v(" "),
-                          _vm.company.twitter !== null
-                            ? _c(
-                                "div",
-                                { staticClass: "overview__links__item" },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        target: "_blank",
-                                        href: _vm.company.twitter
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "svg",
-                                        {
-                                          staticClass: "icon icon-social",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-twitter"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.company.facebook !== null
-                            ? _c(
-                                "div",
-                                { staticClass: "overview__links__item" },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        target: "_blank",
-                                        href: _vm.company.facebook
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "svg",
-                                        {
-                                          staticClass: "icon icon-social",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-facebook"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.company.github !== null
-                            ? _c(
-                                "div",
-                                { staticClass: "overview__links__item" },
-                                [
-                                  _c(
-                                    "a",
-                                    {
-                                      attrs: {
-                                        target: "_blank",
-                                        href: _vm.company.github
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "svg",
-                                        {
-                                          staticClass: "icon icon-social",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-github"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ])
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "content content--company content--dialog" },
-                  [
-                    _c("div", { staticClass: "sidebar sidebar--left" }, [
-                      _c("div", { staticClass: "list" }, [
-                        _vm.company.remote_level !== null
-                          ? _c("div", { staticClass: "list__item" }, [
-                              _vm.company.remote_level == 0
-                                ? _c("div", { staticClass: "title" }, [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "icon-company-info",
-                                        attrs: { "aria-hidden": "true" }
-                                      },
-                                      [
-                                        _c("use", {
-                                          attrs: {
-                                            "xlink:href":
-                                              "/img/svg_symbols.svg#icon-remote-friendly"
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(
-                                            _vm.company.remote_level_name
-                                          ) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  ])
-                                : _vm.company.remote_level == 1
-                                ? _c("div", { staticClass: "title" }, [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "icon-company-info",
-                                        attrs: { "aria-hidden": "true" }
-                                      },
-                                      [
-                                        _c("use", {
-                                          attrs: {
-                                            "xlink:href":
-                                              "/img/svg_symbols.svg#icon-remote-first"
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(
-                                            _vm.company.remote_level_name
-                                          ) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  ])
-                                : _vm.company.remote_level == 2
-                                ? _c("div", { staticClass: "title" }, [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "icon-company-info",
-                                        attrs: { "aria-hidden": "true" }
-                                      },
-                                      [
-                                        _c("use", {
-                                          attrs: {
-                                            "xlink:href":
-                                              "/img/svg_symbols.svg#icon-fully-remote"
-                                          }
-                                        })
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(
-                                            _vm.company.remote_level_name
-                                          ) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  ])
-                                : _vm._e()
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.company.headquaters !== null
-                          ? _c("div", { staticClass: "list__item" }, [
-                              _c("div", { staticClass: "title" }, [
+                          _c("div", { staticClass: "list__item" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn--light btn--small btn-report"
+                              },
+                              [
                                 _c(
                                   "svg",
                                   {
-                                    staticClass: "icon icon-company-info",
+                                    staticClass:
+                                      "icon icon icon--fill icon--left",
                                     attrs: { "aria-hidden": "true" }
                                   },
                                   [
@@ -50723,135 +51720,443 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(_vm.company.headquaters) +
-                                      "\n                                "
-                                  )
+                                _c("span", { staticClass: "btn__text" }, [
+                                  _vm._v("Report this page")
                                 ])
+                              ]
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "main main--company" }, [
+                        _c("div", { staticClass: "main__section section" }, [
+                          !this.state.loading
+                            ? _c("p", { staticClass: "company-description" }, [
+                                _vm._v(_vm._s(_vm.company.description_short))
                               ])
-                            ])
-                          : _vm._e(),
+                            : _vm._e(),
+                          _vm._v(" "),
+                          this.state.loading
+                            ? _c("span", {
+                                staticClass: "company-description is-loading"
+                              })
+                            : _vm._e()
+                        ]),
                         _vm._v(" "),
-                        _vm.company.type !== null
-                          ? _c("div", { staticClass: "list__item" }, [
-                              _c("div", { staticClass: "title" }, [
-                                _c(
-                                  "svg",
+                        _c(
+                          "div",
+                          { staticClass: "main__section section" },
+                          [
+                            _c("h2", { staticClass: "section__title" }, [
+                              _vm._v("Jobs")
+                            ]),
+                            _vm._v(" "),
+                            _c("formalert", {
+                              attrs: { company_name: _vm.company.name }
+                            }),
+                            _vm._v(" "),
+                            _vm.company.tools == undefined ||
+                            _vm.company.tools.length == 0
+                              ? _c(
+                                  "div",
                                   {
-                                    staticClass: "icon icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
+                                    staticClass:
+                                      "section__body section__body--empty"
                                   },
                                   [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "/img/svg_symbols.svg#icon-type"
-                                      }
-                                    })
+                                    _c(
+                                      "h3",
+                                      { staticClass: "section__subtitle" },
+                                      [
+                                        _vm._v(
+                                          "Unfortunatelly, currently there is no available remote jobs at " +
+                                            _vm._s(_vm.company.name)
+                                        )
+                                      ]
+                                    )
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(_vm.company.type) +
-                                      "\n                                "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _vm.company.size !== null
-                          ? _c("div", { staticClass: "list__item" }, [
-                              _c("div", { staticClass: "title" }, [
-                                _c(
-                                  "svg",
+                        _c(
+                          "div",
+                          { staticClass: "main__section section" },
+                          [
+                            _c("h2", { staticClass: "section__title" }, [
+                              _vm._v("Stack")
+                            ]),
+                            _vm._v(" "),
+                            _vm.company.tools == undefined ||
+                            _vm.company.tools.length == 0
+                              ? _c(
+                                  "div",
                                   {
-                                    staticClass: "icon icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
+                                    staticClass:
+                                      "section__body section__body--empty"
                                   },
                                   [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "/img/svg_symbols.svg#icon-people"
-                                      }
-                                    })
+                                    _vm._v(
+                                      "\n                            kok\n                          "
+                                    )
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(_vm.company.size_alias) +
-                                      "\n                                "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.company.industries !== undefined &&
-                        _vm.company.industries.length > 0
-                          ? _c("div", { staticClass: "list__item" }, [
-                              _c(
-                                "div",
-                                { staticClass: "title" },
-                                [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass: "icon icon-company-info",
-                                      attrs: { "aria-hidden": "true" }
-                                    },
+                                )
+                              : _vm._l(_vm.company.tools, function(tools) {
+                                  return _c(
+                                    "div",
+                                    { staticClass: "section__body" },
                                     [
-                                      _c("use", {
-                                        attrs: {
-                                          "xlink:href":
-                                            "/img/svg_symbols.svg#icon-tag"
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.company.industries, function(
-                                    industry,
-                                    key
-                                  ) {
-                                    return _c("span", [
                                       _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "/industries/" + industry.slug
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                    " +
-                                              _vm._s(industry.name) +
-                                              "\n                                  "
-                                          )
-                                        ]
+                                        "h3",
+                                        { staticClass: "section__subtitle" },
+                                        [_vm._v(_vm._s(tools[0].type.name))]
                                       ),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "divider" }, [
-                                        _vm._v(" · ")
-                                      ])
-                                    ])
-                                  })
-                                ],
-                                2
+                                      _c(
+                                        "div",
+                                        { staticClass: "grid grid--tools" },
+                                        _vm._l(tools, function(tool) {
+                                          return _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "grid__item grid__item--tools"
+                                            },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "thumbnail thumbnail--tool",
+                                                  attrs: {
+                                                    href: "/stack/" + tool.slug
+                                                  }
+                                                },
+                                                [
+                                                  tool.logo !== null
+                                                    ? _c("img", {
+                                                        staticClass:
+                                                          "thumbnail--tool__img",
+                                                        attrs: {
+                                                          src: "/" + tool.logo,
+                                                          alt:
+                                                            tool.name + "logo"
+                                                        }
+                                                      })
+                                                    : _c("img", {
+                                                        staticClass:
+                                                          "thumbnail--tool__img",
+                                                        attrs: {
+                                                          src:
+                                                            "/img/default.svg",
+                                                          alt: "No image icon"
+                                                        }
+                                                      }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "thumbnail--tool__name"
+                                                    },
+                                                    [_vm._v(_vm._s(tool.name))]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      )
+                                    ]
+                                  )
+                                })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "main__section section" }, [
+                          _c("h2", { staticClass: "section__title" }, [
+                            _vm._v("Benefits")
+                          ]),
+                          _vm._v(" "),
+                          _vm.company.benefits == undefined ||
+                          _vm.company.benefits.length == 0
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "section__body section__body--empty"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            No benefits added yet :/\n                          "
+                                  )
+                                ]
                               )
-                            ])
-                          : _vm._e()
+                            : _c("div", { staticClass: "grid" }, [
+                                _vm.company.benefits.health !== undefined
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "grid__item grid__item--benefits"
+                                      },
+                                      [
+                                        _c(
+                                          "h3",
+                                          { staticClass: "section__subtitle" },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass: "icon-benefit",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-health"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("span", [
+                                              _vm._v("Health and Welness")
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass: "list list--benefits"
+                                          },
+                                          _vm._l(
+                                            _vm.company.benefits.health,
+                                            function(benefit) {
+                                              return _c(
+                                                "li",
+                                                {
+                                                  staticClass:
+                                                    "list__item list__item--benefits"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(benefit.name) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          0
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.benefits.compensation !== undefined
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "grid__item grid__item--benefits"
+                                      },
+                                      [
+                                        _c(
+                                          "h3",
+                                          { staticClass: "section__subtitle" },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass: "icon-benefit",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-money"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("span", [_vm._v("Compensation")])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass: "list list--benefits"
+                                          },
+                                          _vm._l(
+                                            _vm.company.benefits.compensation,
+                                            function(benefit) {
+                                              return _c(
+                                                "li",
+                                                {
+                                                  staticClass:
+                                                    "list__item list__item--benefits"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(benefit.name) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          0
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.benefits.timeoff !== undefined
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "grid__item grid__item--benefits"
+                                      },
+                                      [
+                                        _c(
+                                          "h3",
+                                          { staticClass: "section__subtitle" },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass: "icon-benefit",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-timeoff"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("span", [
+                                              _vm._v(
+                                                "Work, Family and Time-Off"
+                                              )
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass: "list list--benefits"
+                                          },
+                                          _vm._l(
+                                            _vm.company.benefits.timeoff,
+                                            function(benefit) {
+                                              return _c(
+                                                "li",
+                                                {
+                                                  staticClass:
+                                                    "list__item list__item--benefits"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(benefit.name) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          0
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.benefits.other !== undefined
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "grid__item grid__item--benefits"
+                                      },
+                                      [
+                                        _c(
+                                          "h3",
+                                          { staticClass: "section__subtitle" },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass: "icon-benefit",
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [
+                                                _c("use", {
+                                                  attrs: {
+                                                    "xlink:href":
+                                                      "/img/svg_symbols.svg#icon-other"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("span", [_vm._v("Other")])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "ul",
+                                          {
+                                            staticClass: "list list--benefits"
+                                          },
+                                          _vm._l(
+                                            _vm.company.benefits.other,
+                                            function(benefit) {
+                                              return _c(
+                                                "li",
+                                                {
+                                                  staticClass:
+                                                    "list__item list__item--benefits"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                                  " +
+                                                      _vm._s(benefit.name) +
+                                                      "\n                                "
+                                                  )
+                                                ]
+                                              )
+                                            }
+                                          ),
+                                          0
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ])
+                        ])
                       ])
-                    ])
-                  ]
-                )
+                    ]
+                  )
+                ])
               ])
             : _vm._e()
         ])
@@ -50892,9 +52197,26 @@ var render = function() {
           class: { "content--pushed": _vm.dialog_company !== "" }
         },
         [
-          _c("div", { staticClass: "sidebar sidebar--filters" }, [
+          _c("div", { staticClass: "sidebar sidebar--companies" }, [
             _c("form", { staticClass: "form form-company" }, [
               _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "section",
+                { staticClass: "form__section" },
+                [
+                  _c("inputfilter", {
+                    attrs: {
+                      title: "remote level",
+                      options: _vm.settings.remote_level
+                    },
+                    on: { selection: _vm.onRemoteLevelSelection }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "section",
@@ -50922,7 +52244,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "section",
@@ -50936,7 +52258,7 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "section",
@@ -50945,28 +52267,15 @@ var render = function() {
                   _c(
                     "inputdropdowntags",
                     {
-                      attrs: { options: _vm.settings.industries, selected: [] },
+                      attrs: {
+                        options: _vm.settings.industries,
+                        selected: [],
+                        placeholder: "Pick an industry"
+                      },
                       on: { selection: _vm.onIndustrySelection }
                     },
                     [_c("span")]
                   )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _c(
-                "section",
-                { staticClass: "form__section" },
-                [
-                  _c("inputfilter", {
-                    attrs: {
-                      title: "remote level",
-                      options: _vm.settings.remote_level
-                    },
-                    on: { selection: _vm.onRemoteLevelSelection }
-                  })
                 ],
                 1
               ),
@@ -50991,10 +52300,10 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "main main--companies" }, [
             _c("div", { staticClass: "main__header" }, [
+              _vm._v("Found "),
+              _c("b", [_vm._v(_vm._s(_vm.pagination.total))]),
               _vm._v(
-                "Found " +
-                  _vm._s(_vm.pagination.total) +
-                  " " +
+                " " +
                   _vm._s(_vm.pagination.total == 1 ? "company" : "companies")
               )
             ]),
@@ -51002,456 +52311,475 @@ var render = function() {
             _c(
               "div",
               { staticClass: "list" },
-              _vm._l(_vm.companies, function(company) {
-                return _c(
-                  "a",
-                  {
-                    staticClass: "company-thumbnail",
-                    attrs: { href: "/company/" + company.slug },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.showCompanyDialog(company.slug)
+              [
+                _vm.companies.length == 0
+                  ? _c("div", { staticClass: "empty-state" }, [
+                      _vm._v("\n            No companies found\n          ")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.companies, function(company) {
+                  return _c(
+                    "a",
+                    {
+                      staticClass: "company-thumbnail",
+                      attrs: { href: "/company/" + company.slug },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.showCompanyDialog(company.slug)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "avatar avatar--thumbnail" }, [
-                      company.logo !== null
-                        ? _c("img", {
-                            staticClass:
-                              "avatar__img avatar__img--medium is-company",
-                            attrs: {
-                              src: company.logo,
-                              alt: company.name + " logo"
-                            }
-                          })
-                        : _c("img", {
-                            staticClass:
-                              "avatar__img avatar__img--medium is-company is-small",
-                            attrs: { src: "/img/default.svg", alt: "No image" }
-                          })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "company-info" }, [
-                      _c(
-                        "span",
-                        {
-                          staticClass: "company-title company-title--thumbnail"
-                        },
-                        [
-                          _vm._v(
-                            "\n                  " +
-                              _vm._s(company.name) +
-                              "\n                    "
-                          ),
-                          company.is_claimed
-                            ? _c(
-                                "span",
-                                { staticClass: "badge badge--verified" },
-                                [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass: "icon icon-verified",
-                                      attrs: { "aria-hidden": "true" }
-                                    },
-                                    [
-                                      _c("use", {
-                                        attrs: {
-                                          "xlink:href":
-                                            "/img/svg_symbols.svg#icon-verified"
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      ),
+                    },
+                    [
+                      _c("div", { staticClass: "avatar avatar--thumbnail" }, [
+                        company.logo !== null
+                          ? _c("img", {
+                              staticClass:
+                                "avatar__img avatar__img--medium is-company",
+                              attrs: {
+                                src: company.logo,
+                                alt: company.name + " logo"
+                              }
+                            })
+                          : _c("img", {
+                              staticClass:
+                                "avatar__img avatar__img--medium is-company is-small",
+                              attrs: {
+                                src: "/img/default.svg",
+                                alt: "No image"
+                              }
+                            })
+                      ]),
                       _vm._v(" "),
-                      company.industries.length > 0
-                        ? _c(
-                            "ul",
-                            { staticClass: "grid grid--micro" },
-                            [
-                              _c(
-                                "li",
-                                { staticClass: "grid__item grid__item--micro" },
-                                [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass:
-                                        "icon-company-info icon-company-info--no-margin",
-                                      attrs: { "aria-hidden": "true" }
-                                    },
-                                    [
-                                      _c("use", {
-                                        attrs: {
-                                          "xlink:href":
-                                            "img/svg_symbols.svg#icon-tag"
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(company.industries, function(
-                                industry,
-                                index
-                              ) {
-                                return _c(
+                      _c("div", { staticClass: "company-info" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "company-title company-title--thumbnail"
+                          },
+                          [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(company.name) +
+                                "\n                    "
+                            ),
+                            company.is_claimed
+                              ? _c(
+                                  "span",
+                                  { staticClass: "badge badge--verified" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "icon icon-verified",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-verified"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        company.industries.length > 0
+                          ? _c(
+                              "ul",
+                              { staticClass: "grid grid--micro" },
+                              [
+                                _c(
                                   "li",
                                   {
                                     staticClass: "grid__item grid__item--micro"
                                   },
                                   [
                                     _c(
-                                      "div",
+                                      "svg",
                                       {
                                         staticClass:
-                                          "title title--small title--tag"
+                                          "icon icon--fill icon--right",
+                                        attrs: { "aria-hidden": "true" }
                                       },
                                       [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              href:
-                                                "/industries/" + industry.slug
-                                            }
-                                          },
-                                          [_vm._v(_vm._s(industry.name))]
-                                        )
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-tag"
+                                          }
+                                        })
                                       ]
                                     )
                                   ]
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "company__description" }, [
-                        _vm._v(
-                          "\n                    " +
-                            _vm._s(company.description_short) +
-                            "\n                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("ul", { staticClass: "grid grid--btm-mg-sm" }, [
-                        typeof company.remote_level !== "undefined" &&
-                        company.remote_level == 0
-                          ? _c("li", { staticClass: "grid__item" }, [
-                              _c("div", { staticClass: "title title--small" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "img/svg_symbols.svg#icon-remote-friendly"
-                                      }
-                                    })
-                                  ]
                                 ),
                                 _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(_vm.settings.remote_level[0]) +
-                                      "\n                      "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        typeof company.remote_level !== "undefined" &&
-                        company.remote_level == 1
-                          ? _c("li", { staticClass: "grid__item" }, [
-                              _c("div", { staticClass: "title title--small" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "img/svg_symbols.svg#icon-remote-first"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(_vm.settings.remote_level[1]) +
-                                      "\n                      "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        typeof company.remote_level !== "undefined" &&
-                        company.remote_level == 2
-                          ? _c("li", { staticClass: "grid__item" }, [
-                              _c("div", { staticClass: "title title--small" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "img/svg_symbols.svg#icon-fully-remote"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(_vm.settings.remote_level[2]) +
-                                      "\n                      "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        typeof company.type !== "undefined" &&
-                        company.type !== null
-                          ? _c("li", { staticClass: "grid__item" }, [
-                              _c("div", { staticClass: "title title--small" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "icon icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "img/svg_symbols.svg#icon-type"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(_vm.settings.type[company.type]) +
-                                      "\n                      "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        typeof company.size !== "undefined"
-                          ? _c("li", { staticClass: "grid__item" }, [
-                              _c("div", { staticClass: "title title--small" }, [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass: "icon icon-company-info",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "img/svg_symbols.svg#icon-people"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", [
-                                  _vm._v(
-                                    "\n                          " +
-                                      _vm._s(_vm.settings.size[company.size]) +
-                                      "\n                      "
-                                  )
-                                ])
-                              ])
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      company.hiring_regions.length > 0 &&
-                      (_vm.filters.timezones.length > 0 ||
-                        _vm.filters.countries.length > 0)
-                        ? _c("div", { staticClass: "container" }, [
-                            _c("span", { staticClass: "title title--info" }, [
-                              _vm._v("Hires remotely")
-                            ]),
-                            _vm._v(" "),
-                            company.hiring_regions.length > 0
-                              ? _c(
-                                  "ul",
-                                  { staticClass: "grid grid--align-center" },
-                                  _vm._l(company.hiring_regions, function(
-                                    hiring_region
-                                  ) {
-                                    return _vm
-                                      .getIds(_vm.filters.countries)
-                                      .indexOf(hiring_region.id) > -1 ||
-                                      _vm
-                                        .getIds(_vm.filters.timezones)
-                                        .indexOf(hiring_region.id) > -1
-                                      ? _c(
-                                          "li",
-                                          { staticClass: "grid__item" },
-                                          [
-                                            hiring_region.type == "timezone"
-                                              ? _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "thumbnail thumbnail--badge"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " \n                        " +
-                                                        _vm._s(
-                                                          "UTC " +
-                                                            hiring_region.name
-                                                        ) +
-                                                        "\n                       "
-                                                    )
-                                                  ]
-                                                )
-                                              : _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "thumbnail thumbnail--badge"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " \n                         " +
-                                                        _vm._s(
-                                                          hiring_region.name
-                                                        ) +
-                                                        "\n                       "
-                                                    )
-                                                  ]
-                                                )
-                                          ]
-                                        )
-                                      : _vm._e()
-                                  }),
-                                  0
-                                )
-                              : _vm._e()
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      company.tools.length > 0 && _vm.filters.tools.length > 0
-                        ? _c("div", { staticClass: "container" }, [
-                            _c("span", { staticClass: "title title--info" }, [
-                              _vm._v("Stack includes")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "ul",
-                              { staticClass: "grid grid--align-center" },
-                              _vm._l(company.tools, function(tool) {
-                                return _vm
-                                  .getIds(_vm.filters.tools)
-                                  .indexOf(tool.id) > -1
-                                  ? _c("li", { staticClass: "grid__item" }, [
+                                _vm._l(company.industries, function(
+                                  industry,
+                                  index
+                                ) {
+                                  return _c(
+                                    "li",
+                                    {
+                                      staticClass:
+                                        "grid__item grid__item--micro"
+                                    },
+                                    [
                                       _c(
                                         "div",
                                         {
                                           staticClass:
-                                            "thumbnail thumbnail--badge"
+                                            "title title--small title--tag"
                                         },
                                         [
-                                          _c("img", {
-                                            attrs: { src: tool.logo, alt: "" }
-                                          }),
-                                          _vm._v(
-                                            "\n                            " +
-                                              _vm._s(tool.name) +
-                                              "\n                         "
+                                          _c(
+                                            "a",
+                                            {
+                                              attrs: {
+                                                href:
+                                                  "/industries/" + industry.slug
+                                              }
+                                            },
+                                            [_vm._v(_vm._s(industry.name))]
                                           )
                                         ]
                                       )
-                                    ])
-                                  : _vm._e()
-                              }),
-                              0
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
                             )
-                          ])
-                        : _vm._e()
-                    ])
-                  ]
-                )
-              }),
-              0
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "company__description" }, [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(company.description_short) +
+                              "\n                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("ul", { staticClass: "grid grid--btm-mg-sm" }, [
+                          typeof company.remote_level !== "undefined" &&
+                          company.remote_level == 0
+                            ? _c("li", { staticClass: "grid__item" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "title title--small" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon--fill icon--left",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-remote-friendly"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                          " +
+                                          _vm._s(_vm.settings.remote_level[0]) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          typeof company.remote_level !== "undefined" &&
+                          company.remote_level == 1
+                            ? _c("li", { staticClass: "grid__item" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "title title--small" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon--fill icon--left",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-remote-first"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                          " +
+                                          _vm._s(_vm.settings.remote_level[1]) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          typeof company.remote_level !== "undefined" &&
+                          company.remote_level == 2
+                            ? _c("li", { staticClass: "grid__item" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "title title--small" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon--fill icon--left",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-fully-remote"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                          " +
+                                          _vm._s(_vm.settings.remote_level[2]) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          typeof company.type !== "undefined" &&
+                          company.type !== null
+                            ? _c("li", { staticClass: "grid__item" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "title title--small" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon--fill icon--left",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-type"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                          " +
+                                          _vm._s(
+                                            _vm.settings.type[company.type]
+                                          ) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          typeof company.size !== "undefined"
+                            ? _c("li", { staticClass: "grid__item" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "title title--small" },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon--fill icon--left",
+                                        attrs: { "aria-hidden": "true" }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "img/svg_symbols.svg#icon-people"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                          " +
+                                          _vm._s(
+                                            _vm.settings.size[company.size]
+                                          ) +
+                                          "\n                      "
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        company.hiring_regions.length > 0 &&
+                        (_vm.filters.timezones.length > 0 ||
+                          _vm.filters.countries.length > 0)
+                          ? _c("div", { staticClass: "container" }, [
+                              _c("span", { staticClass: "title title--info" }, [
+                                _vm._v("Hires remotely")
+                              ]),
+                              _vm._v(" "),
+                              company.hiring_regions.length > 0
+                                ? _c(
+                                    "ul",
+                                    { staticClass: "grid grid--align-center" },
+                                    _vm._l(company.hiring_regions, function(
+                                      hiring_region
+                                    ) {
+                                      return _vm
+                                        .getIds(_vm.filters.countries)
+                                        .indexOf(hiring_region.id) > -1 ||
+                                        _vm
+                                          .getIds(_vm.filters.timezones)
+                                          .indexOf(hiring_region.id) > -1
+                                        ? _c(
+                                            "li",
+                                            { staticClass: "grid__item" },
+                                            [
+                                              hiring_region.type == "timezone"
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "thumbnail thumbnail--badge"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        " \n                        " +
+                                                          _vm._s(
+                                                            "UTC " +
+                                                              hiring_region.name
+                                                          ) +
+                                                          "\n                       "
+                                                      )
+                                                    ]
+                                                  )
+                                                : _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "thumbnail thumbnail--badge"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        " \n                         " +
+                                                          _vm._s(
+                                                            hiring_region.name
+                                                          ) +
+                                                          "\n                       "
+                                                      )
+                                                    ]
+                                                  )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    }),
+                                    0
+                                  )
+                                : _vm._e()
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        company.tools.length > 0 && _vm.filters.tools.length > 0
+                          ? _c("div", { staticClass: "container" }, [
+                              _c("span", { staticClass: "title title--info" }, [
+                                _vm._v("Stack includes")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "ul",
+                                { staticClass: "grid grid--align-center" },
+                                _vm._l(company.tools, function(tool) {
+                                  return _vm
+                                    .getIds(_vm.filters.tools)
+                                    .indexOf(tool.id) > -1
+                                    ? _c("li", { staticClass: "grid__item" }, [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "thumbnail thumbnail--badge"
+                                          },
+                                          [
+                                            _c("img", {
+                                              attrs: { src: tool.logo, alt: "" }
+                                            }),
+                                            _vm._v(
+                                              "\n                            " +
+                                                _vm._s(tool.name) +
+                                                "\n                         "
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    : _vm._e()
+                                }),
+                                0
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ]
+                  )
+                })
+              ],
+              2
             ),
             _vm._v(" "),
             _vm.pagination.last_page > 1
               ? _c("div", { staticClass: "main__footer" }, [
-                  _c("div", { staticClass: "pagination-container" }, [
-                    _c(
-                      "ul",
-                      {
-                        staticClass: "pagination",
-                        attrs: { role: "navigation" }
-                      },
-                      _vm._l(_vm.pagination.last_page, function(n) {
-                        return _c(
-                          "li",
-                          {
-                            staticClass: "page-item",
-                            class:
-                              n == _vm.pagination.current_page ? "active" : ""
-                          },
-                          [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "page-link",
-                                attrs: { href: "#" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.submit(n)
-                                  }
-                                }
-                              },
-                              [_vm._v(_vm._s(n))]
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ])
+                  _c(
+                    "div",
+                    { staticClass: "pagination-container" },
+                    [
+                      _c("pagination", {
+                        attrs: { pages: _vm.pagination },
+                        on: { submit: _vm.submit }
+                      })
+                    ],
+                    1
+                  )
                 ])
               : _vm._e()
           ])
@@ -51459,7 +52787,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("dialogcompany", {
-        attrs: { slug: _vm.dialog_company },
+        attrs: { slug: _vm.dialog_company, settings: _vm.settings },
         on: {
           close: function($event) {
             return _vm.onDialogClose()
@@ -51471,6 +52799,15 @@ var render = function() {
   )
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "title-filter" }, [
+      _vm._v("Filter by "),
+      _c("b", [_vm._v("remote level")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -51504,19 +52841,88 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("h3", { staticClass: "title-filter" }, [
       _vm._v("Filter by "),
-      _c("b", [_vm._v("remote level")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "title-filter" }, [
-      _vm._v("Filter by "),
       _c("b", [_vm._v("company size")])
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", { staticClass: "form--alert", attrs: { action: "post" } }, [
+    _c("label", { staticClass: "label label--light" }, [
+      _vm._v("Be the first to know about new remote jobs at "),
+      _c("b", [_vm._v(_vm._s(_vm.company_name))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "input-wrapper input-wrapper--alert" }, [
+      _c("input", {
+        staticClass: "input input--wrapped input--alert",
+        attrs: {
+          id: "email-alert",
+          type: "email",
+          placeholder: "Enter your email address"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn--yellow btn--medium",
+          attrs: { type: "submit" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.submit(_vm.company_name)
+            }
+          }
+        },
+        [
+          _c(
+            "svg",
+            {
+              staticClass: "icon icon--fill icon--left icon-email",
+              attrs: { "aria-hidden": "true" }
+            },
+            [
+              _c("use", {
+                attrs: { "xlink:href": "/img/svg_symbols.svg#icon-email" }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "btn__text" }, [_vm._v("Create Job Alert")])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    this.state.error
+      ? _c(
+          "label",
+          { staticClass: "alert alert--error", attrs: { for: "email-alert" } },
+          [_vm._v("Ooops")]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -52050,42 +53456,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "subscribe" }, [
-    _c(
-      "div",
-      {
-        directives: [
-          { name: "show", rawName: "v-show", value: false, expression: "false" }
-        ],
-        staticClass: "subscribe__header"
-      },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("span", { staticClass: "title" }, [
-          _vm._v("want to join "),
-          _c("b", [_vm._v(_vm._s(_vm.company_name))])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          { name: "show", rawName: "v-show", value: true, expression: "true" }
-        ],
-        staticClass: "subscribe__header"
-      },
-      [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("span", { staticClass: "title" }, [
-          _vm._v("want to join "),
-          _c("b", [_vm._v(_vm._s(_vm.company_name))])
-        ])
-      ]
-    ),
-    _vm._v(" "),
     _c("div", { staticClass: "subscribe__body" }, [
       _c("form", { staticClass: "form form--notify" }, [
         _c("div", { staticClass: "toggle" }, [
@@ -52149,10 +53519,7 @@ var render = function() {
           _c(
             "label",
             { staticClass: "label--toggle", attrs: { for: "notifications" } },
-            [
-              _vm._v("Notify me of new jobs at "),
-              _c("b", [_vm._v(_vm._s(_vm.company_name))])
-            ]
+            [_vm._v("Notify me of new jobs ")]
           )
         ]),
         _vm._v(" "),
@@ -52237,28 +53604,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "counter" }, [
-      _c("span", { staticClass: "counter__number" }, [_vm._v("13")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "counter__title" }, [_vm._v("Persons")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "counter" }, [
-      _c("span", { staticClass: "counter__number" }, [_vm._v("13")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "counter__title" }, [_vm._v("People")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -52750,7 +54096,7 @@ var render = function() {
             staticClass: "input input--wrapped",
             attrs: {
               id: "industries_" + _vm.company_id,
-              placeholder: "Pick your company's industry",
+              placeholder: _vm.placeholder,
               type: "text"
             },
             domProps: { value: _vm.autocomplete_input },
@@ -53179,7 +54525,7 @@ var render = function() {
                         : _vm._e(),
                       _vm._v(" "),
                       _c("span", { staticClass: "selection__name" }, [
-                        _vm._v(_vm._s(tool.name))
+                        _vm._v(_vm._s(tool.name) + "\n                    ")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -53301,134 +54647,444 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "btn btn--small btn--claim",
-        on: {
-          click: function($event) {
-            return _vm.showModal()
-          }
-        }
-      },
-      [
-        _c("span", { staticClass: "btn__text" }, [
-          _vm._v("\n          Claim Profile\n      ")
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.state.active,
-            expression: "state.active"
-          }
-        ],
-        staticClass: "modal-outlay",
-        on: {
-          click: function($event) {
-            if ($event.target !== $event.currentTarget) {
-              return null
-            }
-            return _vm.closeModal()
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "modal" }, [
-          _c("div", { staticClass: "modal__header modal__header--claim" }, [
-            _c("span", { staticClass: "modal__title" }, [
-              _vm._v("Claim "),
-              _c("b", [_vm._v(_vm._s(_vm.company_name))]),
-              _vm._v(" profile")
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn-close",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    $event.stopPropagation()
-                    return _vm.closeModal()
-                  }
-                }
-              },
-              [_c("icon", { attrs: { name: "close--normal" } })],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "modal__body modal__body--claim" }, [
-            _c("div", { staticClass: "avatar avatar--modal" }, [
-              _c("img", {
-                staticClass:
-                  "avatar__img is-company avatar__img--small avatar__img--modal",
-                attrs: { src: _vm.company_logo, alt: _vm.company_name + "logo" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form form--claim" }, [
-              _c("div", { staticClass: "field field--full-width" }, [
-                _c(
-                  "label",
-                  {
-                    staticClass: "label label--title",
-                    attrs: { for: "claim_profile" }
-                  },
-                  [
-                    _vm._v(
-                      "To claim this profile, register with an email address containing "
-                    ),
-                    _c("b", [_vm._v(_vm._s(_vm.company_url))]),
-                    _vm._v(
-                      " domain. Then check your inbox for a confirmation email"
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "input",
-                  attrs: {
-                    autocomplete: "off",
-                    id: "claim_profile",
-                    name: "email",
-                    placeholder: "Enter email address",
-                    type: "email"
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
-          ])
-        ])
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field field--full-width" }, [
+  return _c(
+    "div",
+    [
       _c(
         "button",
-        { staticClass: "btn btn--large btn--full-width btn--primary" },
-        [_c("span", { staticClass: "btn__text" }, [_vm._v("Claim Profile")])]
+        {
+          staticClass: "btn btn--small btn--claim",
+          on: {
+            click: function($event) {
+              return _vm.showModal()
+            }
+          }
+        },
+        [
+          _c("span", { staticClass: "btn__text" }, [
+            _vm._v("\n          Claim Profile\n      ")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.state.active,
+                expression: "state.active"
+              }
+            ],
+            staticClass: "modal-outlay",
+            on: {
+              click: function($event) {
+                if ($event.target !== $event.currentTarget) {
+                  return null
+                }
+                return _vm.closeModal()
+              }
+            }
+          },
+          [
+            _c("transition", { attrs: { name: "slidebottom" } }, [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.state.active,
+                      expression: "state.active"
+                    }
+                  ],
+                  staticClass: "modal"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "modal__header modal__header--claim" },
+                    [
+                      _c("span", { staticClass: "modal__title" }, [
+                        _vm._v("Claim "),
+                        _c("b", [_vm._v(_vm._s(_vm.company_name))]),
+                        _vm._v(" profile")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn-close",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              $event.stopPropagation()
+                              return _vm.closeModal()
+                            }
+                          }
+                        },
+                        [_c("icon", { attrs: { name: "close--normal" } })],
+                        1
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal__body modal__body--claim" }, [
+                    _c("div", { staticClass: "avatar avatar--modal" }, [
+                      _c("img", {
+                        staticClass:
+                          "avatar__img is-company avatar__img--small avatar__img--modal",
+                        attrs: {
+                          src:
+                            typeof _vm.company_logo == "undefined" ||
+                            _vm.company_logo == null ||
+                            _vm.company_logo == ""
+                              ? "/img/default.svg"
+                              : "/" + _vm.company_logo,
+                          alt: _vm.company_name + "logo"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form form--claim" }, [
+                      _c("div", { staticClass: "field field--full-width" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "label label--title",
+                            attrs: { for: "claim_profile" }
+                          },
+                          [
+                            _vm._v(
+                              "To claim this profile, register with an email address containing "
+                            ),
+                            _c("b", [_vm._v(_vm._s(_vm.company_url))]),
+                            _vm._v(
+                              " domain. Then check your inbox for a confirmation email"
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "input",
+                          attrs: {
+                            autocomplete: "off",
+                            id: "claim_profile",
+                            name: "email",
+                            placeholder:
+                              "Enter email address i.e. hello@" +
+                              _vm.company_url +
+                              "",
+                            type: "email"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "field field--full-width" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn--large btn--full-width btn--primary"
+                          },
+                          [
+                            _c("span", { staticClass: "btn__text" }, [
+                              _vm._v("Claim Profile")
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "ul",
+    { staticClass: "pagination", attrs: { role: "navigation" } },
+    [
+      _c(
+        "li",
+        {
+          staticClass: "page-item",
+          class: _vm.pages.current_page <= 1 ? "disabled" : ""
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "page-link",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.$emit("submit", _vm.pages.current_page - 1)
+                }
+              }
+            },
+            [_c("icon", { attrs: { name: "arrow--left" } })],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.shownNumbers, function(n) {
+        return _c(
+          "li",
+          {
+            staticClass: "page-item",
+            class: n == _vm.pages.current_page ? "active" : ""
+          },
+          [
+            n > 0
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$emit("submit", n)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(n))]
+                )
+              : _c("span", [_vm._v(". . .")])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c(
+        "li",
+        {
+          staticClass: "page-item",
+          class: _vm.pages.current_page >= _vm.pages.last_page ? "disabled" : ""
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "page-link",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.$emit("submit", _vm.pages.current_page + 1)
+                }
+              }
+            },
+            [_c("icon", { attrs: { name: "arrow--right" } })],
+            1
+          )
+        ]
       )
-    ])
-  }
-]
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "list" }, [
+        _c(
+          "a",
+          {
+            staticClass: "company-thumbnail",
+            attrs: { href: "/company/" + _vm.company.slug },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.showCompanyDialog(_vm.company.slug)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "avatar avatar--thumbnail" }, [
+              _vm.company.logo !== null
+                ? _c("img", {
+                    staticClass: "avatar__img avatar__img--medium is-company",
+                    attrs: {
+                      src: "/" + _vm.company.logo,
+                      alt: _vm.company.name + " logo"
+                    }
+                  })
+                : _c("img", {
+                    staticClass:
+                      "avatar__img avatar__img--medium is-company is-small",
+                    attrs: { src: "/img/default.svg", alt: "No image" }
+                  })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "company-info" }, [
+              _c(
+                "span",
+                { staticClass: "company-title company-title--thumbnail" },
+                [
+                  _vm._v(
+                    "\n                  " +
+                      _vm._s(_vm.company.name) +
+                      "\n                    "
+                  ),
+                  _vm.company.is_claimed
+                    ? _c("span", { staticClass: "badge badge--verified" }, [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "icon icon-verified",
+                            attrs: { "aria-hidden": "true" }
+                          },
+                          [
+                            _c("use", {
+                              attrs: {
+                                "xlink:href":
+                                  "/img/svg_symbols.svg#icon-verified"
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _vm.company.industries.length > 0
+                ? _c(
+                    "ul",
+                    { staticClass: "grid grid--micro" },
+                    [
+                      _c(
+                        "li",
+                        { staticClass: "grid__item grid__item--micro" },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "icon-company-info icon-company-info--no-margin",
+                              attrs: { "aria-hidden": "true" }
+                            },
+                            [
+                              _c("use", {
+                                attrs: {
+                                  "xlink:href": "img/svg_symbols.svg#icon-tag"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.company.industries, function(industry, index) {
+                        return _c(
+                          "li",
+                          { staticClass: "grid__item grid__item--micro" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "title title--small title--tag" },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: "/industries/" + industry.slug
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(industry.name))]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", { staticClass: "company__description" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.company.description_short) +
+                    "\n                "
+                )
+              ])
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("dialogcompany", {
+        attrs: { slug: _vm.dialog_company, settings: _vm.settings },
+        on: {
+          close: function($event) {
+            return _vm.onDialogClose()
+          }
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -65678,6 +67334,7 @@ module.exports = function(module) {
 var map = {
 	"./components/DialogCompany.vue": "./resources/js/components/DialogCompany.vue",
 	"./components/FilterCompanies.vue": "./resources/js/components/FilterCompanies.vue",
+	"./components/FormAlert.vue": "./resources/js/components/FormAlert.vue",
 	"./components/FormCompany.vue": "./resources/js/components/FormCompany.vue",
 	"./components/FormNotification.vue": "./resources/js/components/FormNotification.vue",
 	"./components/Icon.vue": "./resources/js/components/Icon.vue",
@@ -65690,6 +67347,8 @@ var map = {
 	"./components/InputTimezones.vue": "./resources/js/components/InputTimezones.vue",
 	"./components/InputTools.vue": "./resources/js/components/InputTools.vue",
 	"./components/ModalClaim.vue": "./resources/js/components/ModalClaim.vue",
+	"./components/Pagination.vue": "./resources/js/components/Pagination.vue",
+	"./components/ThumbnailCompany.vue": "./resources/js/components/ThumbnailCompany.vue",
 	"./components/UploaderPhoto.vue": "./resources/js/components/UploaderPhoto.vue"
 };
 
@@ -65729,12 +67388,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ModalClaim__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ModalClaim */ "./resources/js/components/ModalClaim.vue");
 /* harmony import */ var _components_FilterCompanies__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/FilterCompanies */ "./resources/js/components/FilterCompanies.vue");
 /* harmony import */ var _components_InputTimezones__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/InputTimezones */ "./resources/js/components/InputTimezones.vue");
+/* harmony import */ var _components_ThumbnailCompany__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ThumbnailCompany */ "./resources/js/components/ThumbnailCompany.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -65772,7 +67433,8 @@ var app = new Vue({
     modalclaim: _components_ModalClaim__WEBPACK_IMPORTED_MODULE_2__["default"],
     formnotification: _components_FormNotification__WEBPACK_IMPORTED_MODULE_1__["default"],
     filtercompanies: _components_FilterCompanies__WEBPACK_IMPORTED_MODULE_3__["default"],
-    inputtimezones: _components_InputTimezones__WEBPACK_IMPORTED_MODULE_4__["default"]
+    inputtimezones: _components_InputTimezones__WEBPACK_IMPORTED_MODULE_4__["default"],
+    thumbnailcompany: _components_ThumbnailCompany__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
 
@@ -65969,6 +67631,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterCompanies_vue_vue_type_template_id_75eb5fb0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FilterCompanies_vue_vue_type_template_id_75eb5fb0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/FormAlert.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/FormAlert.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormAlert.vue?vue&type=template&id=054b55c6& */ "./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6&");
+/* harmony import */ var _FormAlert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormAlert.vue?vue&type=script&lang=js& */ "./resources/js/components/FormAlert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FormAlert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FormAlert.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FormAlert.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/FormAlert.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormAlert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FormAlert.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormAlert.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FormAlert_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6& ***!
+  \******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FormAlert.vue?vue&type=template&id=054b55c6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FormAlert.vue?vue&type=template&id=054b55c6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormAlert_vue_vue_type_template_id_054b55c6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -66797,6 +68528,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalClaim_vue_vue_type_template_id_0261aeba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalClaim_vue_vue_type_template_id_0261aeba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Pagination.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/Pagination.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=d7acf176& */ "./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&");
+/* harmony import */ var _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js& */ "./resources/js/components/Pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Pagination.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Pagination.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Pagination.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=d7acf176& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ThumbnailCompany.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/ThumbnailCompany.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThumbnailCompany.vue?vue&type=template&id=54d5d848& */ "./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848&");
+/* harmony import */ var _ThumbnailCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThumbnailCompany.vue?vue&type=script&lang=js& */ "./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ThumbnailCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ThumbnailCompany.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ThumbnailCompany.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ThumbnailCompany.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ThumbnailCompany.vue?vue&type=template&id=54d5d848& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ThumbnailCompany.vue?vue&type=template&id=54d5d848&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

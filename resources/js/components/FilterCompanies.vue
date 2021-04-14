@@ -1,8 +1,12 @@
 <template>
   <div>
   <div class="content content--companies" :class="{'content--pushed': dialog_company !== ''}">
-      <div class="sidebar sidebar--filters">
+      <div class="sidebar sidebar--companies">
           <form class="form form-company">
+            <h3 class="title-filter">Filter by <b>remote level</b></h3>
+            <section class="form__section">
+              <inputfilter @selection="onRemoteLevelSelection" :title="'remote level'" :options="settings.remote_level"></inputfilter>
+            </section>
             <h3 class="title-filter">Filter by <b>hiring regions</b></h3>
             <section class="form__section">
               <inputtimezones :selected="[]" :type="'editor-timezones__body--small'" :options="settings.hiring_regions.timezones" @selection="onTimezoneSelection" :company_id="12"></inputtimezones>
@@ -14,13 +18,9 @@
             </section>
             <h3 class="title-filter">Filter by <b>industry</b></h3>
             <section class="form__section">
-              <inputdropdowntags @selection="onIndustrySelection" :options="settings.industries" :selected="[]">
+              <inputdropdowntags @selection="onIndustrySelection" :options="settings.industries" :selected="[]" :placeholder="'Pick an industry'">
                  <span></span>
               </inputdropdowntags>
-            </section>
-            <h3 class="title-filter">Filter by <b>remote level</b></h3>
-            <section class="form__section">
-              <inputfilter @selection="onRemoteLevelSelection" :title="'remote level'" :options="settings.remote_level"></inputfilter>
             </section>
             <h3 class="title-filter">Filter by <b>company size</b></h3>
             <section class="form__section">
@@ -30,8 +30,11 @@
           <span class="dummy"></span>
       </div>
       <div class="main main--companies">
-        <div class="main__header">Found {{pagination.total }} {{pagination.total == 1 ? 'company' : 'companies'}}</div>
+        <div class="main__header">Found <b>{{pagination.total }}</b> {{pagination.total == 1 ? 'company' : 'companies'}}</div>
         <div class="list">
+          <div class="empty-state" v-if="companies.length == 0">
+            No companies found
+          </div>
           <a @click.prevent="showCompanyDialog(company.slug)" v-for="company in companies" :href="'/company/'+company.slug" class="company-thumbnail">
             <div class="avatar avatar--thumbnail">
               <img v-if="company.logo !== null" class="avatar__img avatar__img--medium is-company" :src="company.logo" :alt="company.name + ' logo'">
@@ -48,7 +51,7 @@
                 </span>
                 <ul v-if="company.industries.length > 0" class="grid grid--micro">
                   <li class="grid__item grid__item--micro">
-                    <svg class="icon-company-info icon-company-info--no-margin" aria-hidden="true">
+                    <svg class="icon icon--fill icon--right" aria-hidden="true">
                         <use xlink:href="img/svg_symbols.svg#icon-tag"></use>
                     </svg>
                   </li>
@@ -65,7 +68,7 @@
                 <ul class="grid grid--btm-mg-sm">
                   <li v-if="typeof company.remote_level !== 'undefined' && company.remote_level == 0" class="grid__item">
                     <div class="title title--small">
-                      <svg class="icon-company-info" aria-hidden="true">
+                      <svg class="icon icon--fill icon--left" aria-hidden="true">
                           <use xlink:href="img/svg_symbols.svg#icon-remote-friendly"></use>
                       </svg>
                       <span>
@@ -76,7 +79,7 @@
 
                   <li v-if="typeof company.remote_level !== 'undefined' && company.remote_level == 1" class="grid__item">
                     <div class="title title--small">
-                      <svg class="icon-company-info" aria-hidden="true">
+                      <svg class="icon icon--fill icon--left" aria-hidden="true">
                           <use xlink:href="img/svg_symbols.svg#icon-remote-first"></use>
                       </svg>
                       <span>
@@ -87,7 +90,7 @@
 
                   <li v-if="typeof company.remote_level !== 'undefined' && company.remote_level == 2" class="grid__item">
                     <div class="title title--small">
-                      <svg class="icon-company-info" aria-hidden="true">
+                      <svg class="icon icon--fill icon--left" aria-hidden="true">
                           <use xlink:href="img/svg_symbols.svg#icon-fully-remote"></use>
                       </svg>
                       <span>
@@ -98,7 +101,7 @@
 
                   <li v-if="typeof company.type !== 'undefined' && company.type !== null" class="grid__item">
                     <div class="title title--small">
-                      <svg class="icon icon-company-info" aria-hidden="true">
+                      <svg class="icon icon--fill icon--left" aria-hidden="true">
                           <use xlink:href="img/svg_symbols.svg#icon-type"></use>
                       </svg>
                       <span>
@@ -109,7 +112,7 @@
 
                   <li v-if="typeof company.size !== 'undefined'" class="grid__item">
                     <div class="title title--small">
-                      <svg class="icon icon-company-info" aria-hidden="true">
+                      <svg class="icon icon--fill icon--left" aria-hidden="true">
                           <use xlink:href="img/svg_symbols.svg#icon-people"></use>
                       </svg>
                       <span>
@@ -147,16 +150,12 @@
         </div>
         <div class="main__footer" v-if="pagination.last_page > 1">
           <div class="pagination-container">
-            <ul role="navigation" class="pagination">
-              <li class="page-item" v-for="n in pagination.last_page" :class="n == pagination.current_page ? 'active' : ''">
-                <a href="#" @click.prevent="submit(n)" class="page-link">{{ n }}</a>
-              </li>
-            </ul>
+            <pagination :pages="pagination" @submit="submit"></pagination>
           </div>
         </div>
       </div>
   </div>
-  <dialogcompany @close="onDialogClose()" :slug="dialog_company"></dialogcompany>
+  <dialogcompany @close="onDialogClose()" :slug="dialog_company" :settings="settings"></dialogcompany>
 </div>
 </template>
 
@@ -172,6 +171,7 @@ import inputcompanytype from '../components/InputCompanyType';
 import inputdropdowntags from '../components/InputDropdownTags';
 import inputlocation from '../components/InputLocation';
 import dialogcompany from '../components/DialogCompany.vue';
+import pagination from '../components/Pagination.vue';
 
 var qs = require('qs');
 
@@ -204,7 +204,6 @@ export default {
   watch: {
     filters: {
       deep: true,
-
       handler(){
         this.submit();
       }
@@ -221,7 +220,7 @@ export default {
     showCompanyDialog(slug){
       var body = document.body;
       body.classList.add("no-scroll");
-      history.replaceState(null, '', '/company/'+slug);
+      // history.replaceState(null, '', '/company/'+slug);
       this.dialog_company = slug;
     },
     getIds(array){
@@ -234,9 +233,11 @@ export default {
     },
     submit(page_number){
 
-      var page = 
-      console.log(page_number);
       this.state.loading = false;
+
+      if(page_number !== undefined){
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
 
       var hiring_regions_ids = [];
       for (var i = 0; i < this.filters.timezones.length; i++) {
@@ -324,7 +325,7 @@ export default {
     },
   },
   components: {
-    inputtools, inputtimezones, inputcountries, inputbenefits, inputcompanytype, inputdropdowntags, inputfilter, dialogcompany
+    inputtools, inputtimezones, inputcountries, inputbenefits, inputcompanytype, inputdropdowntags, inputfilter, dialogcompany, pagination
   }
 }
 </script>

@@ -15,7 +15,9 @@ Route::get('/', 'CompaniesController@showAll');
 Route::get('/companies', 'CompaniesController@showCompaniesByStack');
 Route::get('/companyid/{id}', 'CompaniesController@showCompanyById');
 Route::get('/company/{slug}', 'CompaniesController@showCompany');
-Route::get('/tool/{slug}', 'ToolsController@showTool');
+Route::get('/stack/{slug}', 'ToolsController@showTool');
+
+Route::get('/remote-companies-using-{slug}', 'ToolsController@showTool');
 
 Route::get('/scraper/stackoverflow', 'ScraperController@scrapeStackOverflow');
 
@@ -37,6 +39,10 @@ Route::get('/scraper/stackshare-company', 'ScraperController@scrapeCompanyOnStac
 Route::get('/scraper/ft', 'ScraperController@findTools');
 
 Route::get('/search-tools/{keyword}', 'SearchController@searchTools');
+
+Route::get('/landing', function(){
+	return view('landing');
+});
 
 
 

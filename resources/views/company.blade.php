@@ -60,7 +60,7 @@
                               @endif
                             </div>
                             @if(!$company->is_verified)
-                                <modalclaim :company_logo="`{!!(isset($company->logo) && !empty($company->logo)) ? asset($company->logo) : asset('img/default.svg') !!}`" :company_url="`{!! $meta_data['company_url_host'] !!}`" :company_name="`{!!  $company->name !!}`"></modalclaim>
+                                <modalclaim :company_logo="`{!!(isset($company->logo) && !empty($company->logo)) ? asset($company->logo) : '' !!}`" :company_url="`{!! $meta_data['company_url_host'] !!}`" :company_name="`{!!  $company->name !!}`"></modalclaim>
                             @endif
 
                         </div>
@@ -245,7 +245,7 @@
                                 <div class="grid grid--tools">
                                     @foreach($tools_group as $tool)
                                         <div class="grid__item grid__item--tools">
-                                            <a href="/tool/{{$tool->slug}}" class="thumbnail thumbnail--tool">
+                                            <a href="/stack/{{$tool->slug}}" class="thumbnail thumbnail--tool">
                                                 @if(isset($tool->logo))
                                                     <img class="thumbnail--tool__img" src="{{ asset($tool->logo)}}" alt="{{ $tool->name }} logo">
                                                 @else

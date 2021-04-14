@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="input__container">
-                <input :id="'industries_'+company_id"  ref="input" v-model="autocomplete_input" placeholder="Pick your company's industry" type="text" class="input input--wrapped" @focus="show_dropdown = true;">
+                <input :id="'industries_'+company_id"  ref="input" v-model="autocomplete_input" :placeholder="placeholder" type="text" class="input input--wrapped" @focus="show_dropdown = true;">
                 <div v-if="show_dropdown && checkIfMaxSelected" class="dropdown">
                     <div class="dropdown__outlay" v-if="show_dropdown" @click="show_dropdown = !show_dropdown"></div>
                     <div v-if="autocomplete_input.length == 0">
@@ -50,7 +50,8 @@
             selected: {
                 type: Array,
                 required: false
-            }
+            },
+            placeholder: String
         },
         computed: {
             checkIfMaxSelected: function(){

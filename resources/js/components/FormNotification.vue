@@ -1,19 +1,19 @@
 <template>
   <div class="subscribe">
-      <div class="subscribe__header" v-show="false">
+<!--       <div class="subscribe__header" v-show="false">
         <div class="counter">
           <span class="counter__number">13</span>
           <div class="counter__title">Persons</div>
         </div>
         <span class="title">want to join <b>{{ company_name }}</b></span>
-      </div>
-      <div class="subscribe__header" v-show="true">
+      </div> -->
+<!--       <div class="subscribe__header" v-show="true">
         <div class="counter">
           <span class="counter__number">13</span>
           <div class="counter__title">People</div>
         </div>
         <span class="title">want to join <b>{{ company_name }}</b></span>
-      </div>
+      </div> -->
       <div class="subscribe__body">
         <form class="form form--notify">
           <div class="toggle">
@@ -21,7 +21,7 @@
                 <input class="tgl tgl-light" id="notifications" v-model="notification" type="checkbox"/>
                 <label class="tgl-btn" for="notifications" ></label>
             </span>
-            <label class="label--toggle" for="notifications">Notify me of new jobs at <b>{{ company_name }}</b></label>
+            <label class="label--toggle" for="notifications">Notify me of new jobs <!-- at --> <!-- <b>{{ company_name }}</b> --></label>
           </div>
           <div v-show="notification" class="fieldset fieldset--notify fieldset--full-width">
               <label v-for="category in categories" :for="'c'+category.id" class="field-checkbox field--full-width">

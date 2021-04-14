@@ -3,18 +3,26 @@
 	background-size: 1920px 1080px; 
 }
 
-.icon-photo { @include sprite; }
+.icon-photo, .icon-timeoff, .icon-compensation, .icon-health, .icon-benefits, .icon-dribbble, .icon-photo { @include sprite; }
 
 .icon-photo { background-position: -25px -18px; width: 80px; height: 80px; }
 
 .logo { background-position: -38px -24px; width: 158px; height: 31px; }
 
+.icon-timeoff, .icon-compensation, .icon-health, .icon-benefits {width: 19px; height: 19px; }
+
+.icon-timeoff { background-position: -93px -109px; }
+.icon-compensation { background-position: -71px -109px; }
+.icon-health { background-position: -48px -109px; }
+.icon-benefits { background-position: -25px -109px; }
+.icon-dribbble { background-position: -125px -18px; width: 24px; height: 24px; }
+
 %icon{
-	$s: 1.5rem;
+	$s: 1.25rem;
 	height: $s;
 	width: $s;
 	margin-left: 8px;
-	fill: none;	
+	fill: set-colors('grey', 'light');
 	stroke: set-colors('grey', 'base');
 	stroke-miterlimit: 10;
 	stroke-width: 4px;
@@ -24,6 +32,34 @@
 
 .icon{
 	flex: 0 0 auto;
+	@extend %icon;
+
+	&--fill{
+		stroke: none;
+
+		&--yellow{
+			fill: set-colors('yellow', 'lighter');
+		}
+	}
+
+	&--right{
+		margin-left: 8px;
+		margin-right: 0;
+	}
+
+	&--left{
+		margin-left: 0;
+		margin-right: 8px;
+	}
+}
+
+.icon-social{
+	margin-right: 0rem;
+	fill: set-colors('grey', 'lighter');
+}
+
+.icon-email{
+	fill: set-colors('yellow', 'lightest');
 }
 
 
@@ -48,7 +84,7 @@
 	}
 
 	&--large{
-		stroke-width: 2px;
+		stroke-width: 3px;
 		$s: 24px;
 		height: $s;
 		width: $s;
@@ -61,12 +97,40 @@
 	}
 }
 
-.icon-social{
-	$s: 1.25rem;	
+.icon-arrow{
+
+	&--left{
+		$s: 0.75rem;	
+		height: $s;
+		width: $s;
+		fill: none;
+		margin: 0;
+		transform: rotate(-90deg);
+		stroke: set-colors('grey', 'base');
+		stroke-width: 3px;
+	}
+
+	&--right{
+		$s: 0.75rem;	
+		height: $s;
+		width: $s;
+		fill: none;
+		margin: 0;
+		transform: rotate(90deg);
+		stroke: set-colors('grey', 'base');
+		stroke-width: 3px;
+	}
+}
+
+.icon-open{
+	fill:none;
+	stroke: set-colors('yellow', 'lightest');
+	stroke-miterlimit: 10;
+	stroke-width: 1px;
+	$s: 1rem;	
 	height: $s;
 	width: $s;
-	margin-right: 0rem;
-	fill: set-colors('yellow', 'lighter');
+	margin-left: 0.5rem;
 }
 
 .icon-tag{
@@ -78,23 +142,11 @@
 	stroke: none;
 }
 
-.icon-company-info{
-	$s: 1.25rem;	
-	height: $s;
-	width: $s;
-	margin-right: 0.5rem;
-
-	&--no-margin{
-		margin: 0;
-	}
-}
-
 .icon-benefit{
-	$s: 1.25rem;	
+	$s: 32px;	
 	height: $s;
 	width: $s;
-	margin-right: 0;
-	fill: set-colors('grey', 'dark');
+	margin-right: 8px;
 }
 
 .icon-verified{
@@ -102,6 +154,7 @@
 	height: $s;
 	width: $s;
 	margin-right: 0;
+	stroke: none;
 }
 
 

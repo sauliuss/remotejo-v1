@@ -24,6 +24,18 @@ use DB;
 
 class CompaniesController extends Controller
 {
+
+    /*
+    ** Report company page info
+    **
+    */
+    public function report($id){
+
+        // 1.
+        // 2. return json succcess message
+
+    }
+
     public function showAll(){
     	$companies  = Company::with(['tools', 'jobs', 'benefits', 'hiring_regions','industries'])->oldest()->paginate(5);
     	$regions = HiringRegion::all();
@@ -53,6 +65,7 @@ class CompaniesController extends Controller
     				'remote_level' => RemoteLevel::toSelectArray(),
     				'size' => CompanySize::toSelectArray(),
     				'type' => CompanyType::toSelectArray(),
+                    'job_categories' => JobCategory::all(),
     			];
 
 
@@ -292,7 +305,7 @@ class CompaniesController extends Controller
             $query->whereIn('type', $type);
         }
 
-        $results = $query->latest()->paginate(20);
+        $results = $query->oldest()->paginate(10);
     
 
        // $company = Company::whereIn('remote_level', $levels)->
@@ -320,6 +333,12 @@ class CompaniesController extends Controller
                             'benefits' => $category_benefits
                         ]);
         }
+
+        // Gets remote levels with description
+
+        // Array
+        $remote_levels = RemoteLevel::toSelectArray();
+        
 
        $response = [
                 'data' => $results,

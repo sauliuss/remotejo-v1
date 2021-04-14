@@ -33,33 +33,8 @@
         </style>
     </head>
     <body>
-        <div class="wrapper" id="app">
-            @component('components/navigation')
-            @endcomponent
-            @foreach($data as $tool)
-                <div class="hero hero--tool">
-                    <div class="hero__container">
-                        <img class="avatar__img--medium avatar__img--tool" src="{{asset($tool->logo)}}" alt="">
-                        <div class="overview overview--tool">
-                            <div class="overview__title">
-                              {{ $tool->name }}
-                            </div>
-                            <div class="overview__subtitle">
-                              is used by {{ count($tool->companies) }} remote {{ count($tool->companies) <= 1 ? 'company' : 'companies' }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content content--property">
-                    <div class="main">
-                        @foreach($tool->companies as $company)
-                            <thumbnailcompany :company="{{ $company }}"></thumbnailcompany>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
-            @component('components/footer')
-            @endcomponent
+        <div class="wrapper">
+            Hey
         </div>
 
         <script src="{{ mix('js/bootstrap.js') }}"></script>

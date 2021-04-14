@@ -1,8 +1,5 @@
 <template>
     <div class="field">
-<!--         <div v-if="title" class="label">
-            {{title}}
-        </div> -->
         <div class="field__options">
             <label v-for="(item, index) in options" @click="check(index)" class="field-checkbox" :for="removeTitleSpace+index">
               <span class="input-checkbox">

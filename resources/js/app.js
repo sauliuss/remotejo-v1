@@ -10,6 +10,8 @@ import formnotification from './components/FormNotification';
 import modalclaim from './components/ModalClaim';
 import filtercompanies from './components/FilterCompanies';
 import inputtimezones from './components/InputTimezones';
+import thumbnailcompany from './components/ThumbnailCompany';
+
 
 window.Vue = require('vue');
 
@@ -37,5 +39,5 @@ const app = new Vue({
     	founded: '',
 
     },
-    components: {formcompany, modalclaim, formnotification,filtercompanies, inputtimezones}
+    components: {formcompany, modalclaim, formnotification,filtercompanies, inputtimezones, thumbnailcompany}
 });

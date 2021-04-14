@@ -1,9 +1,9 @@
 
 @mixin loading-placeholder(){
   animation: loading-gradient 1s infinite linear;
-  background: linear-gradient(90deg, set-colors('grey', 'light') 0%, set-colors('grey', 'lightest') 16.6%,
+  background: linear-gradient(90deg, set-colors('grey', 'light') 0%, set-colors('grey', 'lighter') 16.6%,
     set-colors('grey', 'light') 33.2%, set-colors('grey', 'light') 49.8%,
-    set-colors('grey', 'lightest') 66.4%, set-colors('grey', 'light') 83%, set-colors('grey', 'light') 100%);
+    set-colors('grey', 'lighter') 66.4%, set-colors('grey', 'light') 83%, set-colors('grey', 'light') 100%);
   position: relative;
   background-size: 200% 100%;
 
