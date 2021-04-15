@@ -14,7 +14,9 @@ const mix = require('laravel-mix');
 mix.disableSuccessNotifications()
 	.js('resources/js/app.js', 'public/js')
 	.js('resources/js/bootstrap.js', 'public/js')
-	.sass('resources/sass/style.scss', 'public/css')
+	.sass('resources/sass/style.scss', 'public/css').options({
+    	processCssUrls: false
+	})
 	.browserSync({
 		notify: false,
 		files: ['public/css/**/*.css', 'public/js/*.js', 'resources/js/**/*.vue'],

@@ -7,7 +7,7 @@
           <svg class="icon icon--fill icon--left icon-email" aria-hidden="true">
               <use xlink:href="/img/svg_symbols.svg#icon-email"></use>
           </svg>
-          <span class="btn__text">Create Job Alert</span>
+          <span class="btn__text">Create job alert</span>
         </button>
       </div>
       <label v-if="this.state.error" for="email-alert" class="alert alert--error">Ooops</label>

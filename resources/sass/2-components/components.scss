@@ -7,8 +7,7 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-
-.is-loading{
+.is-loading {
     @include loading-placeholder;
 }
 
@@ -405,7 +404,6 @@
             @include helvetica-neue-medium;
             color: set-colors('grey', 'dark');
             display: flex;
-
             &:hover {
                 box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.15);
                 background: $gradient-grey-hover;
@@ -425,7 +423,7 @@
     align-items: flex-end;
     background: $bg-black;
     position: relative;
-    @include mobile{
+    @include mobile {
         padding: 2rem 0;
     }
     &__container {
@@ -437,10 +435,10 @@
         align-items: flex-end;
         &--dialog {
             padding: 0rem 2rem 0rem 4rem;
-            @include mobile{
+            @include mobile {
                 flex-flow: column;
                 justify-content: center;
-                align-items: center;    
+                align-items: center;
             }
         }
     }
@@ -471,7 +469,7 @@
     justify-content: flex-start;
     align-items: flex-end;
     @include text-small;
-    @include mobile{
+    @include mobile {
         justify-content: center;
         align-items: center;
         margin: 0;
@@ -523,9 +521,7 @@
             }
         }
     }
-
-    &__info{
-    }
+    &__info {}
     &--tool {
         flex: 0 1 auto;
         flex-flow: row wrap;
@@ -726,33 +722,28 @@
     justify-content: flex-start;
     align-items: center;
     color: set-colors('grey', 'dark');
-
-    &.is-loading{
+    &.is-loading {
         display: flex;
         $s: 12rem;
         width: $s;
         height: $s;
         border-radius: 0.5rem;
     }
-
     &--modal {
         justify-content: stretch;
         align-items: center;
         margin-top: -1rem;
         margin-bottom: 1rem;
     }
-
-    &--dialog{
+    &--dialog {
         margin-bottom: -6rem;
-
-        @include mobile{
+        @include mobile {
             margin-bottom: 0;
         }
     }
     &--thumbnail {
         margin-right: 2rem;
     }
-
     &.is-column {
         width: 100%;
         margin-bottom: 1rem;
@@ -812,8 +803,7 @@
         height: $s;
         padding: $s * 0.05;
         box-shadow: $shadow-avatar-small;
-
-        @include mobile{
+        @include mobile {
             $s: 4rem;
             width: $s;
             height: $s;
@@ -969,8 +959,7 @@
     @include text-normal;
     margin: 0;
     color: set-colors('grey', 'dark');
-
-    &.is-loading{
+    &.is-loading {
         height: 4rem;
         width: 100%;
     }
@@ -981,13 +970,11 @@
     display: flex;
     flex-flow: row wrap;
     flex: 1;
-
-    &.is-loading{
+    &.is-loading {
         width: 200px;
         height: 2rem;
         border-radius: 4px;
     }
-
     &--micro {
         margin: 0 -0.25rem 0rem -0.25rem;
     }
@@ -1013,7 +1000,6 @@
 
 .grid__item {
     padding: 0 0.5rem 1rem 0.5rem;
-
     &--micro {
         padding: 0 0.25rem 0.5rem 0.25rem;
     }
@@ -1030,15 +1016,15 @@
         width: 50%;
         flex: 1 0 auto;
         margin-bottom: 2rem;
-
-        @include phoblet{
+        @include phoblet {
             flex: 1 0 100%;
         }
-        @include mobile{
+        @include mobile {
             flex: 1 0 100%;
         }
     }
-    &--tools, &--regions {
+    &--tools,
+    &--regions {
         // width: 25%;
         flex: 0 0 auto;
     }
@@ -1282,23 +1268,20 @@
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: flex-start;
-
-    &--benefits{
+    color: set-colors('grey', 'dark');
+    &--benefits {
         margin-left: 40px;
         @include text-normal;
         @include helvetica-neue-regular;
-        color: set-colors('grey', 'dark');
+        margin-top: -0.5rem;
     }
-
-    &--regions{
+    &--regions {
         margin-left: 30px;
         @include text-small;
-        @include helvetica-neue-bold;
-        color: set-colors('grey', 'base');
+        @include helvetica-neue-medium;
         margin-top: 0.5rem;
     }
-
-    &.is-loading{
+    &.is-loading {
         width: 100%;
         min-width: 2rem;
         height: 2rem;
@@ -1306,19 +1289,20 @@
     }
 }
 
-.list__item{
+.list__item {
     margin-bottom: 1.5rem;
     &:last-of-type {
         margin-bottom: 0;
     }
-
-    &--benefits{
+    &--benefits {
+        margin-bottom: 0;
     }
-
-    &--regions{
+    &--regions {
         margin-bottom: 0.5rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
     }
-
 }
 
 .company-thumbnail {
@@ -1414,16 +1398,14 @@
         margin-bottom: 1rem;
         border-bottom: 1px solid set-colors('grey', 'light');
     }
-
-    &--industries{
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      justify-content: flex-start;
-      flex-flow: row wrap;
+    &--industries {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        justify-content: flex-start;
+        flex-flow: row wrap;
     }
-
-    &--light{
-      color: set-colors('grey', 'lighter');
+    &--light {
+        color: set-colors('grey', 'lighter');
     }
 }
 
@@ -1446,7 +1428,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: 90%;
+    width: 95%;
     max-width: 1080px;
 }
 
@@ -1471,34 +1453,111 @@
     text-align: center;
 }
 
-
-.btn--popup{
-  display: flex;
-  position: relative;
-  margin-left: 0.5rem;
-  overflow: visible;
-  width: 1rem;
-  height: 1rem;
-  color: #fff;
-  cursor: pointer;
-
-  &:hover{
-    color: transparent;
-
-    .popup--industries{
-      display: flex;
+.btn--popup {
+    display: flex;
+    position: relative;
+    margin-left: 0.5rem;
+    overflow: visible;
+    width: 1rem;
+    height: 1rem;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+        color: transparent;
+        .popup--industries {
+            display: flex;
+        }
     }
-  }
+    .popup--industries {
+        $s: 30rem;
+        display: none;
+        position: absolute;
+        width: $s;
+        top: 0;
+        right: -$s + 1rem;
+        z-index: 999;
+    }
+}
+
+.link {
+    &--list {
+        $s: 0.5rem;
+        display: block;
+        margin-left: - $s;
+        color: set-colors('grey', 'dark');
+        padding: $s;
+        text-decoration: none;
+        border-radius: 4px;
+        &:hover {
+            color: set-colors('grey', 'dark');
+            text-decoration: none;
+            background-color: set-colors('grey', 'lighter');
+        }
+
+        &:visited {
+            color: set-colors('grey', 'dark');
+            text-decoration: none;
+        }
+    }
+}
 
 
-  .popup--industries{
-    $s: 30rem;
-    display: none;
+.tooltip{
+    $arrow-length: 5px;
+    $arrow-width: 10px;
+    $width: 200px;
+
     position: absolute;
-    width: $s;
-    top: 0;
-    right: -$s + 1rem;
-    z-index: 999;
+    background-color: set-colors('grey', 'dark');
+    color: #fff;
+    padding: 0.5rem;
+    width: $width;
+    margin-right: 50%;
+    right: - $width / 2;
+    top: 100%;
+    margin-top: $arrow-length;
+    @include text-small;
+    pointer-events: none;
+    text-align: center;
+    border-radius: 4px;
 
-  }
+    // Animated properties
+    visibility: hidden;
+    opacity: 0;
+    transform: translate(0, $arrow-length);
+    transition: visibility 0s linear 0.25s,
+                opacity 0.25s ease-in 0s,
+                transform 0.25s ease-in 0s; 
+
+    &:before{
+        content: '';
+        bottom: 100%;
+        left: 50%;
+        margin-left: - $arrow-width/2;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 $arrow-length $arrow-length $arrow-length;
+        border-color: transparent transparent set-colors('grey', 'dark') transparent;
+        -webkit-transform: rotate(360deg);
+    }
+
+
+}
+
+.has-tooltip{
+    position: relative;
+    overflow: visible;
+    &:hover, &:focus{
+        .tooltip{
+            visibility: visible;
+            opacity: 1;
+            transform: translate(0, 0);
+            transition: visibility 0s linear 0s,
+                        opacity 0.25s ease-in 0s,
+                        transform 0.25s ease-in 0s; 
+        }
+    }
+
 }

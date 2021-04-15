@@ -8,6 +8,7 @@
             <button class="btn-close btn-close--modal" @click="close()">
               <icon :name="'close--large'"></icon>
             </button>
+
             <div class="hero">
               <a :href="'/company/'+company.slug" target="_blank" class="btn btn--small btn--new-window">
                 <span>Open in a new window</span>
@@ -119,38 +120,37 @@
             </div>
               <div class="content content--company content--dialog">
                   <div class="sidebar sidebar--left">
-                      <div class="list">
-                          <div v-if="this.state.loading" class="list__item is-loading"></div>
-                          <div v-if="this.state.loading" class="list__item is-loading"></div>
-                          <div v-if="this.state.loading" class="list__item is-loading"></div>
-                          <div v-if="company.remote_level !== null" class="list__item">
-                              <div v-if="company.remote_level == 0" class="title">
-                                  <svg class="icon icon--fill icon--left" aria-hidden="true">
-                                      <use xlink:href="/img/svg_symbols.svg#icon-remote-friendly"></use>
-                                  </svg>
-                                  <span>
-                                      {{ company.remote_level_name }}
-                                  </span>
-                              </div>
-                              <div v-else-if="company.remote_level == 1"  class="title">
-                                  <svg class="icon icon--fill icon--left" aria-hidden="true">
-                                      <use xlink:href="/img/svg_symbols.svg#icon-remote-first"></use>
-                                  </svg>
-                                  <span>
-                                      {{ company.remote_level_name }}
-                                  </span>
-                              </div>
-                              <div v-else-if="company.remote_level == 2" class="title">
-                                  <svg class="icon icon--fill icon--left" aria-hidden="true">
-                                      <use xlink:href="/img/svg_symbols.svg#icon-fully-remote"></use>
-                                  </svg>
-                                  <span>
-                                      {{ company.remote_level_name }}
-                                  </span>
-                              </div>
-                          </div>
+                      <ul class="list">
+                          <li v-if="this.state.loading" class="list__item is-loading"></li>
+                          <li v-if="this.state.loading" class="list__item is-loading"></li>
+                          <li v-if="this.state.loading" class="list__item is-loading"></li>
+                          <li v-if="company.remote_level !== null" class="list__item">
+                            <div class="title">
+                              <svg v-if="company.remote_level == 0" class="icon icon--fill icon--left" aria-hidden="true">
+                                  <use xlink:href="/img/svg_symbols.svg#icon-remote-friendly"></use>
+                              </svg>
+                              <svg v-else-if="company.remote_level == 1" class="icon icon--fill icon--left" aria-hidden="true">
+                                  <use xlink:href="/img/svg_symbols.svg#icon-remote-first"></use>
+                              </svg>
+                              <svg v-else-if="company.remote_level == 2" class="icon icon--fill icon--left" aria-hidden="true">
+                                  <use xlink:href="/img/svg_symbols.svg#icon-fully-remote"></use>
+                              </svg>
+                                <span>Remote level</span>
+                            </div>
+                            <ul class="list list--regions">
+                              <li class="list__item list__item--regions has-tooltip">
+                                {{ company.remote_level_name }}
+                                <svg class="icon-info" aria-hidden="true">
+                                    <use xlink:href="/img/svg_symbols.svg#icon-info"></use>
+                                </svg>
+                                <span class="tooltip" role="tooltip">
+                                  Only a small part of the team works remotely
+                                </span>
+                              </li>
+                            </ul>
+                          </li>
 
-                          <div class="list__item">
+                          <li v-if="company.timezones.length !== 0 || company.regions.length !== 0" class="list__item">
                               <div class="title">
                                   <svg class="icon icon icon--fill icon--left" aria-hidden="true">
                                       <use xlink:href="/img/svg_symbols.svg#icon-people"></use>
@@ -167,38 +167,36 @@
                                    <span>{{ region.emoji }}</span> <span>{{ region.name }}</span>
                                 </li>
                               </ul>
-                          </div>
+                          </li>
 
-                          <div v-if="company.headquaters !== null && company.headquaters !== 'null'" class="list__item">
+                          <li v-if="company.headquaters !== null && company.headquaters !== 'null'" class="list__item">
                               <div class="title">
                                   <svg class="icon icon icon--fill icon--left" aria-hidden="true">
                                       <use xlink:href="/img/svg_symbols.svg#icon-location"></use>
                                   </svg>
-                                  <span>
-                                      Office location
-                                  </span>
+                                  <span>Headquaters</span>
                               </div>
                               <ul class="list list--regions">
                                 <li class="list__item list__item--regions">
                                   {{ company.headquaters }}
                                 </li>
                               </ul>
-                          </div>
+                          </li>
 
-                          <div class="list__item">
+                          <li class="list__item">
                               <span class="title title--disclaimer">
                                   This profile was updated last time by {{ company.is_verified ? company.name : 'community' }} {{ company.updated_at}}
                               </span>
-                           </div>
-                           <div class="list__item">
+                           </li>
+                           <li class="list__item">
                                <button class="btn btn--light btn--small btn-report">
                                 <svg class="icon icon icon--fill icon--left" aria-hidden="true">
-                                    <use xlink:href="/img/svg_symbols.svg#icon-location"></use>
+                                    <use xlink:href="/img/svg_symbols.svg#icon-flag"></use>
                                 </svg>
                                 <span class="btn__text">Report this page</span>   
                                </button>
-                            </div>
-                       </div>
+                            </li>
+                       </ul>
                   </div>
                   <div class="main main--company">
                       <div class="main__section section">
@@ -227,38 +225,9 @@
                             </div>
                           </div> -->
                       </div>
-<!--                       <div class="main__section section">
-                          <h2 class="section__title">Hires in</h2>
-                          <div v-if="company.timezones == undefined || company.timezones.length == 0 && company.regions == undefined || company.regions.length == 0" class="section__body section__body--empty">
-                            No information yet :/
-                          </div>
-                          <h3 v-if="company.timezones !== undefined && company.timezones.length > 0" class="section__subtitle">Timezones</h3>
-                          <div v-if="company.timezones !== undefined && company.timezones.length > 0" class="editor-timezones__body editor-timezones__body--display">
-                            <div v-for="timezone in settings.hiring_regions.timezones" class="editor-timezones__item">
-                                <div class="timezone">
-                                    <span class="timezone__bar" :class="company.timezones.includes(timezone.id) ? 'timezone__bar--active' : 'timezone__bar--display'"></span>
-                                    <div class="timezone__label" :class="company.timezones.includes(timezone.id) ? 'timezone__label--active' : null ">
-                                        {{ timezone.name }}
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                          <h3 v-if="company.regions !== undefined && company.regions.length > 0" class="section__subtitle">Continents and countries</h3>
-                          <div v-if="company.regions !== undefined && company.regions.length > 0" class="grid">
-                            <div v-for="region in company.regions" class="grid__item grid__item--regions">
-                                <a :href="'/region/'+region.slug" class="thumbnail thumbnail--region">
-                                    <span>{{ region.emoji }}</span>
-                                    <span>{{ region.name }}</span>
-                                </a>
-                            </div>
-                          </div>
-                      </div> -->
-                      <div class="main__section section">
+                      <div v-if="company.tools.length !== 0" class="main__section section">
                           <h2 class="section__title">Stack</h2>
-                          <div v-if="company.tools == undefined ||  company.tools.length == 0" class="section__body section__body--empty">
-                            kok
-                          </div>
-                          <div v-else class="section__body" v-for="tools in company.tools">
+                          <div class="section__body" v-for="tools in company.tools">
                             <h3 class="section__subtitle">{{ tools[0].type.name }}</h3>
                             <div class="grid grid--tools">
                                     <div v-for="tool in tools" class="grid__item grid__item--tools">
@@ -271,14 +240,10 @@
                             </div>
                           </div>
                       </div>
-                      <div class="main__section section">
+                      <div v-if="company.benefits.length !== 0" class="main__section section">
                           <h2 class="section__title">Benefits</h2>
 
-                          <div v-if="company.benefits == undefined ||  company.benefits.length == 0" class="section__body section__body--empty">
-                            No benefits added yet :/
-                          </div>
-
-                          <div v-else class="grid">
+                          <div class="grid">
                             <div v-if="company.benefits.health !== undefined" class="grid__item grid__item--benefits">
                               <h3 class="section__subtitle">
                                 <svg class="icon-benefit" aria-hidden="true">
@@ -288,6 +253,9 @@
                               </h3>
                               <ul class="list list--benefits">
                                 <li class="list__item list__item--benefits" v-for="benefit in company.benefits.health">
+                                  <svg class="icon icon--left icon-tick" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
+                                  </svg>
                                   {{ benefit.name }}
                                 </li>
                               </ul>
@@ -302,6 +270,9 @@
                               </h3>
                               <ul class="list list--benefits">
                                 <li class="list__item list__item--benefits" v-for="benefit in company.benefits.compensation">
+                                  <svg class="icon icon--left icon-tick" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
+                                  </svg>
                                   {{ benefit.name }}
                                 </li>
                               </ul>
@@ -312,10 +283,13 @@
                                 <svg class="icon-benefit" aria-hidden="true">
                                   <use xlink:href="/img/svg_symbols.svg#icon-timeoff"></use>
                                 </svg>
-                                <span>Work, Family and Time-Off</span>
+                                <span>Work and Life</span>
                               </h3>
                               <ul class="list list--benefits">
                                 <li class="list__item list__item--benefits" v-for="benefit in company.benefits.timeoff">
+                                  <svg class="icon icon--left icon-tick" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
+                                  </svg>
                                   {{ benefit.name }}
                                 </li>
                               </ul>
@@ -330,7 +304,12 @@
                               </h3>
                               <ul class="list list--benefits">
                                 <li class="list__item list__item--benefits" v-for="benefit in company.benefits.other">
-                                  {{ benefit.name }}
+                                  <a :href="benefit.slug" class="link link--list">
+                                    <svg class="icon icon--left icon-tick" aria-hidden="true">
+                                        <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
+                                    </svg>
+                                    {{ benefit.name }}
+                                  </a>
                                 </li>
                               </ul>
                             </div>
@@ -437,6 +416,8 @@ export default {
       .then(response => {
         this.state.loading = false;
         this.company = response.data.data;
+
+        console.log(this.company.benefits);
 
         window.addEventListener('load', function(){
           console.log("okkk");

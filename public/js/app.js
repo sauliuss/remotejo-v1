@@ -8739,27 +8739,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -8820,6 +8799,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/company/' + this.slug).then(function (response) {
         _this2.state.loading = false;
         _this2.company = response.data.data;
+        console.log(_this2.company.benefits);
         window.addEventListener('load', function () {
           console.log("okkk");
         }); // Creates an array of industries to show in a popup
@@ -51442,30 +51422,24 @@ var render = function() {
                     { staticClass: "content content--company content--dialog" },
                     [
                       _c("div", { staticClass: "sidebar sidebar--left" }, [
-                        _c("div", { staticClass: "list" }, [
+                        _c("ul", { staticClass: "list" }, [
                           this.state.loading
-                            ? _c("div", {
-                                staticClass: "list__item is-loading"
-                              })
+                            ? _c("li", { staticClass: "list__item is-loading" })
                             : _vm._e(),
                           _vm._v(" "),
                           this.state.loading
-                            ? _c("div", {
-                                staticClass: "list__item is-loading"
-                              })
+                            ? _c("li", { staticClass: "list__item is-loading" })
                             : _vm._e(),
                           _vm._v(" "),
                           this.state.loading
-                            ? _c("div", {
-                                staticClass: "list__item is-loading"
-                              })
+                            ? _c("li", { staticClass: "list__item is-loading" })
                             : _vm._e(),
                           _vm._v(" "),
                           _vm.company.remote_level !== null
-                            ? _c("div", { staticClass: "list__item" }, [
-                                _vm.company.remote_level == 0
-                                  ? _c("div", { staticClass: "title" }, [
-                                      _c(
+                            ? _c("li", { staticClass: "list__item" }, [
+                                _c("div", { staticClass: "title" }, [
+                                  _vm.company.remote_level == 0
+                                    ? _c(
                                         "svg",
                                         {
                                           staticClass:
@@ -51480,21 +51454,9 @@ var render = function() {
                                             }
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("span", [
-                                        _vm._v(
-                                          "\n                                      " +
-                                            _vm._s(
-                                              _vm.company.remote_level_name
-                                            ) +
-                                            "\n                                  "
-                                        )
-                                      ])
-                                    ])
-                                  : _vm.company.remote_level == 1
-                                  ? _c("div", { staticClass: "title" }, [
-                                      _c(
+                                      )
+                                    : _vm.company.remote_level == 1
+                                    ? _c(
                                         "svg",
                                         {
                                           staticClass:
@@ -51509,21 +51471,9 @@ var render = function() {
                                             }
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("span", [
-                                        _vm._v(
-                                          "\n                                      " +
-                                            _vm._s(
-                                              _vm.company.remote_level_name
-                                            ) +
-                                            "\n                                  "
-                                        )
-                                      ])
-                                    ])
-                                  : _vm.company.remote_level == 2
-                                  ? _c("div", { staticClass: "title" }, [
-                                      _c(
+                                      )
+                                    : _vm.company.remote_level == 2
+                                    ? _c(
                                         "svg",
                                         {
                                           staticClass:
@@ -51538,95 +51488,145 @@ var render = function() {
                                             }
                                           })
                                         ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("span", [
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("Remote level")])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "ul",
+                                  { staticClass: "list list--regions" },
+                                  [
+                                    _c(
+                                      "li",
+                                      {
+                                        staticClass:
+                                          "list__item list__item--regions has-tooltip"
+                                      },
+                                      [
                                         _vm._v(
-                                          "\n                                      " +
+                                          "\n                                " +
                                             _vm._s(
                                               _vm.company.remote_level_name
                                             ) +
-                                            "\n                                  "
+                                            "\n                                "
+                                        ),
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "icon-info",
+                                            attrs: { "aria-hidden": "true" }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-info"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "tooltip",
+                                            attrs: { role: "tooltip" }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                  Only a small part of the team works remotely\n                                "
+                                            )
+                                          ]
                                         )
-                                      ])
-                                    ])
-                                  : _vm._e()
+                                      ]
+                                    )
+                                  ]
+                                )
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("div", { staticClass: "list__item" }, [
-                            _c("div", { staticClass: "title" }, [
-                              _c(
-                                "svg",
-                                {
-                                  staticClass:
-                                    "icon icon icon--fill icon--left",
-                                  attrs: { "aria-hidden": "true" }
-                                },
-                                [
-                                  _c("use", {
-                                    attrs: {
-                                      "xlink:href":
-                                        "/img/svg_symbols.svg#icon-people"
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("span", [
-                                _vm._v(
-                                  "\n                                    Hires remotely\n                                  "
+                          _vm.company.timezones.length !== 0 ||
+                          _vm.company.regions.length !== 0
+                            ? _c("li", { staticClass: "list__item" }, [
+                                _c("div", { staticClass: "title" }, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "icon icon icon--fill icon--left",
+                                      attrs: { "aria-hidden": "true" }
+                                    },
+                                    [
+                                      _c("use", {
+                                        attrs: {
+                                          "xlink:href":
+                                            "/img/svg_symbols.svg#icon-people"
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                                    Hires remotely\n                                  "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "ul",
+                                  { staticClass: "list list--regions" },
+                                  [
+                                    _vm._l(_vm.company.timezones, function(
+                                      timezone
+                                    ) {
+                                      return _c(
+                                        "li",
+                                        {
+                                          staticClass:
+                                            "list__item list__item--regions"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                  UTC" +
+                                              _vm._s(timezone.name) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.company.regions, function(
+                                      region
+                                    ) {
+                                      return _c(
+                                        "li",
+                                        {
+                                          staticClass:
+                                            "list__item list__item--regions"
+                                        },
+                                        [
+                                          _c("span", [
+                                            _vm._v(_vm._s(region.emoji))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(_vm._s(region.name))
+                                          ])
+                                        ]
+                                      )
+                                    })
+                                  ],
+                                  2
                                 )
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "ul",
-                              { staticClass: "list list--regions" },
-                              [
-                                _vm._l(_vm.company.timezones, function(
-                                  timezone
-                                ) {
-                                  return _c(
-                                    "li",
-                                    {
-                                      staticClass:
-                                        "list__item list__item--regions"
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                  UTC" +
-                                          _vm._s(timezone.name) +
-                                          "\n                                "
-                                      )
-                                    ]
-                                  )
-                                }),
-                                _vm._v(" "),
-                                _vm._l(_vm.company.regions, function(region) {
-                                  return _c(
-                                    "li",
-                                    {
-                                      staticClass:
-                                        "list__item list__item--regions"
-                                    },
-                                    [
-                                      _c("span", [
-                                        _vm._v(_vm._s(region.emoji))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("span", [_vm._v(_vm._s(region.name))])
-                                    ]
-                                  )
-                                })
-                              ],
-                              2
-                            )
-                          ]),
+                            : _vm._e(),
                           _vm._v(" "),
                           _vm.company.headquaters !== null &&
                           _vm.company.headquaters !== "null"
-                            ? _c("div", { staticClass: "list__item" }, [
+                            ? _c("li", { staticClass: "list__item" }, [
                                 _c("div", { staticClass: "title" }, [
                                   _c(
                                     "svg",
@@ -51645,11 +51645,7 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                                      Office location\n                                  "
-                                    )
-                                  ])
+                                  _c("span", [_vm._v("Headquaters")])
                                 ]),
                                 _vm._v(" "),
                                 _c(
@@ -51675,7 +51671,7 @@ var render = function() {
                               ])
                             : _vm._e(),
                           _vm._v(" "),
-                          _c("div", { staticClass: "list__item" }, [
+                          _c("li", { staticClass: "list__item" }, [
                             _c(
                               "span",
                               { staticClass: "title title--disclaimer" },
@@ -51695,7 +51691,7 @@ var render = function() {
                             )
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "list__item" }, [
+                          _c("li", { staticClass: "list__item" }, [
                             _c(
                               "button",
                               {
@@ -51714,7 +51710,7 @@ var render = function() {
                                     _c("use", {
                                       attrs: {
                                         "xlink:href":
-                                          "/img/svg_symbols.svg#icon-location"
+                                          "/img/svg_symbols.svg#icon-flag"
                                       }
                                     })
                                   ]
@@ -51782,29 +51778,16 @@ var render = function() {
                           1
                         ),
                         _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "main__section section" },
-                          [
-                            _c("h2", { staticClass: "section__title" }, [
-                              _vm._v("Stack")
-                            ]),
-                            _vm._v(" "),
-                            _vm.company.tools == undefined ||
-                            _vm.company.tools.length == 0
-                              ? _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "section__body section__body--empty"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                            kok\n                          "
-                                    )
-                                  ]
-                                )
-                              : _vm._l(_vm.company.tools, function(tools) {
+                        _vm.company.tools.length !== 0
+                          ? _c(
+                              "div",
+                              { staticClass: "main__section section" },
+                              [
+                                _c("h2", { staticClass: "section__title" }, [
+                                  _vm._v("Stack")
+                                ]),
+                                _vm._v(" "),
+                                _vm._l(_vm.company.tools, function(tools) {
                                   return _c(
                                     "div",
                                     { staticClass: "section__body" },
@@ -51874,285 +51857,382 @@ var render = function() {
                                     ]
                                   )
                                 })
-                          ],
-                          2
-                        ),
+                              ],
+                              2
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
-                        _c("div", { staticClass: "main__section section" }, [
-                          _c("h2", { staticClass: "section__title" }, [
-                            _vm._v("Benefits")
-                          ]),
-                          _vm._v(" "),
-                          _vm.company.benefits == undefined ||
-                          _vm.company.benefits.length == 0
-                            ? _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "section__body section__body--empty"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            No benefits added yet :/\n                          "
-                                  )
-                                ]
-                              )
-                            : _c("div", { staticClass: "grid" }, [
-                                _vm.company.benefits.health !== undefined
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "grid__item grid__item--benefits"
-                                      },
-                                      [
-                                        _c(
-                                          "h3",
-                                          { staticClass: "section__subtitle" },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass: "icon-benefit",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-health"
-                                                  }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("span", [
-                                              _vm._v("Health and Welness")
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "ul",
-                                          {
-                                            staticClass: "list list--benefits"
-                                          },
-                                          _vm._l(
-                                            _vm.company.benefits.health,
-                                            function(benefit) {
-                                              return _c(
-                                                "li",
-                                                {
-                                                  staticClass:
-                                                    "list__item list__item--benefits"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    "\n                                  " +
-                                                      _vm._s(benefit.name) +
-                                                      "\n                                "
-                                                  )
-                                                ]
-                                              )
-                                            }
-                                          ),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
+                        _vm.company.benefits.length !== 0
+                          ? _c(
+                              "div",
+                              { staticClass: "main__section section" },
+                              [
+                                _c("h2", { staticClass: "section__title" }, [
+                                  _vm._v("Benefits")
+                                ]),
                                 _vm._v(" "),
-                                _vm.company.benefits.compensation !== undefined
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "grid__item grid__item--benefits"
-                                      },
-                                      [
-                                        _c(
-                                          "h3",
-                                          { staticClass: "section__subtitle" },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass: "icon-benefit",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-money"
-                                                  }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("span", [_vm._v("Compensation")])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "ul",
-                                          {
-                                            staticClass: "list list--benefits"
-                                          },
-                                          _vm._l(
-                                            _vm.company.benefits.compensation,
-                                            function(benefit) {
-                                              return _c(
-                                                "li",
+                                _c("div", { staticClass: "grid" }, [
+                                  _vm.company.benefits.health !== undefined
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "grid__item grid__item--benefits"
+                                        },
+                                        [
+                                          _c(
+                                            "h3",
+                                            {
+                                              staticClass: "section__subtitle"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
                                                 {
-                                                  staticClass:
-                                                    "list__item list__item--benefits"
+                                                  staticClass: "icon-benefit",
+                                                  attrs: {
+                                                    "aria-hidden": "true"
+                                                  }
                                                 },
                                                 [
-                                                  _vm._v(
-                                                    "\n                                  " +
-                                                      _vm._s(benefit.name) +
-                                                      "\n                                "
-                                                  )
+                                                  _c("use", {
+                                                    attrs: {
+                                                      "xlink:href":
+                                                        "/img/svg_symbols.svg#icon-health"
+                                                    }
+                                                  })
                                                 ]
-                                              )
-                                            }
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v("Health and Welness")
+                                              ])
+                                            ]
                                           ),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.company.benefits.timeoff !== undefined
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "grid__item grid__item--benefits"
-                                      },
-                                      [
-                                        _c(
-                                          "h3",
-                                          { staticClass: "section__subtitle" },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass: "icon-benefit",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-timeoff"
-                                                  }
-                                                })
-                                              ]
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list--benefits"
+                                            },
+                                            _vm._l(
+                                              _vm.company.benefits.health,
+                                              function(benefit) {
+                                                return _c(
+                                                  "li",
+                                                  {
+                                                    staticClass:
+                                                      "list__item list__item--benefits"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "svg",
+                                                      {
+                                                        staticClass:
+                                                          "icon icon--left icon-tick",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("use", {
+                                                          attrs: {
+                                                            "xlink:href":
+                                                              "/img/svg_symbols.svg#icon-tick"
+                                                          }
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "\n                                  " +
+                                                        _vm._s(benefit.name) +
+                                                        "\n                                "
+                                                    )
+                                                  ]
+                                                )
+                                              }
                                             ),
-                                            _vm._v(" "),
-                                            _c("span", [
-                                              _vm._v(
-                                                "Work, Family and Time-Off"
-                                              )
-                                            ])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "ul",
-                                          {
-                                            staticClass: "list list--benefits"
-                                          },
-                                          _vm._l(
-                                            _vm.company.benefits.timeoff,
-                                            function(benefit) {
-                                              return _c(
-                                                "li",
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.company.benefits.compensation !==
+                                  undefined
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "grid__item grid__item--benefits"
+                                        },
+                                        [
+                                          _c(
+                                            "h3",
+                                            {
+                                              staticClass: "section__subtitle"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
                                                 {
-                                                  staticClass:
-                                                    "list__item list__item--benefits"
+                                                  staticClass: "icon-benefit",
+                                                  attrs: {
+                                                    "aria-hidden": "true"
+                                                  }
                                                 },
                                                 [
-                                                  _vm._v(
-                                                    "\n                                  " +
-                                                      _vm._s(benefit.name) +
-                                                      "\n                                "
-                                                  )
+                                                  _c("use", {
+                                                    attrs: {
+                                                      "xlink:href":
+                                                        "/img/svg_symbols.svg#icon-money"
+                                                    }
+                                                  })
                                                 ]
-                                              )
-                                            }
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v("Compensation")
+                                              ])
+                                            ]
                                           ),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.company.benefits.other !== undefined
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "grid__item grid__item--benefits"
-                                      },
-                                      [
-                                        _c(
-                                          "h3",
-                                          { staticClass: "section__subtitle" },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass: "icon-benefit",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-other"
-                                                  }
-                                                })
-                                              ]
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list--benefits"
+                                            },
+                                            _vm._l(
+                                              _vm.company.benefits.compensation,
+                                              function(benefit) {
+                                                return _c(
+                                                  "li",
+                                                  {
+                                                    staticClass:
+                                                      "list__item list__item--benefits"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "svg",
+                                                      {
+                                                        staticClass:
+                                                          "icon icon--left icon-tick",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("use", {
+                                                          attrs: {
+                                                            "xlink:href":
+                                                              "/img/svg_symbols.svg#icon-tick"
+                                                          }
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "\n                                  " +
+                                                        _vm._s(benefit.name) +
+                                                        "\n                                "
+                                                    )
+                                                  ]
+                                                )
+                                              }
                                             ),
-                                            _vm._v(" "),
-                                            _c("span", [_vm._v("Other")])
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "ul",
-                                          {
-                                            staticClass: "list list--benefits"
-                                          },
-                                          _vm._l(
-                                            _vm.company.benefits.other,
-                                            function(benefit) {
-                                              return _c(
-                                                "li",
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.company.benefits.timeoff !== undefined
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "grid__item grid__item--benefits"
+                                        },
+                                        [
+                                          _c(
+                                            "h3",
+                                            {
+                                              staticClass: "section__subtitle"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
                                                 {
-                                                  staticClass:
-                                                    "list__item list__item--benefits"
+                                                  staticClass: "icon-benefit",
+                                                  attrs: {
+                                                    "aria-hidden": "true"
+                                                  }
                                                 },
                                                 [
-                                                  _vm._v(
-                                                    "\n                                  " +
-                                                      _vm._s(benefit.name) +
-                                                      "\n                                "
-                                                  )
+                                                  _c("use", {
+                                                    attrs: {
+                                                      "xlink:href":
+                                                        "/img/svg_symbols.svg#icon-timeoff"
+                                                    }
+                                                  })
                                                 ]
-                                              )
-                                            }
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", [
+                                                _vm._v("Work and Life")
+                                              ])
+                                            ]
                                           ),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ])
-                        ])
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list--benefits"
+                                            },
+                                            _vm._l(
+                                              _vm.company.benefits.timeoff,
+                                              function(benefit) {
+                                                return _c(
+                                                  "li",
+                                                  {
+                                                    staticClass:
+                                                      "list__item list__item--benefits"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "svg",
+                                                      {
+                                                        staticClass:
+                                                          "icon icon--left icon-tick",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("use", {
+                                                          attrs: {
+                                                            "xlink:href":
+                                                              "/img/svg_symbols.svg#icon-tick"
+                                                          }
+                                                        })
+                                                      ]
+                                                    ),
+                                                    _vm._v(
+                                                      "\n                                  " +
+                                                        _vm._s(benefit.name) +
+                                                        "\n                                "
+                                                    )
+                                                  ]
+                                                )
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.company.benefits.other !== undefined
+                                    ? _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "grid__item grid__item--benefits"
+                                        },
+                                        [
+                                          _c(
+                                            "h3",
+                                            {
+                                              staticClass: "section__subtitle"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
+                                                {
+                                                  staticClass: "icon-benefit",
+                                                  attrs: {
+                                                    "aria-hidden": "true"
+                                                  }
+                                                },
+                                                [
+                                                  _c("use", {
+                                                    attrs: {
+                                                      "xlink:href":
+                                                        "/img/svg_symbols.svg#icon-other"
+                                                    }
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("span", [_vm._v("Other")])
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "ul",
+                                            {
+                                              staticClass: "list list--benefits"
+                                            },
+                                            _vm._l(
+                                              _vm.company.benefits.other,
+                                              function(benefit) {
+                                                return _c(
+                                                  "li",
+                                                  {
+                                                    staticClass:
+                                                      "list__item list__item--benefits"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "a",
+                                                      {
+                                                        staticClass:
+                                                          "link link--list",
+                                                        attrs: {
+                                                          href: benefit.slug
+                                                        }
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "svg",
+                                                          {
+                                                            staticClass:
+                                                              "icon icon--left icon-tick",
+                                                            attrs: {
+                                                              "aria-hidden":
+                                                                "true"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("use", {
+                                                              attrs: {
+                                                                "xlink:href":
+                                                                  "/img/svg_symbols.svg#icon-tick"
+                                                              }
+                                                            })
+                                                          ]
+                                                        ),
+                                                        _vm._v(
+                                                          "\n                                    " +
+                                                            _vm._s(
+                                                              benefit.name
+                                                            ) +
+                                                            "\n                                  "
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              }
+                                            ),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ]
+                            )
+                          : _vm._e()
                       ])
                     ]
                   )
@@ -52908,7 +52988,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("span", { staticClass: "btn__text" }, [_vm._v("Create Job Alert")])
+          _c("span", { staticClass: "btn__text" }, [_vm._v("Create job alert")])
         ]
       )
     ]),

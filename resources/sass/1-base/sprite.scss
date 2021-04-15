@@ -126,7 +126,7 @@
 	fill:none;
 	stroke: set-colors('yellow', 'lightest');
 	stroke-miterlimit: 10;
-	stroke-width: 1px;
+	stroke-width: 2px;
 	$s: 1rem;	
 	height: $s;
 	width: $s;
@@ -140,6 +140,19 @@
 	margin-right: 0.5rem;
 	fill: set-colors('yellow', 'lighter');
 	stroke: none;
+}
+
+.icon-info{
+	$s: 16px;	
+	height: $s;
+	width: $s;
+	margin-left: 0.25rem;
+	fill: set-colors('blue', 'light');
+	stroke: none;
+
+	&:hover{
+		fill: set-colors('blue', 'base');
+	}
 }
 
 .icon-benefit{
@@ -157,7 +170,18 @@
 	stroke: none;
 }
 
-
+.icon-tick{
+	$s: 12px;	
+	height: $s;
+	width: $s;
+	margin-right: 0;
+	stroke: set-colors('green', 'dark');
+	fill: none;
+	stroke-linecap: round;
+	stroke-width: 4px;
+	stroke-miterlimit: 10;
+	margin-right: 0.25rem;
+}
 
 .logo{
 	fill: set-colors('yellow', 'base');
