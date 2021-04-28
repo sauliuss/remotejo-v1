@@ -49,16 +49,9 @@
                         </svg>                
                     </span>
                 </span>
-                <ul v-if="company.industries.length > 0" class="grid grid--micro">
-                  <li class="grid__item grid__item--micro">
-                    <svg class="icon icon--fill icon--right" aria-hidden="true">
-                        <use xlink:href="img/svg_symbols.svg#icon-tag"></use>
-                    </svg>
-                  </li>
-                  <li v-for="(industry, index) in company.industries" class="grid__item grid__item--micro">
-                    <div class="title title--small title--tag">
-                      <a :href="'/industries/'+industry.slug">{{ industry.name }}</a>
-                    </div>
+                <ul v-if="company.industries !== undefined && company.industries.length > 0" class="industries industries--thumbnail">
+                  <li v-for="(industry, key) in company.industries">
+                    <a class="link link--industry" :href="'/industries/'+industry.slug">{{industry.name}}</a>&nbsp;<span class="middot">&middot;</span>&nbsp;  
                   </li>
                 </ul>
 
@@ -126,7 +119,7 @@
                   <ul class="grid grid--align-center" v-if="company.hiring_regions.length > 0">
                      <li v-for="hiring_region in company.hiring_regions" v-if="getIds(filters.countries).indexOf(hiring_region.id) > -1 || getIds(filters.timezones).indexOf(hiring_region.id) > -1" class="grid__item">
                        <div v-if="hiring_region.type == 'timezone'" class="thumbnail thumbnail--badge"> 
-                        {{ 'UTC '+hiring_region.name }}
+                        {{ 'GMT '+hiring_region.name }}
                        </div>
                        <div v-else class="thumbnail thumbnail--badge"> 
                          {{ hiring_region.name }}

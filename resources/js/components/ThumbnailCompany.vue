@@ -16,14 +16,10 @@
                     </span>
                 </span>
                 <ul v-if="company.industries.length > 0" class="grid grid--micro">
-                  <li class="grid__item grid__item--micro">
-                    <svg class="icon-company-info icon-company-info--no-margin" aria-hidden="true">
-                        <use xlink:href="img/svg_symbols.svg#icon-tag"></use>
-                    </svg>
-                  </li>
                   <li v-for="(industry, index) in company.industries" class="grid__item grid__item--micro">
                     <div class="title title--small title--tag">
                       <a :href="'/industries/'+industry.slug">{{ industry.name }}</a>
+                      &nbsp;<span class="middot">&middot;</span>&nbsp; 
                     </div>
                   </li>
                 </ul>

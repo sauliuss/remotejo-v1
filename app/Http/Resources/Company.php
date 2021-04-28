@@ -27,6 +27,7 @@ class Company extends JsonResource
             'logo' => $this->logo,
             'is_claimed' => $this->is_claimed,
             'description_short' => $this->description_short,
+            'description_full' => $this->description_full,
             'founding_years' => $this->founding_years,
             'headquaters' => $this->headquaters,
             'remote_level' => $this->remote_level,

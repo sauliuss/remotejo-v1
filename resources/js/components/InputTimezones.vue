@@ -10,7 +10,7 @@
                     <input type="checkbox" :value="item" :id="'utc'+index+company_id" class="timezone__checkbox" v-model="selection">
                     <label :for="'utc'+index+company_id" class="timezone__bar"></label>
                     <label :for="'utc'+index+company_id" class="timezone__label">
-                        <span v-if="item.name == 0">UTC</span>
+                        <span v-if="item.name == 0">GMT</span>
                         <span v-else-if="item.name > 0">+{{item.name}}</span>
                         <span v-else>{{item.name}}</span>
                     </label>

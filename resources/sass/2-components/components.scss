@@ -423,8 +423,13 @@
     align-items: flex-end;
     background: $bg-black;
     position: relative;
+    @include phoblet {
+        padding: 4rem 0 2rem;
+        height: auto;
+    }
     @include mobile {
-        padding: 2rem 0;
+        padding: 4rem 0 2rem;
+        height: auto;
     }
     &__container {
         width: 1200px;
@@ -435,8 +440,18 @@
         align-items: flex-end;
         &--dialog {
             padding: 0rem 2rem 0rem 4rem;
+            @include tablet{
+                padding: 0rem 2rem;
+            }
+            @include phoblet {
+                padding: 0rem 2rem;
+                flex-flow: column nowrap;
+                justify-content: center;
+                align-items: center;
+            }
             @include mobile {
-                flex-flow: column;
+                padding: 0rem 2rem;
+                flex-flow: column nowrap;
                 justify-content: center;
                 align-items: center;
             }
@@ -469,11 +484,18 @@
     justify-content: flex-start;
     align-items: flex-end;
     @include text-small;
+    @include tablet{
+        margin-left: 3rem;
+    }
+    @include phoblet {
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
     @include mobile {
         justify-content: center;
         align-items: center;
         margin: 0;
-        margin-bottom: 1rem;
     }
     &__header {
         flex: 1 0 100%;
@@ -481,7 +503,17 @@
         flex-flow: row wrap;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        @include phoblet {
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        @include mobile {
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
     }
     &__title {
         @include text-large;
@@ -489,6 +521,93 @@
         font-size: 1.675rem;
         color: set-colors('yellow', 'lightest');
         text-transform: capitalize;
+        @include mobile{
+            margin-bottom: 0.5rem;   
+        }
+    }
+    &__rating{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        color: #fff;
+        position: relative;
+
+        // Visual adjustment for total rating block
+        // top: 0.5rem;
+
+        @include poppins-semi-bold;
+        @include phoblet{
+            width: 100%;
+            margin: 1rem auto 0;    
+        }
+        @include mobile{
+            width: 100%;
+            margin: 1rem auto 0;    
+        }
+
+        &__header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        &__body{
+            display: flex;
+            align-items: center;
+
+        }
+
+        &__img{
+            $width: 104px;
+            $height: 20px;
+            $scale: 1.25;
+            height: $height * $scale;
+            width: $width * $scale;
+            margin-left: 0.75rem;
+            @include phoblet{
+                $scale: 1;
+                height: $height * $scale;
+                width: $width * $scale;
+            }
+        }
+
+        &__number{
+            font-size: 1.5em;
+            color: set-colors('yellow', 'lightest');
+
+            @include phoblet{
+                @include text-normal;
+            }
+        }
+
+        &__total{
+            width: 100%;
+            @include poppins-light;
+            @include text-small;
+            text-align: right;
+            position: absolute;
+            bottom: -1.5rem;
+            left: 0;
+            color: set-colors('grey', 'light');
+
+            @include phoblet{
+                position: relative;
+                display: flex;
+                flex: 0 1 100%;
+                bottom: 0;
+                margin: 1rem 0;
+            }
+            @include mobile{
+                position: relative;
+                display: flex;
+                flex: 0 1 100%;
+                bottom: 0;
+                margin: 1rem 0;    
+            }
+        }
     }
     &__overtitle {
         color: set-colors('yellow', 'lighter');
@@ -499,29 +618,24 @@
         color: set-colors('grey', 'light');
         flex: 1 0 100%;
     }
-    &__links {
+
+    &__info {
+        width: 100%;
+        flex: 1 0 auto;
         display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
+        flex-flow: row nowrap;
+        justify-content: space-between;
         align-items: center;
-        margin-left: auto;
-        &__item {
-            margin-right: 0.5rem;
+        @include phoblet{
+
+        }
+        @include mobile{
             display: flex;
-            flex-flow: row nowrap;
+            flex-flow: column nowrap;
             justify-content: center;
-            align-items: flex-end;
-            &:last-of-type {
-                margin-right: 0;
-            }
-            .icon-twitter,
-            .icon-facebook,
-            .icon-github {
-                margin-right: 0;
-            }
+            align-items: center;     
         }
     }
-    &__info {}
     &--tool {
         flex: 0 1 auto;
         flex-flow: row wrap;
@@ -549,9 +663,13 @@
     &--large {
         font-size: 1.675rem;
         color: set-colors('yellow', 'lightest');
+        line-height: 1;
+        @include mobile{
+            font-size: 1.25rem;
+        }
     }
     &--thumbnail {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         flex: 1 0 auto;
     }
     &--loading {
@@ -565,7 +683,6 @@
     }
     &.is-medium {
         font-size: 1.375rem;
-        ;
     }
     .is-verified {
         content: "";
@@ -714,8 +831,8 @@
         }
     }
 }
-
 // Component: END
+
 // Component: USER AVATAR
 .avatar {
     display: flex;
@@ -737,8 +854,11 @@
     }
     &--dialog {
         margin-bottom: -6rem;
+        @include phoblet {
+            margin-bottom: 1rem;
+        }
         @include mobile {
-            margin-bottom: 0;
+            margin-bottom: 1rem;
         }
     }
     &--thumbnail {
@@ -803,8 +923,14 @@
         height: $s;
         padding: $s * 0.05;
         box-shadow: $shadow-avatar-small;
+        @include phoblet {
+            $s: 6rem;
+            width: $s;
+            height: $s;
+            padding: $s * 0.05;
+        }
         @include mobile {
-            $s: 4rem;
+            $s: 6rem;
             width: $s;
             height: $s;
             padding: $s * 0.05;
@@ -955,15 +1081,184 @@
     }
 }
 
+.industries{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    color: set-colors('grey', 'light');
+
+    li{
+        margin-bottom: 1rem;
+    }
+
+    li:last-of-type{
+        .middot{
+            display: none;
+        }
+    }
+
+    &--thumbnail{
+        @include text-small;
+
+        li{
+            margin-bottom: 0.5rem;
+        }
+    }
+
+}
+
+
 .company-description {
     @include text-normal;
     margin: 0;
+    margin-bottom: 1rem;
     color: set-colors('grey', 'dark');
+    width: 100%;
     &.is-loading {
         height: 4rem;
         width: 100%;
     }
 }
+
+.company-link {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    @include mobile{
+        margin-top: 2rem;    
+    }
+    &:last-of-type {
+        margin-right: 0;
+    }
+
+    a{
+        display: flex;
+    }
+    .icon-twitter,
+    .icon-facebook,
+    .icon-github {
+        margin-right: 0;
+    }
+    .link-url-icon{
+        display: flex;
+        @include mobile{
+            display: flex;    
+        }
+    }
+
+    .link-url{
+        display: flex;
+        @include mobile{
+            display: none;    
+        }
+    }
+}
+
+.reviews{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 100%;
+    border-radius: $radius-sm;
+    border: 1px solid set-colors('grey', 'light');
+
+}
+
+.review{
+    padding: 1.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    border-bottom: 1px solid set-colors('grey', 'light');
+    border-radius: $radius-sm;
+    &:last-of-type{
+        border-bottom: none;
+    }
+
+
+    &__header{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex: 1 0 auto;
+        margin-bottom: 1rem;
+        @include helvetica-neue-light;
+        color: set-colors('grey', 'base');
+        @include text-small;
+    }
+
+    &__body{
+        width: 100%;
+        flex: 1 0 auto;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__text{
+        @include helvetica-neue-regular;
+        color: set-colors('grey', 'dark');
+    }
+
+}
+
+.ratings{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    flex: 1 0 auto;
+    border: 1px solid set-colors('grey', 'light');
+    border-radius: $radius-sm;
+    padding: 1rem;
+
+    .rating{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        width: 100%;
+        flex: 1 0 auto;
+        &:last-of-type{
+            margin-bottom: 0;
+        }
+
+        &__category{
+            margin-bottom: 0.25rem;
+            @include text-small;
+            color: set-colors('grey', 'base');
+           @include helvetica-neue-medium;
+        }
+
+        &__img{
+            $width: 104px;
+            $height: 20px;
+            $scale: 1.125;
+            height: $height * $scale;
+            width: $width * $scale;
+
+            &--total{
+                $scale: 1.25;
+                height: $height * $scale;
+                width: $width * $scale;
+
+            }
+        }
+    }
+}
+
 
 .grid {
     margin: 0 -0.5rem -1rem -0.5rem;
@@ -976,7 +1271,7 @@
         border-radius: 4px;
     }
     &--micro {
-        margin: 0 -0.25rem 0rem -0.25rem;
+        margin: 0 -0.25rem -1rem -0.25rem;
     }
     &--large {
         margin: 0 -1rem -1rem -1rem;
@@ -990,6 +1285,13 @@
     &--tags {
         margin-bottom: 0.25rem;
     }
+    &--links{
+        justify-content: flex-end;
+        margin-bottom: -1rem;
+        flex: 0 1 auto;
+        margin-left: auto;
+        margin-bottom: 2rem;
+    }
     &--btm-mg-sm {
         margin-bottom: 0.5rem;
     }
@@ -1001,7 +1303,7 @@
 .grid__item {
     padding: 0 0.5rem 1rem 0.5rem;
     &--micro {
-        padding: 0 0.25rem 0.5rem 0.25rem;
+        padding: 0 0.25rem 1rem 0.25rem;
     }
     &--small {
         padding: 0 0.5rem 0.5rem 0.5rem;
@@ -1104,6 +1406,8 @@
         transition: all ease-in-out 250ms;
         &__img {
             width: 2rem;
+            height: 2rem;
+            background-color: set-colors('grey', 'lighter');
             margin-right: 1rem;
         }
         &__name {
@@ -1280,20 +1584,70 @@
         @include text-small;
         @include helvetica-neue-medium;
         margin-top: 0.5rem;
+        @include phoblet{
+            flex-flow: row wrap;
+            li:last-of-type {
+                margin-bottom: 0;
+                .middot{
+                    display: none;
+                }
+            }  
+        }
+        @include mobile{
+            flex-flow: row wrap;
+            li:last-of-type {
+                margin-bottom: 0;
+                .middot{
+                    display: none;
+                }
+            } 
+        }
     }
-    &.is-loading {
-        width: 100%;
-        min-width: 2rem;
-        height: 2rem;
-        border-radius: 4px;
+    &--remote-info {
+        // .list__item{
+        //     display: flex;
+        //     flex-flow: row nowrap;
+        //     justify-content: flex-start;
+        //     align-items: flex-start;
+
+        //     .title{
+        //         flex: 0 0 auto;
+        //     }
+
+        //     .list{
+        //         flex: 1 1 auto;
+        //         margin-top: 0;
+        //         flex-flow: row wrap;
+        //     }
+        // }
+        @include phoblet{
+
+        }
+        @include mobile{
+
+            border: 1px solid set-colors('grey', 'light');
+            border-radius: 4px;
+
+            .list__item--remote-info{
+                padding: 1rem 1rem;
+                margin-bottom: 0;
+                border-bottom: 1px solid set-colors('grey', 'light');
+                &:last-of-type{
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+    &--footer{
+        grid-area: footer;
     }
 }
 
 .list__item {
     margin-bottom: 1.5rem;
-    &:last-of-type {
-        margin-bottom: 0;
-    }
+    width: 100%;
+    flex: 1 0 auto;
+
     &--benefits {
         margin-bottom: 0;
     }
@@ -1302,6 +1656,26 @@
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        justify-content: flex-start;
+        @include phoblet{
+            width: auto;
+            flex: 0 1 auto;       
+        }
+        @include mobile{
+            width: auto;
+            flex: 0 1 auto;       
+        }
+
+        .middot{
+            display: none;
+            @include phoblet{
+                display: flex;
+            }
+            @include mobile{
+                display: flex;
+            }
+
+        }
     }
 }
 
@@ -1429,17 +1803,27 @@
     top: 0;
     right: 0;
     width: 95%;
+    height: 100%;
     max-width: 1080px;
+    @include phoblet{
+        width: 100%;
+    }
+    @include mobile{
+        width: 100%;    
+    }
 }
 
 .dialog {
     background-color: #fff;
     &--semi-full {
-        height: 100vh;
+        height: 100%;
         width: 100%;
         overflow-y: scroll;
         overflow-x: visible;
         &:focus {}
+        @include mobile{
+  
+        }
     }
 }
 
@@ -1499,6 +1883,22 @@
             text-decoration: none;
         }
     }
+
+    &--industry{
+        color: set-colors('grey', 'light');
+        text-decoration: none;
+        @include text-small;
+        &:hover {
+            color: set-colors('grey', 'dark');
+            text-decoration: underline;
+        }
+
+        &:visited {
+            color: set-colors('grey', 'dark');
+            text-decoration: none;
+        }
+
+    }
 }
 
 
@@ -1520,6 +1920,7 @@
     pointer-events: none;
     text-align: center;
     border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 
     // Animated properties
     visibility: hidden;
@@ -1560,4 +1961,8 @@
         }
     }
 
+}
+
+.middot{
+    color: set-colors('grey', 'light');
 }

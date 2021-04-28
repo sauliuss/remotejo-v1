@@ -8,10 +8,16 @@
         </a>
         <div class="nav-menu__group">
             <a href="/companies" class="nav-menu__item"><span class="link">Remote Companies</span></a>
-            <a href="/stacks" class="nav-menu__item"><span class="link link--with-label">Remote Jobs</span></a>
+            <a href="/stacks" class="nav-menu__item"><span class="link">Remote Jobs</span></a>
+            <a href="/review" class="nav-menu__item"><span class="link">Review a Company</span></a>
+            <a href="/salary" class="nav-menu__item"><span class="link">Add a Salary</span></a>
         </div>
-            <a href="/new-company" class="btn btn--small btn--nav"><span class="btn--nav__icon">+</span>Add your company</a>
             <a href="/new-job" class="btn btn--small btn--yellow">Post a job</a>
+            <a href="#" class="btn-menu">
+                <svg role="img" class="icon icon icon--fill icon-menu" aria-hidden="true">
+                    <use xlink:href="/img/svg_symbols.svg#icon-menu"></use>
+                </svg>
+            </a>
 {{--         <div class="nav-menu__item btn-show-menu">
             <a href="#" class="link in-menu">Menu</a>
             <svg class="icon-menu" id="icon-menu" aria-hidden="true">

@@ -144,14 +144,20 @@
         }
     }
     &--new-window {
-        border: 1px solid set-colors('yellow', 'lightest');
+        border: 1px solid set-colors('grey', 'base');
         position: absolute;
         top: 1rem;
         right: 2rem;
+    }
 
-        @include mobile{
-            @include text-micro;    
+    &--job-alert{
+        flex: 0 0 auto;
+        @include phoblet{
         }
+        @include mobile{
+            flex: 1 0 auto;    
+        }
+
     }
 
     &.has-tooltip{
@@ -165,6 +171,8 @@
 
 .btn-report{
   margin-top: 2rem;
+  width: 100%;
+  flex: 1 0 auto;
 }
 
 .tooltip{
@@ -188,10 +196,34 @@
     &:hover {
         opacity: 1;
     }
-    &--modal {
+    &--dialog {
         right: 0;
         left: -3rem;
         border-radius: 100%;
+
+        @include tablet{
+            left: -2rem;
+        }
+
+        @include phoblet{
+            width: 1.25rem;
+            height: 1.25rem;
+            left: 0.5rem;
+            right: 0;
+            top: 0.5rem;
+            background-color: #111;
+            border-radius: 50%;   
+        }
+
+        @include mobile{
+            width: 1.25rem;
+            height: 1.25rem;
+            left: 0.5rem;
+            right: 0;
+            top: 0.5rem;
+            background-color: #111;
+            border-radius: 50%;   
+        }
     }
 }
 
@@ -215,7 +247,7 @@
 
     &--alert {
         margin-bottom: 2rem;
-        flex: 1 0 auto;
+        flex: 1 1 auto;
         // padding: 2rem;
         // background-color: set-colors('grey', 'lightest');
     }
@@ -466,7 +498,7 @@
 
     &--alert{
       padding: 0.5rem 1rem 0.5rem 0rem;
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       justify-content: center;
       align-items: center;
       position: relative;
@@ -475,6 +507,11 @@
       // Experimenting with shadows
       box-shadow: 0 20px 30px -16px rgba(9,9,16,0.2)!important;
       background-color: set-colors('grey', 'lighter');
+
+      @include mobile{
+        flex-flow: wrap;
+        padding: 0.5rem;        
+      }
     }
 }
 
@@ -510,7 +547,7 @@
     }
 
     &--alert{
-      width: auto;
+      flex: 1 0 200px;
     }
 }
 

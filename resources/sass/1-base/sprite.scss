@@ -55,7 +55,11 @@
 
 .icon-social{
 	margin-right: 0rem;
-	fill: set-colors('grey', 'lighter');
+	fill: set-colors('grey', 'light');
+
+	&:hover{
+		fill: set-colors('grey', 'base');
+	}
 }
 
 .icon-email{
@@ -90,6 +94,16 @@
 		width: $s;
 		margin: 0;
 		stroke: #fff;
+		@include phoblet{
+			$s: 12px;
+			height: $s;
+			width: $s;
+		}
+		@include mobile{
+			$s: 12px;
+			height: $s;
+			width: $s;
+		}
 	}
 
 	&--dark{
@@ -124,13 +138,12 @@
 
 .icon-open{
 	fill:none;
-	stroke: set-colors('yellow', 'lightest');
+	stroke: set-colors('grey', 'light');
 	stroke-miterlimit: 10;
 	stroke-width: 2px;
 	$s: 1rem;	
 	height: $s;
 	width: $s;
-	margin-left: 0.5rem;
 }
 
 .icon-tag{
@@ -146,8 +159,8 @@
 	$s: 16px;	
 	height: $s;
 	width: $s;
-	margin-left: 0.25rem;
-	fill: set-colors('blue', 'light');
+	margin-left: 0.5rem;
+	fill: set-colors('grey', 'dark');
 	stroke: none;
 
 	&:hover{
@@ -156,7 +169,7 @@
 }
 
 .icon-benefit{
-	$s: 32px;	
+	$s: 36px;	
 	height: $s;
 	width: $s;
 	margin-right: 8px;
@@ -166,7 +179,7 @@
 	$s: 24px;	
 	height: $s;
 	width: $s;
-	margin-right: 0;
+	margin: 0;
 	stroke: none;
 }
 
@@ -181,6 +194,11 @@
 	stroke-width: 4px;
 	stroke-miterlimit: 10;
 	margin-right: 0.25rem;
+}
+
+.icon-menu{
+	fill: set-colors('grey', 'lightest');
+
 }
 
 .logo{

@@ -8383,6 +8383,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "./resources/js/components/Icon.vue");
 /* harmony import */ var _ModalClaim__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModalClaim */ "./resources/js/components/ModalClaim.vue");
 /* harmony import */ var _FormAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormAlert */ "./resources/js/components/FormAlert.vue");
+/* harmony import */ var _Tooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Tooltip */ "./resources/js/components/Tooltip.vue");
 //
 //
 //
@@ -8739,6 +8740,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -8749,6 +8815,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       company: '',
+      reviews_list: [],
       state: {
         loading: false,
         active: false
@@ -8765,6 +8832,25 @@ __webpack_require__.r(__webpack_exports__);
         _this.close();
       }
     });
+    this.createReviewsList();
+  },
+  updated: function updated() {// if(this.data !== ''){
+    //   var total_images = this.$el.querySelectorAll(".dialog img");
+    //   var images_loaded = 0;
+    //   function imageLoaded(){
+    //     images_loaded++
+    //     if(images_loaded == total_images.length){
+    //       console.log("Images are loaded");
+    //     }
+    //   }
+    //   for (var i = 0; i < total_images.length; i++) {
+    //     var fake_image = document.createElement('img');
+    //     fake_image.addEventListener('load', (e) => {
+    //       imageLoaded()
+    //     });
+    //     fake_image.setAttribute('src', total_images[i].getAttribute('src'));
+    //   }
+    // }
   },
   watch: {
     slug: {
@@ -8774,7 +8860,8 @@ __webpack_require__.r(__webpack_exports__);
           this.submit();
         }
       }
-    }
+    },
+    data: {}
   },
   props: {
     slug: {
@@ -8786,34 +8873,40 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    expandReview: function expandReview(review_id) {},
+    createReviewsList: function createReviewsList() {
+      var _this2 = this;
+
+      var reviews = ['s', 'd'];
+      reviews.forEach(function (el) {
+        _this2.reviews_list.push({
+          el: el,
+          active: false
+        });
+      });
+    },
     sliceIndustries: function sliceIndustries(industries) {
       return industries.shift();
     },
     close: function close() {
+      this.company = '';
       this.$emit('close', '');
     },
     submit: function submit() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.state.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/v1/company/' + this.slug).then(function (response) {
-        _this2.state.loading = false;
-        _this2.company = response.data.data;
-        console.log(_this2.company.benefits);
-        window.addEventListener('load', function () {
-          console.log("okkk");
-        }); // Creates an array of industries to show in a popup
-
-        if (_this2.company.industries.length > 1) {
-          _this2.company.industries_popup = _this2.company.industries.slice(1);
-        }
+        _this3.state.loading = false;
+        _this3.company = response.data.data;
       })["catch"](function (error) {});
     }
   },
   components: {
     icon: _Icon__WEBPACK_IMPORTED_MODULE_2__["default"],
     modalclaim: _ModalClaim__WEBPACK_IMPORTED_MODULE_3__["default"],
-    formalert: _FormAlert__WEBPACK_IMPORTED_MODULE_4__["default"]
+    formalert: _FormAlert__WEBPACK_IMPORTED_MODULE_4__["default"],
+    tooltip: _Tooltip__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
 
@@ -8841,13 +8934,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_InputLocation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/InputLocation */ "./resources/js/components/InputLocation.vue");
 /* harmony import */ var _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/DialogCompany.vue */ "./resources/js/components/DialogCompany.vue");
 /* harmony import */ var _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Pagination.vue */ "./resources/js/components/Pagination.vue");
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -10688,10 +10774,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -10732,6 +10814,49 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     dialogcompany: _components_DialogCompany_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Tooltip.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Tooltip.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'tooltip',
+  data: function data() {
+    return {
+      data: {
+        type: this.type
+      }
+    };
+  },
+  computed: {},
+  mounted: function mounted() {},
+  props: {
+    type: {
+      required: true,
+      "default": 1
+    }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -50962,7 +51087,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn-close btn-close--modal",
+                      staticClass: "btn-close btn-close--dialog",
                       on: {
                         click: function($event) {
                           return _vm.close()
@@ -50984,13 +51109,11 @@ var render = function() {
                         }
                       },
                       [
-                        _c("span", [_vm._v("Open in a new window")]),
-                        _vm._v(" "),
                         _c(
                           "svg",
                           {
                             staticClass: "icon-open",
-                            attrs: { "aria-hidden": "true" }
+                            attrs: { role: "img", "aria-hidden": "true" }
                           },
                           [
                             _c("use", {
@@ -51068,7 +51191,10 @@ var render = function() {
                                             "svg",
                                             {
                                               staticClass: "icon icon-verified",
-                                              attrs: { "aria-hidden": "true" }
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
                                             },
                                             [
                                               _c("use", {
@@ -51093,325 +51219,186 @@ var render = function() {
                                       company_name: _vm.company.name
                                     }
                                   })
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "grid overview__info",
-                              class: { "is-loading": this.state.loading }
-                            },
-                            [
-                              _vm.company.type !== null
-                                ? _c("div", { staticClass: "grid__item" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "title title--light" },
-                                      [
-                                        _c(
-                                          "svg",
-                                          {
-                                            staticClass:
-                                              "icon icon--fill icon--left",
-                                            attrs: { "aria-hidden": "true" }
-                                          },
-                                          [
-                                            _c("use", {
-                                              attrs: {
-                                                "xlink:href":
-                                                  "/img/svg_symbols.svg#icon-type"
-                                              }
-                                            })
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("span", [
-                                          _vm._v(
-                                            "\n                                      " +
-                                              _vm._s(_vm.company.type_alias) +
-                                              "\n                                  "
-                                          )
-                                        ])
-                                      ]
-                                    )
-                                  ])
                                 : _vm._e(),
                               _vm._v(" "),
-                              _vm.company.size !== null
-                                ? _c("div", { staticClass: "grid__item" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "title title--light" },
-                                      [
-                                        _c(
-                                          "svg",
-                                          {
-                                            staticClass:
-                                              "icon icon--left icon--fill",
-                                            attrs: { "aria-hidden": "true" }
-                                          },
-                                          [
-                                            _c("use", {
-                                              attrs: {
-                                                "xlink:href":
-                                                  "/img/svg_symbols.svg#icon-people"
-                                              }
-                                            })
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("span", [
-                                          _vm._v(
-                                            "\n                                      " +
-                                              _vm._s(_vm.company.size_alias) +
-                                              "\n                                  "
-                                          )
-                                        ])
-                                      ]
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.company.industries !== undefined &&
-                              _vm.company.industries.length > 0
-                                ? _c("div", { staticClass: "grid__item" }, [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "title title--light title--industries"
-                                      },
-                                      [
-                                        _c(
-                                          "svg",
-                                          {
-                                            staticClass:
-                                              "icon icon icon--fill icon--left",
-                                            attrs: { "aria-hidden": "true" }
-                                          },
-                                          [
-                                            _c("use", {
-                                              attrs: {
-                                                "xlink:href":
-                                                  "/img/svg_symbols.svg#icon-tag"
-                                              }
-                                            })
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("span", [
-                                          _c(
-                                            "a",
-                                            {
-                                              attrs: {
-                                                href:
-                                                  "/industries/" +
-                                                  _vm.company.industries[0].slug
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                      " +
-                                                  _vm._s(
-                                                    _vm.company.industries[0]
-                                                      .name
-                                                  ) +
-                                                  "\n                                    "
-                                              )
-                                            ]
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _vm.company.industries.length > 1
-                                          ? _c(
-                                              "div",
-                                              { staticClass: "btn--popup" },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "popup--industries"
-                                                  },
-                                                  _vm._l(
-                                                    _vm.company
-                                                      .industries_popup,
-                                                    function(industry, key) {
-                                                      return _c("span", [
-                                                        _c(
-                                                          "a",
-                                                          {
-                                                            attrs: {
-                                                              href:
-                                                                "/industries/" +
-                                                                industry.slug
-                                                            }
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "\n                                          " +
-                                                                _vm._s(
-                                                                  industry.name
-                                                                ) +
-                                                                "\n                                        "
-                                                            )
-                                                          ]
-                                                        )
-                                                      ])
-                                                    }
-                                                  ),
-                                                  0
-                                                ),
-                                                _vm._v(
-                                                  "\n                                    ...\n                                  "
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "overview__links" }, [
+                              _c("div", { staticClass: "overview__rating" }, [
                                 _c(
                                   "div",
-                                  { staticClass: "overview__links__item" },
+                                  { staticClass: "overview__rating__header" },
                                   [
                                     _c(
-                                      "a",
+                                      "span",
                                       {
+                                        staticClass: "overview__rating__number"
+                                      },
+                                      [_vm._v("4.1")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "overview__rating__img",
                                         attrs: {
-                                          target: "_blank",
-                                          href: _vm.company.url
+                                          role: "img",
+                                          "aria-hidden": "true"
                                         }
                                       },
                                       [
-                                        _c("span", [
-                                          _vm._v(
-                                            "\n                                          " +
-                                              _vm._s(_vm.company.url_host) +
-                                              "\n                                      "
-                                          )
-                                        ])
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/ratings.svg#rating-1"
+                                          }
+                                        })
                                       ]
                                     )
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm.company.twitter !== null
-                                  ? _c(
-                                      "div",
-                                      { staticClass: "overview__links__item" },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              target: "_blank",
-                                              href: _vm.company.twitter
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass:
-                                                  "icon icon--fill icon--left icon-social",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-twitter"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
+                                _c(
+                                  "div",
+                                  { staticClass: "overview__rating__body" },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "overview__rating__total"
+                                      },
+                                      [_vm._v("10 reviews")]
                                     )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.company.facebook !== null
-                                  ? _c(
-                                      "div",
-                                      { staticClass: "overview__links__item" },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              target: "_blank",
-                                              href: _vm.company.facebook
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass:
-                                                  "icon icon--fill icon--left icon-social",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-facebook"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.company.github !== null
-                                  ? _c(
-                                      "div",
-                                      { staticClass: "overview__links__item" },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              target: "_blank",
-                                              href: _vm.company.github
-                                            }
-                                          },
-                                          [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass:
-                                                  "icon icon--fill icon--left icon-social",
-                                                attrs: { "aria-hidden": "true" }
-                                              },
-                                              [
-                                                _c("use", {
-                                                  attrs: {
-                                                    "xlink:href":
-                                                      "/img/svg_symbols.svg#icon-github"
-                                                  }
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
+                                  ]
+                                )
                               ])
-                            ]
-                          )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "overview__info" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "grid",
+                                class: { "is-loading": this.state.loading }
+                              },
+                              [
+                                _vm.company.type !== null
+                                  ? _c("div", { staticClass: "grid__item" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "title title--light" },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--fill icon--left",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-type"
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(_vm.company.type_alias) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.size !== null
+                                  ? _c("div", { staticClass: "grid__item" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "title title--light" },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--left icon--fill",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-people"
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(_vm.company.size_alias) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.company.founding_years !== null
+                                  ? _c("div", { staticClass: "grid__item" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "title title--light" },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--left icon--fill",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-founded"
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("span", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.company.founding_years
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]
+                            )
+                          ])
                         ])
                       ]
                     )
@@ -51422,7 +51409,7 @@ var render = function() {
                     { staticClass: "content content--company content--dialog" },
                     [
                       _c("div", { staticClass: "sidebar sidebar--left" }, [
-                        _c("ul", { staticClass: "list" }, [
+                        _c("ul", { staticClass: "list list--remote-info" }, [
                           this.state.loading
                             ? _c("li", { staticClass: "list__item is-loading" })
                             : _vm._e(),
@@ -51436,153 +51423,265 @@ var render = function() {
                             : _vm._e(),
                           _vm._v(" "),
                           _vm.company.remote_level !== null
-                            ? _c("li", { staticClass: "list__item" }, [
-                                _c("div", { staticClass: "title" }, [
-                                  _vm.company.remote_level == 0
-                                    ? _c(
-                                        "svg",
-                                        {
-                                          staticClass:
-                                            "icon icon--fill icon--left",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-remote-friendly"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    : _vm.company.remote_level == 1
-                                    ? _c(
-                                        "svg",
-                                        {
-                                          staticClass:
-                                            "icon icon--fill icon--left",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-remote-first"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    : _vm.company.remote_level == 2
-                                    ? _c(
-                                        "svg",
-                                        {
-                                          staticClass:
-                                            "icon icon--fill icon--left",
-                                          attrs: { "aria-hidden": "true" }
-                                        },
-                                        [
-                                          _c("use", {
-                                            attrs: {
-                                              "xlink:href":
-                                                "/img/svg_symbols.svg#icon-fully-remote"
-                                            }
-                                          })
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("Remote level")])
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "ul",
-                                  { staticClass: "list list--regions" },
-                                  [
-                                    _c(
-                                      "li",
-                                      {
-                                        staticClass:
-                                          "list__item list__item--regions has-tooltip"
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                " +
-                                            _vm._s(
-                                              _vm.company.remote_level_name
-                                            ) +
-                                            "\n                                "
-                                        ),
-                                        _c(
+                            ? _c(
+                                "li",
+                                {
+                                  staticClass:
+                                    "list__item list__item--remote-info"
+                                },
+                                [
+                                  _c("div", { staticClass: "title" }, [
+                                    _vm.company.remote_level == 0
+                                      ? _c(
                                           "svg",
                                           {
-                                            staticClass: "icon-info",
-                                            attrs: { "aria-hidden": "true" }
+                                            staticClass:
+                                              "icon icon--fill icon--left icon-level",
+                                            attrs: {
+                                              role: "img",
+                                              "aria-hidden": "true"
+                                            }
                                           },
                                           [
                                             _c("use", {
                                               attrs: {
                                                 "xlink:href":
-                                                  "/img/svg_symbols.svg#icon-info"
+                                                  "/img/svg_symbols.svg#icon-level--friendly"
                                               }
                                             })
                                           ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "span",
+                                        )
+                                      : _vm.company.remote_level == 1
+                                      ? _c(
+                                          "svg",
                                           {
-                                            staticClass: "tooltip",
-                                            attrs: { role: "tooltip" }
+                                            staticClass:
+                                              "icon icon--fill icon--left icon-level",
+                                            attrs: {
+                                              role: "img",
+                                              "aria-hidden": "true"
+                                            }
                                           },
                                           [
-                                            _vm._v(
-                                              "\n                                  Only a small part of the team works remotely\n                                "
-                                            )
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-level--first"
+                                              }
+                                            })
                                           ]
                                         )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ])
+                                      : _vm.company.remote_level == 2
+                                      ? _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "icon icon--fill icon--left icon-level",
+                                            attrs: {
+                                              role: "img",
+                                              "aria-hidden": "true"
+                                            }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/svg_symbols.svg#icon-level--all"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("span", [_vm._v("Remote level")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "ul",
+                                    { staticClass: "list list--regions" },
+                                    [
+                                      _c(
+                                        "li",
+                                        {
+                                          staticClass:
+                                            "list__item list__item--regions has-tooltip"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(
+                                                _vm.company.remote_level_name
+                                              ) +
+                                              "\n                                "
+                                          ),
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass: "icon-info",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-info"
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("tooltip", {
+                                            attrs: {
+                                              type: _vm.company.remote_level
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
                             : _vm._e(),
                           _vm._v(" "),
                           _vm.company.timezones.length !== 0 ||
                           _vm.company.regions.length !== 0
-                            ? _c("li", { staticClass: "list__item" }, [
-                                _c("div", { staticClass: "title" }, [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass:
-                                        "icon icon icon--fill icon--left",
-                                      attrs: { "aria-hidden": "true" }
-                                    },
-                                    [
-                                      _c("use", {
+                            ? _c(
+                                "li",
+                                {
+                                  staticClass:
+                                    "list__item list__item--remote-info"
+                                },
+                                [
+                                  _c("div", { staticClass: "title" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon icon--fill icon--left",
                                         attrs: {
-                                          "xlink:href":
-                                            "/img/svg_symbols.svg#icon-people"
+                                          role: "img",
+                                          "aria-hidden": "true"
                                         }
-                                      })
-                                    ]
-                                  ),
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-people"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._v(
+                                        "\n                                    Hires remotely\n                                  "
+                                      )
+                                    ])
+                                  ]),
                                   _vm._v(" "),
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                                    Hires remotely\n                                  "
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "ul",
-                                  { staticClass: "list list--regions" },
-                                  [
-                                    _vm._l(_vm.company.timezones, function(
-                                      timezone
-                                    ) {
-                                      return _c(
+                                  _c(
+                                    "ul",
+                                    { staticClass: "list list--regions" },
+                                    [
+                                      _vm._l(_vm.company.timezones, function(
+                                        timezone
+                                      ) {
+                                        return _c(
+                                          "li",
+                                          {
+                                            staticClass:
+                                              "list__item list__item--regions"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                  GMT" +
+                                                _vm._s(timezone.name)
+                                            ),
+                                            _c(
+                                              "span",
+                                              { staticClass: "middot" },
+                                              [_vm._v(" · ")]
+                                            )
+                                          ]
+                                        )
+                                      }),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.company.regions, function(
+                                        region
+                                      ) {
+                                        return _c(
+                                          "li",
+                                          {
+                                            staticClass:
+                                              "list__item list__item--regions"
+                                          },
+                                          [
+                                            _c("span", [
+                                              _vm._v(_vm._s(region.emoji))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("span", [
+                                              _vm._v(_vm._s(region.name))
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              { staticClass: "middot" },
+                                              [_vm._v(" · ")]
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.company.headquaters !== null &&
+                          _vm.company.headquaters !== "null"
+                            ? _c(
+                                "li",
+                                {
+                                  staticClass:
+                                    "list__item list__item--remote-info"
+                                },
+                                [
+                                  _c("div", { staticClass: "title" }, [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "icon icon icon--fill icon--left",
+                                        attrs: {
+                                          role: "img",
+                                          "aria-hidden": "true"
+                                        }
+                                      },
+                                      [
+                                        _c("use", {
+                                          attrs: {
+                                            "xlink:href":
+                                              "/img/svg_symbols.svg#icon-location"
+                                          }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [_vm._v("Office locations")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "ul",
+                                    { staticClass: "list list--regions" },
+                                    [
+                                      _c(
                                         "li",
                                         {
                                           staticClass:
@@ -51590,154 +51689,495 @@ var render = function() {
                                         },
                                         [
                                           _vm._v(
-                                            "\n                                  UTC" +
-                                              _vm._s(timezone.name) +
+                                            "\n                                  " +
+                                              _vm._s(_vm.company.headquaters) +
                                               "\n                                "
                                           )
                                         ]
                                       )
-                                    }),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.company.regions, function(
-                                      region
-                                    ) {
-                                      return _c(
-                                        "li",
-                                        {
-                                          staticClass:
-                                            "list__item list__item--regions"
-                                        },
-                                        [
-                                          _c("span", [
-                                            _vm._v(_vm._s(region.emoji))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c("span", [
-                                            _vm._v(_vm._s(region.name))
-                                          ])
-                                        ]
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm.company.headquaters !== null &&
-                          _vm.company.headquaters !== "null"
-                            ? _c("li", { staticClass: "list__item" }, [
-                                _c("div", { staticClass: "title" }, [
-                                  _c(
-                                    "svg",
-                                    {
-                                      staticClass:
-                                        "icon icon icon--fill icon--left",
-                                      attrs: { "aria-hidden": "true" }
-                                    },
-                                    [
-                                      _c("use", {
-                                        attrs: {
-                                          "xlink:href":
-                                            "/img/svg_symbols.svg#icon-location"
-                                        }
-                                      })
                                     ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("span", [_vm._v("Headquaters")])
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "ul",
-                                  { staticClass: "list list--regions" },
-                                  [
-                                    _c(
-                                      "li",
-                                      {
-                                        staticClass:
-                                          "list__item list__item--regions"
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                  " +
-                                            _vm._s(_vm.company.headquaters) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "list__item" }, [
-                            _c(
-                              "span",
-                              { staticClass: "title title--disclaimer" },
-                              [
-                                _vm._v(
-                                  "\n                                  This profile was updated last time by " +
-                                    _vm._s(
-                                      _vm.company.is_verified
-                                        ? _vm.company.name
-                                        : "community"
-                                    ) +
-                                    " " +
-                                    _vm._s(_vm.company.updated_at) +
-                                    "\n                              "
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "list__item" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn--light btn--small btn-report"
-                              },
-                              [
-                                _c(
-                                  "svg",
-                                  {
-                                    staticClass:
-                                      "icon icon icon--fill icon--left",
-                                    attrs: { "aria-hidden": "true" }
-                                  },
-                                  [
-                                    _c("use", {
-                                      attrs: {
-                                        "xlink:href":
-                                          "/img/svg_symbols.svg#icon-flag"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("span", { staticClass: "btn__text" }, [
-                                  _vm._v("Report this page")
-                                ])
-                              ]
-                            )
-                          ])
+                                  )
+                                ]
+                              )
+                            : _vm._e()
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "main main--company" }, [
-                        _c("div", { staticClass: "main__section section" }, [
-                          !this.state.loading
-                            ? _c("p", { staticClass: "company-description" }, [
-                                _vm._v(_vm._s(_vm.company.description_short))
+                      _c("ul", { staticClass: "list list--footer" }, [
+                        _c("li", { staticClass: "list__item" }, [
+                          _c(
+                            "span",
+                            { staticClass: "title title--disclaimer" },
+                            [
+                              _vm._v(
+                                "\n                            This profile was updated last time by " +
+                                  _vm._s(
+                                    _vm.company.is_verified
+                                      ? _vm.company.name
+                                      : "community"
+                                  ) +
+                                  " " +
+                                  _vm._s(_vm.company.updated_at) +
+                                  "\n                        "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "list__item" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn--light btn--small btn-report"
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "icon icon icon--fill icon--left",
+                                  attrs: { role: "img", "aria-hidden": "true" }
+                                },
+                                [
+                                  _c("use", {
+                                    attrs: {
+                                      "xlink:href":
+                                        "/img/svg_symbols.svg#icon-flag"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "btn__text" }, [
+                                _vm._v("Report this page")
                               ])
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "main main--company main--company--about"
+                        },
+                        [
+                          _vm.company.industries !== undefined &&
+                          _vm.company.industries.length > 0
+                            ? _c(
+                                "ul",
+                                { staticClass: "industries" },
+                                _vm._l(_vm.company.industries, function(
+                                  industry,
+                                  key
+                                ) {
+                                  return _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "link link--industry",
+                                        attrs: {
+                                          href: "/industries/" + industry.slug
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(industry.name))]
+                                    ),
+                                    _c("span", { staticClass: "middot" }, [
+                                      _vm._v(" · ")
+                                    ])
+                                  ])
+                                }),
+                                0
+                              )
                             : _vm._e(),
+                          _vm._v(" "),
+                          _vm.company.description_full !== undefined &&
+                          _vm.company.description_full !== null
+                            ? _c("p", { staticClass: "company-description" }, [
+                                _vm._v(_vm._s(_vm.company.description_full))
+                              ])
+                            : _c("p", { staticClass: "company-description" }, [
+                                _vm._v(_vm._s(_vm.company.description_short))
+                              ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "grid grid--micro grid--links" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "grid__item grid__item--micro company-link"
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "link-url-icon",
+                                      attrs: {
+                                        target: "_blank",
+                                        href: _vm.company.url
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass:
+                                            "icon icon--fill icon--left icon-social",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/svg_symbols.svg#icon-url"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.company.twitter !== null
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "grid__item grid__item--micro company-link"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            target: "_blank",
+                                            href: _vm.company.twitter
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--fill icon--left icon-social",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-twitter"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.company.facebook !== null
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "grid__item grid__item--micro company-link"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            target: "_blank",
+                                            href: _vm.company.facebook
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--fill icon--left icon-social",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-facebook"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.company.github !== null
+                                ? _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "grid__item grid__item--micro company-link"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            target: "_blank",
+                                            href: _vm.company.github
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "icon icon--fill icon--left icon-social",
+                                              attrs: {
+                                                role: "img",
+                                                "aria-hidden": "true"
+                                              }
+                                            },
+                                            [
+                                              _c("use", {
+                                                attrs: {
+                                                  "xlink:href":
+                                                    "/img/svg_symbols.svg#icon-github"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          ),
                           _vm._v(" "),
                           this.state.loading
                             ? _c("span", {
                                 staticClass: "company-description is-loading"
                               })
                             : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "main main--company" }, [
+                        _c("div", { staticClass: "main__section section" }, [
+                          _c("h2", { staticClass: "section__title" }, [
+                            _vm._v("Reviews")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "section__body" }, [
+                            _c("ul", { staticClass: "reviews" }, [
+                              _c("div", { staticClass: "review" }, [
+                                _c("div", { staticClass: "review__header" }, [
+                                  _c("span", [
+                                    _vm._v("By "),
+                                    _c("b", [_vm._v("current employee")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", [_vm._v("2 days ago")])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "review__body" }, [
+                                  _c("p", { staticClass: "review__text" }, [
+                                    _vm._v(
+                                      "\n                                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque explicabo earum quo recusandae soluta voluptate voluptates veniam, fuga cupiditate magni dolor dolorem quaerat eius, saepe facere minus reiciendis est consectetur!"
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("ul", { staticClass: "ratings" }, [
+                                    _c(
+                                      "li",
+                                      { staticClass: "rating rating--total" },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "rating__img",
+                                            attrs: {
+                                              role: "img",
+                                              "aria-hidden": "true"
+                                            }
+                                          },
+                                          [
+                                            _c("use", {
+                                              attrs: {
+                                                "xlink:href":
+                                                  "/img/ratings.svg#rating-1"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "rating__number" },
+                                          [_vm._v("4.1")]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "rating" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "rating__category" },
+                                        [_vm._v("Remote culture")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "rating__img",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/ratings.svg#rating-5"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "rating" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "rating__category" },
+                                        [_vm._v("Career growth")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "rating__img",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/ratings.svg#rating-2"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "rating" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "rating__category" },
+                                        [_vm._v("Life and work balance")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "rating__img",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/ratings.svg#rating-4"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "rating" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "rating__category" },
+                                        [_vm._v("Compensation and benefits")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "rating__img",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/ratings.svg#rating-1"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "rating" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "rating__category" },
+                                        [_vm._v("Management")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "rating__img",
+                                          attrs: {
+                                            role: "img",
+                                            "aria-hidden": "true"
+                                          }
+                                        },
+                                        [
+                                          _c("use", {
+                                            attrs: {
+                                              "xlink:href":
+                                                "/img/ratings.svg#rating-3"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ])
                         ]),
                         _vm._v(" "),
                         _c(
@@ -51752,8 +52192,8 @@ var render = function() {
                               attrs: { company_name: _vm.company.name }
                             }),
                             _vm._v(" "),
-                            _vm.company.tools == undefined ||
-                            _vm.company.tools.length == 0
+                            _vm.company.jobs == undefined ||
+                            _vm.company.jobs.length == 0
                               ? _c(
                                   "div",
                                   {
@@ -51766,11 +52206,20 @@ var render = function() {
                                       { staticClass: "section__subtitle" },
                                       [
                                         _vm._v(
-                                          "Unfortunatelly, currently there is no available remote jobs at " +
-                                            _vm._s(_vm.company.name)
+                                          "Yikes! There is no open remote roles at " +
+                                            _vm._s(_vm.company.name) +
+                                            " at the moment"
                                         )
                                       ]
-                                    )
+                                    ),
+                                    _vm._v(" "),
+                                    _c("p", [
+                                      _vm._v(
+                                        "Set a job alert and receive the latest remote jobs from " +
+                                          _vm._s(_vm.company.name) +
+                                          ". No spam. Just opportunities in your inbox."
+                                      )
+                                    ])
                                   ]
                                 )
                               : _vm._e()
@@ -51891,6 +52340,7 @@ var render = function() {
                                                 {
                                                   staticClass: "icon-benefit",
                                                   attrs: {
+                                                    role: "img",
                                                     "aria-hidden": "true"
                                                   }
                                                 },
@@ -51931,6 +52381,7 @@ var render = function() {
                                                         staticClass:
                                                           "icon icon--left icon-tick",
                                                         attrs: {
+                                                          role: "img",
                                                           "aria-hidden": "true"
                                                         }
                                                       },
@@ -51978,6 +52429,7 @@ var render = function() {
                                                 {
                                                   staticClass: "icon-benefit",
                                                   attrs: {
+                                                    role: "img",
                                                     "aria-hidden": "true"
                                                   }
                                                 },
@@ -52018,6 +52470,7 @@ var render = function() {
                                                         staticClass:
                                                           "icon icon--left icon-tick",
                                                         attrs: {
+                                                          role: "img",
                                                           "aria-hidden": "true"
                                                         }
                                                       },
@@ -52064,6 +52517,7 @@ var render = function() {
                                                 {
                                                   staticClass: "icon-benefit",
                                                   attrs: {
+                                                    role: "img",
                                                     "aria-hidden": "true"
                                                   }
                                                 },
@@ -52104,6 +52558,7 @@ var render = function() {
                                                         staticClass:
                                                           "icon icon--left icon-tick",
                                                         attrs: {
+                                                          role: "img",
                                                           "aria-hidden": "true"
                                                         }
                                                       },
@@ -52150,6 +52605,7 @@ var render = function() {
                                                 {
                                                   staticClass: "icon-benefit",
                                                   attrs: {
+                                                    role: "img",
                                                     "aria-hidden": "true"
                                                   }
                                                 },
@@ -52198,6 +52654,7 @@ var render = function() {
                                                             staticClass:
                                                               "icon icon--left icon-tick",
                                                             attrs: {
+                                                              role: "img",
                                                               "aria-hidden":
                                                                 "true"
                                                             }
@@ -52471,71 +52928,36 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
+                        company.industries !== undefined &&
                         company.industries.length > 0
                           ? _c(
                               "ul",
-                              { staticClass: "grid grid--micro" },
-                              [
-                                _c(
-                                  "li",
-                                  {
-                                    staticClass: "grid__item grid__item--micro"
-                                  },
-                                  [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass:
-                                          "icon icon--fill icon--right",
-                                        attrs: { "aria-hidden": "true" }
-                                      },
-                                      [
-                                        _c("use", {
-                                          attrs: {
-                                            "xlink:href":
-                                              "img/svg_symbols.svg#icon-tag"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _vm._l(company.industries, function(
-                                  industry,
-                                  index
-                                ) {
-                                  return _c(
-                                    "li",
+                              {
+                                staticClass: "industries industries--thumbnail"
+                              },
+                              _vm._l(company.industries, function(
+                                industry,
+                                key
+                              ) {
+                                return _c("li", [
+                                  _c(
+                                    "a",
                                     {
-                                      staticClass:
-                                        "grid__item grid__item--micro"
+                                      staticClass: "link link--industry",
+                                      attrs: {
+                                        href: "/industries/" + industry.slug
+                                      }
                                     },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "title title--small title--tag"
-                                        },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              attrs: {
-                                                href:
-                                                  "/industries/" + industry.slug
-                                              }
-                                            },
-                                            [_vm._v(_vm._s(industry.name))]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                })
-                              ],
-                              2
+                                    [_vm._v(_vm._s(industry.name))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "middot" }, [
+                                    _vm._v("·")
+                                  ]),
+                                  _vm._v("   \n                  ")
+                                ])
+                              }),
+                              0
                             )
                           : _vm._e(),
                         _vm._v(" "),
@@ -52768,7 +53190,7 @@ var render = function() {
                                                       _vm._v(
                                                         " \n                        " +
                                                           _vm._s(
-                                                            "UTC " +
+                                                            "GMT " +
                                                               hiring_region.name
                                                           ) +
                                                           "\n                       "
@@ -52965,7 +53387,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn--yellow btn--medium",
+          staticClass: "btn btn--yellow btn--medium btn--job-alert",
           attrs: { type: "submit" },
           on: {
             click: function($event) {
@@ -52988,7 +53410,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("span", { staticClass: "btn__text" }, [_vm._v("Create job alert")])
+          _c("span", { staticClass: "btn__text" }, [_vm._v("Set job alert")])
         ]
       )
     ]),
@@ -54532,7 +54954,7 @@ var render = function() {
               },
               [
                 item.name == 0
-                  ? _c("span", [_vm._v("UTC")])
+                  ? _c("span", [_vm._v("GMT")])
                   : item.name > 0
                   ? _c("span", [_vm._v("+" + _vm._s(item.name))])
                   : _c("span", [_vm._v(_vm._s(item.name))])
@@ -55089,54 +55511,35 @@ var render = function() {
                 ? _c(
                     "ul",
                     { staticClass: "grid grid--micro" },
-                    [
-                      _c(
+                    _vm._l(_vm.company.industries, function(industry, index) {
+                      return _c(
                         "li",
                         { staticClass: "grid__item grid__item--micro" },
                         [
                           _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "icon-company-info icon-company-info--no-margin",
-                              attrs: { "aria-hidden": "true" }
-                            },
+                            "div",
+                            { staticClass: "title title--small title--tag" },
                             [
-                              _c("use", {
-                                attrs: {
-                                  "xlink:href": "img/svg_symbols.svg#icon-tag"
-                                }
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: "/industries/" + industry.slug
+                                  }
+                                },
+                                [_vm._v(_vm._s(industry.name))]
+                              ),
+                              _vm._v("\n                       "),
+                              _c("span", { staticClass: "middot" }, [
+                                _vm._v("·")
+                              ]),
+                              _vm._v("  \n                    ")
                             ]
                           )
                         ]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(_vm.company.industries, function(industry, index) {
-                        return _c(
-                          "li",
-                          { staticClass: "grid__item grid__item--micro" },
-                          [
-                            _c(
-                              "div",
-                              { staticClass: "title title--small title--tag" },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: {
-                                      href: "/industries/" + industry.slug
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(industry.name))]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      })
-                    ],
-                    2
+                      )
+                    }),
+                    0
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -55163,6 +55566,42 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return this.type == 0
+    ? _c("span", { staticClass: "tooltip", attrs: { role: "tooltip" } }, [
+        _vm._v("\n  Only a small part of the team works remotely\n")
+      ])
+    : this.type == 1
+    ? _c("span", { staticClass: "tooltip", attrs: { role: "tooltip" } }, [
+        _vm._v("\n  Most of the team works remotely\n")
+      ])
+    : this.type == 2
+    ? _c("span", { staticClass: "tooltip", attrs: { role: "tooltip" } }, [
+        _vm._v("\n  100% of the team works remotely\n")
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -67429,6 +67868,7 @@ var map = {
 	"./components/ModalClaim.vue": "./resources/js/components/ModalClaim.vue",
 	"./components/Pagination.vue": "./resources/js/components/Pagination.vue",
 	"./components/ThumbnailCompany.vue": "./resources/js/components/ThumbnailCompany.vue",
+	"./components/Tooltip.vue": "./resources/js/components/Tooltip.vue",
 	"./components/UploaderPhoto.vue": "./resources/js/components/UploaderPhoto.vue"
 };
 
@@ -68746,6 +69186,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ThumbnailCompany_vue_vue_type_template_id_54d5d848___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Tooltip.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Tooltip.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tooltip.vue?vue&type=template&id=09733fe8& */ "./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8&");
+/* harmony import */ var _Tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Tooltip.vue?vue&type=script&lang=js& */ "./resources/js/components/Tooltip.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Tooltip.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Tooltip.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/Tooltip.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Tooltip.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Tooltip.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Tooltip.vue?vue&type=template&id=09733fe8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Tooltip.vue?vue&type=template&id=09733fe8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tooltip_vue_vue_type_template_id_09733fe8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

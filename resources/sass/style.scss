@@ -5,10 +5,10 @@
 @import "1-base/colors";
 @import "1-base/typography";
 @import "1-base/sprite";
-@import "1-base/utility";
-@import "1-base/transitions";
-
 
 @import "2-components/layout";
 @import "2-components/components";
 @import "2-components/inputs";
+
+@import "1-base/utility";
+@import "1-base/transitions";

@@ -3,11 +3,11 @@
       <label class="label label--light">Be the first to know about new remote jobs at&nbsp;<b>{{company_name}}</b></label>
       <div class="input-wrapper input-wrapper--alert">
         <input id="email-alert" class="input input--wrapped input--alert" type="email" placeholder="Enter your email address">
-        <button type="submit" @click.prevent="submit(company_name)" class="btn btn--yellow btn--medium">
+        <button type="submit" @click.prevent="submit(company_name)" class="btn btn--yellow btn--medium btn--job-alert">
           <svg class="icon icon--fill icon--left icon-email" aria-hidden="true">
               <use xlink:href="/img/svg_symbols.svg#icon-email"></use>
           </svg>
-          <span class="btn__text">Create job alert</span>
+          <span class="btn__text">Set job alert</span>
         </button>
       </div>
       <label v-if="this.state.error" for="email-alert" class="alert alert--error">Ooops</label>
