@@ -357,6 +357,7 @@
     justify-content: center;
     align-items: center;
     flex: 1;
+    margin-top: 1rem;
     .pagination {
         display: flex;
         flex-flow: row nowrap;
@@ -404,6 +405,11 @@
             @include helvetica-neue-medium;
             color: set-colors('grey', 'dark');
             display: flex;
+            @include mobile{
+                $s: 1.5rem;
+                width: $s;
+                height: $s;  
+            }
             &:hover {
                 box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.15);
                 background: $gradient-grey-hover;
@@ -483,6 +489,7 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: flex-end;
+    position: relative;
     @include text-small;
     @include tablet{
         margin-left: 3rem;
@@ -528,11 +535,10 @@
     &__rating{
         display: flex;
         flex-flow: column nowrap;
-        justify-content: center;
+        justify-content: stretch;
         align-items: center;
         margin-left: auto;
         color: #fff;
-        position: relative;
 
         // Visual adjustment for total rating block
         // top: 0.5rem;
@@ -583,15 +589,11 @@
             }
         }
 
-        &__total{
-            width: 100%;
-            @include poppins-light;
-            @include text-small;
+        .title{
             text-align: right;
             position: absolute;
-            bottom: -1.5rem;
-            left: 0;
-            color: set-colors('grey', 'light');
+            bottom: -1rem;
+            right: 0;
 
             @include phoblet{
                 position: relative;
@@ -1164,36 +1166,40 @@
     justify-content: center;
     align-items: center;
     flex: 1 0 100%;
-    border-radius: $radius-sm;
+    border-radius: $radius-md;
     border: 1px solid set-colors('grey', 'light');
 
 }
 
 .review{
-    padding: 1.5rem;
+    $padding: 1.5rem;
+    $padding-mobile: 1rem;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    flex: 1;
-    border-bottom: 1px solid set-colors('grey', 'light');
-    border-radius: $radius-sm;
-    &:last-of-type{
-        border-bottom: none;
+    width: 100%;
+    @include mobile{
+        padding: 0;    
     }
 
 
     &__header{
         display: flex;
         flex-flow: row nowrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
         flex: 1 0 auto;
-        margin-bottom: 1rem;
+        padding: $padding $padding 1rem;
+        border-bottom: 1px solid set-colors('grey', 'light');
+        margin-bottom: 1.5rem;
         @include helvetica-neue-light;
         color: set-colors('grey', 'base');
-        @include text-small;
+        @include text-micro;
+        @include mobile{
+            padding: $padding-mobile;
+        }
     }
 
     &__body{
@@ -1203,13 +1209,57 @@
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
+        padding: 0 $padding $padding;
+        @include helvetica-neue-light;
+        color: set-colors('grey', 'dark');
+        @include mobile{
+            padding: 0;    
+        }
+    }
+
+    &__title{
+        margin-bottom: 2rem;
+        @include mobile{
+            padding: 0 1rem;    
+        }
     }
 
     &__text{
-        @include helvetica-neue-regular;
+        margin-bottom: 2rem;
         color: set-colors('grey', 'dark');
+        @include text-small;
+        @include mobile{
+            padding: 0 $padding-mobile;
+        }
     }
 
+    &__rating{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        &__img{
+            $width: 104px;
+            $height: 20px;
+            $scale: 1.5;
+            height: $height * $scale;
+            width: $width * $scale;
+            @include mobile{
+                $scale: 1.25;
+                height: $height * $scale;
+                width: $width * $scale;
+            }
+        }
+
+        &__number{
+            @include text-large;
+            @include helvetica-neue-bold;
+            color: set-colors('grey', 'dark');
+            margin-right: 0.5rem;
+            margin-left: auto;
+        }
+    }
 }
 
 .ratings{
@@ -1219,27 +1269,70 @@
     align-items: flex-start;
     width: 100%;
     flex: 1 0 auto;
-    border: 1px solid set-colors('grey', 'light');
-    border-radius: $radius-sm;
-    padding: 1rem;
 
     .rating{
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.5rem;
+        padding: 0.5rem 0;
         width: 100%;
         flex: 1 0 auto;
         &:last-of-type{
-            margin-bottom: 0;
+            margin-bottom: 0.5rem;
+        }
+        @include mobile{
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
-        &__category{
-            margin-bottom: 0.25rem;
+        &--overall{
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid set-colors('grey', 'light');
+            margin-bottom: 0.5rem;
+            @include mobile{
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        &__header{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        &__title{
+            // @include text-small;
+            color: set-colors('grey', 'dark');
+           // @include helvetica-neue-medium;
+           margin-bottom: 0;
+           @include mobile{
+               margin-bottom: 0.25rem;    
+           }
+
+           &--overall{
             @include text-small;
+            @include helvetica-neue-bold;
             color: set-colors('grey', 'base');
-           @include helvetica-neue-medium;
+            @include mobile{
+                margin-bottom: 0;    
+            }
+
+           }
+        }
+
+        &__number{
+            @include text-normal;
+            @include helvetica-neue-bold;
+            color: set-colors('grey', 'dark');
+            margin-right: 0.5rem;
+            margin-left: auto;
         }
 
         &__img{
@@ -1248,13 +1341,26 @@
             $scale: 1.125;
             height: $height * $scale;
             width: $width * $scale;
-
-            &--total{
-                $scale: 1.25;
-                height: $height * $scale;
-                width: $width * $scale;
+            @include mobile{
 
             }
+
+            &--overall{
+                $scale: 1.5;
+                height: $height * $scale;
+                width: $width * $scale;
+                @include mobile{
+                    $scale: 1.25;
+                    height: $height * $scale;
+                    width: $width * $scale;
+                }
+            }
+        }
+
+        &__comment{
+            width: 100%;
+            @include text-small;
+            margin: 0.5rem 0 1rem;
         }
     }
 }
@@ -1265,11 +1371,7 @@
     display: flex;
     flex-flow: row wrap;
     flex: 1;
-    &.is-loading {
-        width: 200px;
-        height: 2rem;
-        border-radius: 4px;
-    }
+ 
     &--micro {
         margin: 0 -0.25rem -1rem -0.25rem;
     }
@@ -1319,7 +1421,7 @@
         flex: 1 0 auto;
         margin-bottom: 2rem;
         @include phoblet {
-            flex: 1 0 100%;
+            flex: 1 1 50%;
         }
         @include mobile {
             flex: 1 0 100%;
@@ -1638,9 +1740,6 @@
             }
         }
     }
-    &--footer{
-        grid-area: footer;
-    }
 }
 
 .list__item {
@@ -1649,7 +1748,7 @@
     flex: 1 0 auto;
 
     &--benefits {
-        margin-bottom: 0;
+        margin-bottom: 0.5rem;
     }
     &--regions {
         margin-bottom: 0.5rem;
@@ -1691,6 +1790,12 @@
     border-bottom: 1px solid set-colors('grey', 'lighter');
     text-decoration: none;
     color: set-colors('grey', 'base');
+    @include phoblet{
+        padding: 1rem 0;
+    }
+    @include mobile{
+        padding: 1rem 0;
+    }
     &:visited {
         color: inherit;
         text-decoration: none;
@@ -1760,7 +1865,7 @@
         @include helvetica-neue-light;
         @include text-micro;
         text-align: center;
-        color: set-colors('grey', 'light');
+        color: set-colors('grey', 'base');
     }
     &-filter {
         flex: 1 0 100%;
@@ -1942,6 +2047,60 @@
         border-width: 0 $arrow-length $arrow-length $arrow-length;
         border-color: transparent transparent set-colors('grey', 'dark') transparent;
         -webkit-transform: rotate(360deg);
+    }
+
+
+}
+
+.loading{
+    @include loading-placeholder-secondary;
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    border-radius: 4px;
+
+    &--sm{
+        height: 1rem;
+    }
+
+    &--md{
+        height: 2rem;
+    }
+
+    &--lg{
+        height: 3rem;
+    }
+
+    &--xl{
+        height: 8rem;
+    }
+
+    &--margin-no{
+        margin-bottom: 0;
+    }
+
+    &--margin-lg{
+        margin-bottom: 4rem;
+    }
+
+    &--avatar-sm{
+        $size: 4rem;
+        width: $size;
+        height: $size;
+    }
+
+    &--avatar-md{
+        $size: 6rem;
+        width: $size;
+        height: $size;
+    }
+
+    &--half{
+        width: 50%;
+    }
+
+    &--third{
+        width: 33.3333%;
     }
 
 

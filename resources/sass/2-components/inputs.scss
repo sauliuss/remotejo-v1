@@ -157,7 +157,17 @@
         @include mobile{
             flex: 1 0 auto;    
         }
+    }
 
+    &--load-more{
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    &--post{
+        align-self: center;
+        padding-right: 1rem;
+        padding-left: 1rem;
     }
 
     &.has-tooltip{
@@ -169,14 +179,11 @@
     }
 }
 
+
 .btn-report{
   margin-top: 2rem;
   width: 100%;
   flex: 1 0 auto;
-}
-
-.tooltip{
-  
 }
 
 .btn-close {
@@ -206,22 +213,24 @@
         }
 
         @include phoblet{
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
             left: 0.5rem;
             right: 0;
             top: 0.5rem;
             background-color: #111;
+            border: 1px solid set-colors('grey', 'base');
             border-radius: 50%;   
         }
 
         @include mobile{
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
             left: 0.5rem;
             right: 0;
             top: 0.5rem;
             background-color: #111;
+            border: 1px solid set-colors('grey', 'base');
             border-radius: 50%;   
         }
     }

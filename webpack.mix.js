@@ -12,8 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.disableSuccessNotifications()
-	.js('resources/js/app.js', 'public/js')
-	.js('resources/js/bootstrap.js', 'public/js')
+	.js('resources/js/app.js', 'public/js').vue()
+	.js('resources/js/bootstrap.js', 'public/js').vue()
 	.sass('resources/sass/style.scss', 'public/css').options({
     	processCssUrls: false
 	})
@@ -22,7 +22,7 @@ mix.disableSuccessNotifications()
 		files: ['public/css/**/*.css', 'public/js/*.js', 'resources/js/**/*.vue'],
 		host: 'localhost',
         port: 3000,
-		proxy: 'remotejoscrapper.test',
+		proxy: 'remotejoapp.test',
 		injectChanges: true,
 		reload: false
 	});

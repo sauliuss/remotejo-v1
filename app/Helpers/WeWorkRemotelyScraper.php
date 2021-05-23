@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client as GuzzleClient;
 use Goutte\Client;
 
+use App\Models\JobCategory;
+use App\Models\Job;
+use App\Models\Company;
+
 class WeWorkRemotelyScraper
 {
 	public function get(){
@@ -89,6 +93,7 @@ class WeWorkRemotelyScraper
 						[
 							'url' => ltrim($company_url),
 							'headquaters' => ltrim($company_hq),
+							'slug' => str_slug(ltrim($company_name)),
 						]
 					);
 
@@ -104,12 +109,14 @@ class WeWorkRemotelyScraper
 							'job_type' => ltrim($job_type),
 							'job_hiring_timezones' => ltrim($job_hiring_timezones),
 							'job_source' => ltrim($link),
+							'job_slug' => str_slug(ltrim($job_title))
 						]
 					);
 
-					$job_category = Category::firstOrCreate([
-						'name' =>ltrim($job_category)
-					])->id;
+					$job_category = JobCategory::firstOrCreate(
+						['name' =>ltrim($job_category)],
+						['slug' => str_slug(ltrim($job_category))]
+				)->id;
 
 					$job->categories()->sync($job_category);
 

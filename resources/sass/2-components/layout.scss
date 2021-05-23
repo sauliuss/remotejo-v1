@@ -32,7 +32,7 @@ body{
   background: $gradient-yellow;
 }
 
-.nav{
+.nav-wrapper{
   background-color: $bg-black;
   width: 100%;
   flex: 1 0 auto;
@@ -44,6 +44,14 @@ body{
   box-shadow: 0 1px 3px 0px rgba(0,0,0,0.5);
   position: relative;
   z-index: 99;
+
+  @include phoblet{
+    padding: 0 1rem;
+  }
+  @include mobile{
+    padding: 0 1rem;
+  }
+
 
   // Component: LOGO
   .logo{
@@ -58,7 +66,7 @@ body{
       $h: 55px;
       $ratio: $w/$h;
       $newheight: 2rem;
-      $newheight-mobile: 1.5rem;
+      $newheight-mobile: 1.75rem;
       height: $newheight;
       width: $newheight*$ratio;
       fill: set-colors('yellow', 'base');
@@ -70,14 +78,13 @@ body{
       @include mobile{    
           height: $newheight-mobile;
           width: $newheight-mobile * $ratio;
-          
       }
 
-      &.is-secondary{
+      &--secondary{
           fill: #fff;
       }
 
-      &.is-large{
+      &--large{
           $newheight: 2.5rem;
           height: $newheight;
           width: $newheight*$ratio; 
@@ -89,7 +96,7 @@ body{
       }
   }
 
-  .nav-menu{
+  .nav{
     @include poppins-regular;
     flex: 0 1 1200px;
     padding: 0;
@@ -98,9 +105,6 @@ body{
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    @include mobile{
-      padding: 0 1rem;
-    }
 
     a{
       text-decoration: none;
@@ -113,30 +117,40 @@ body{
     }
   }
 
-  .nav-menu__group{
+  .nav__menu{
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: stretch;
+    position: relative;
     color: set-colors('yellow', 'lighter');
 
     &:nth-of-type(1){
       margin-left: 1rem;
       margin-right: auto;
+      @include phoblet{
+        display: none;  
+      }
+      @include mobile{
+        display: none;  
+      }
+
     }
 
     &:nth-of-type(2){
+      @include tablet{
+        display: none;  
+      }
+      @include phoblet{
+        display: none;  
+      }
       @include mobile{
         display: none;  
       }
     }
-
-    @include mobile{
-      order: 2; 
-    }
   }
 
-  .nav-menu__item{
+  .nav__menu__item{
     $p: 1rem;
     padding: 1.5rem;
     position: relative;
@@ -149,10 +163,13 @@ body{
     align-items: center;
     text-decoration: none;
     @include text-small;
+
+    @include tablet{
+      white-space: nowrap;
+    }
     
     @include mobile{
       white-space: nowrap;
-      padding: 1.5rem 1rem;
     }
 
     &:before{
@@ -212,14 +229,78 @@ body{
     }
   }
 
-  .btn-show-menu{
-    display: none;
+  .btn-menu{
+      display: none;
+      padding: 1rem;
+      border-radius: $radius-sm $radius-sm 0 0;
+      background-color: transparent;
+      border: none;
 
-    @include mobile{
-      padding-right: 0;
-      display: flex;  
-      order: 3;
+      &:hover, &:focus{
+        background-color: #fff;
+        .icon-menu{
+          fill: set-colors('grey', 'dark');
+        }
+        .popup-menu{
+          display: flex;
+        }
+      }
+
+      @include tablet{
+          display: flex;
+          margin-left: auto;
+      }
+      @include phoblet{
+          display: flex;
+          margin-left: auto;
+      }
+      @include mobile{
+          display: flex;
+          margin-left: auto;  
+      }
+  }
+
+  .popup-menu{
+    position: absolute;
+    z-index: 9999999;
+    right: 0;
+    top: 100%;
+    padding: 1rem;
+    min-width: 200px;
+    display: none;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #fff;
+    @include text-small;
+    @include poppins-medium;
+    box-shadow: 0 20px 30px -16px rgba(9,9,16,0.2)!important;
+    border-radius: 0 0 $radius-md $radius-md;
+
+    &__item{
+      width: 100%;
+      a{
+        display: block;
+        color: set-colors('grey', 'base');
+        padding: 0.5rem;
+        width: 100%;
+        border-radius: 4px;
+        &:hover{
+          background-color: set-colors('grey', 'lightest');
+        }
+      }
+      &--yellow{
+        a{
+          background-color: set-colors('yellow', 'base');
+          color: set-colors('grey', 'dark');
+          text-align: center;
+          &:hover{
+            background-color: set-colors('yellow', 'dark');
+          }
+        }
+      }
     }
+
   }
 
   .btn-show-menu-user{
@@ -257,7 +338,7 @@ body{
     padding: 0 0 6rem;
     width: 100%;
     display: grid;
-    grid-template-columns: 12rem auto;
+    grid-template-columns: 12rem minmax(auto, 600px);
     grid-template-rows: auto;
     align-items: start;
     grid-template-areas: 
@@ -267,8 +348,8 @@ body{
         "footer main";
 
     @include phoblet{
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
       grid-template-areas:
           "about"
           "sidebar"
@@ -352,17 +433,11 @@ body{
       margin-top: 0;
       width: 100%;
       flex: 1 auto;
-
-      // temporarily
-      display: none;
     }
     @include mobile{
       margin-top: 0;
       width: 100%;
       flex: 1 auto;
-      
-      // temporarily
-      display: none;
 
     }
   }
@@ -381,13 +456,12 @@ body{
     background: $gradient-bg-light;
     align-self: stretch;
     @include tablet{
-      flex: 1 0 100%;
+      display: none;
     }
     @include phoblet{
-      flex: 1 0 100%;
+      display: none;
     }
     @include mobile{
-      flex: 1 0 100%;
       display: none;
     }
     // position: sticky;
@@ -396,6 +470,24 @@ body{
     // overflow-y: scroll;
     // top: -200px;
     // z-index: 1;
+  }
+
+  &--footer{
+    grid-area: footer;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -250%;
+
+    @include phoblet{
+      margin-top: 0  
+    }
+
+    @include mobile{
+      margin-top: 0  
+    }
+    
   }
 }
 
@@ -439,6 +531,15 @@ body{
     padding: 4rem;
     flex: 1 0 600px;
     @include tablet{
+      padding: 2rem;
+    }
+    @include phoblet{
+      padding: 1rem;
+      flex: 1;
+    }
+    @include mobile{
+      padding: 1rem;
+      flex: 1;
     }
 
   }
@@ -450,6 +551,8 @@ body{
     text-align: right;
     color: set-colors('grey', 'base');
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
 
     b{
       color: set-colors('grey', 'dark');
@@ -484,7 +587,6 @@ body{
     padding-bottom: 0.5rem;
     margin-bottom: 2rem;
     border-bottom: 1px solid set-colors('grey', 'light');
-
   }
 
   &__subtitle{
@@ -495,6 +597,10 @@ body{
     align-items: center;
     @include helvetica-neue-bold;
     color: set-colors('grey', 'dark');
+    &--empty{
+      text-align: center;
+      display: inline;
+    }
 
   }
 
@@ -506,7 +612,19 @@ body{
       background-color: set-colors('grey', 'lighter');
       border-radius: 4px;
       padding: 4rem;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      p{
+        color: set-colors('grey', 'dark');
+        @include text-small;
+      }
     }
+  }
+
+  &__footer{
+    flex: 1 0 100%;
   }
 
 }

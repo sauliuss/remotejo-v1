@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Enums\RemoteLevel;
 use App\Enums\CompanySize;
 use App\Enums\CompanyType;
+use App\Models\JobCategory;
 
 class Company extends JsonResource
 {
@@ -39,11 +40,10 @@ class Company extends JsonResource
             'twitter' => $this->twitter,
             'facebook' => $this->facebook,
             'github' => $this->github,            
-
             'industries' => $this->industries,
             'tools' => $this->tools->groupBy('type_id'),
             'jobs' => $this->jobs,
-            // 'benefits' => $this->benefits,
+            'job_categories' => JobCategory::all(),
             'benefits' => [ 
                             'health' => $this->when($this->benefits->where('parent_id', '=', '1')->count() > 0, $this->benefits->where('parent_id', '=', '1')),
                             'compensation' => $this->when($this->benefits->where('parent_id', '=', '7')->count() > 0, $this->benefits->where('parent_id', '=', '7')),

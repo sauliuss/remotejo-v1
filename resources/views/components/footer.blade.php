@@ -26,16 +26,19 @@
         <div class="grid__item grid__item--xl">
             <ul class="list">
                 <li>
-                    <h3>Remote Companies</h3>
+                    <h3>Remote Work</h3>
                 </li>
                 <li>
-                    <a href="/tools">By Tech Stack</a>
+                    <a href="/companies">Browse remote companies</a>
                 </li>
                 <li>
-                    <a href="#">By Hiring Regions</a>
+                    <a href="/jobs">Browse remote jobs</a>
                 </li>
                 <li>
-                    <a href="#">By Industries</a>
+                    <a href="/review">Add a review</a>
+                </li>
+                <li>
+                    <a href="/company">Add a company</a>
                 </li>
             </ul>
         </div>

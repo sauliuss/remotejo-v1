@@ -24,6 +24,7 @@ class CreateJobsTable extends Migration
             $table->string('job_tags')->nullable();
             $table->string('job_compensation')->nullable();
             $table->string('job_source');
+            $table->string('job_slug');
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies');
         });

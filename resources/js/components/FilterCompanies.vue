@@ -30,8 +30,20 @@
           <span class="dummy"></span>
       </div>
       <div class="main main--companies">
-        <div class="main__header">Found <b>{{pagination.total }}</b> {{pagination.total == 1 ? 'company' : 'companies'}}</div>
-        <div class="list">
+        <div v-if="this.state.loading" class="main__header"><div class="loading loading--sm loading--third"></div></div>
+        <div v-if="!this.state.loading" class="main__header">Found <b>&nbsp;{{pagination.total }}&nbsp;</b> {{pagination.total == 1 ? 'company' : 'companies'}}</div>
+        <ul v-if="this.state.loading" class="list">
+          <li v-for="n in 10" class="company-thumbnail">
+            <div class="avatar avatar--thumbnail">
+              <div class="loading loading--avatar-md"></div>
+            </div>
+            <div class="company-info">
+              <div class="loading loading--sm loading--half"></div>
+              <div class="loading loading--lg loading--margin-no"></div>
+            </div>
+          </li>
+        </ul>
+        <div v-if="!this.state.loading" class="list">
           <div class="empty-state" v-if="companies.length == 0">
             No companies found
           </div>
@@ -226,7 +238,7 @@ export default {
     },
     submit(page_number){
 
-      this.state.loading = false;
+      this.state.loading = true;
 
       if(page_number !== undefined){
         window.scrollTo({top: 0, behavior: 'smooth'});

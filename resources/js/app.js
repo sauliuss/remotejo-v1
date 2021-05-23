@@ -11,9 +11,7 @@ import modalclaim from './components/ModalClaim';
 import filtercompanies from './components/FilterCompanies';
 import inputtimezones from './components/InputTimezones';
 import thumbnailcompany from './components/ThumbnailCompany';
-
-
-window.Vue = require('vue');
+import Vue from 'vue';
 
 /**
  * The following block of code may be used to automatically register your

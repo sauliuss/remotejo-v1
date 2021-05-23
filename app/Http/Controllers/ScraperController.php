@@ -282,6 +282,38 @@ class ScraperController extends Controller
 		return response()->json($companies, 200,[],JSON_PRETTY_PRINT);
 	}
 
+	public function scrapeTwitterAPI(){
+		$response = [];
+
+		$companies = Company::whereNull('logo')->where('twitter','!=', 'Not Found')->get();
+
+		foreach($companies as $company){
+			$twitter_url = $company->twitter;
+
+			$twitter_handle = str_replace('/', '', parse_url($twitter_url, PHP_URL_PATH));
+
+			$scrapper = new TwitterScraper();
+			$scrapper_response = $scrapper->scrapeTwitterAPI($twitter_handle);
+
+
+		   	$company = Company::updateOrCreate(
+				['twitter' => $twitter_url],
+				[
+					'description_short' => isset($scrapper_response['description']) ? $scrapper_response['description'] : '',
+					'logo' => isset($scrapper_response['logo']) ? $scrapper_response['logo'] : NULL
+				]
+			);
+
+			array_push($response, $scrapper_response);
+
+			sleep(mt_rand(1,4));
+		}
+
+		array_push($response, $scrapper_response);
+
+		return response()->json($response, 200,[],JSON_PRETTY_PRINT);
+	}
+
 	public function scrapeTwitterProfile(){
 		$response = [];
 

@@ -15,7 +15,11 @@ Route::get('/', 'CompaniesController@showAll');
 Route::get('/companies', 'CompaniesController@showCompaniesByStack');
 Route::get('/companyid/{id}', 'CompaniesController@showCompanyById');
 Route::get('/company/{slug}', 'CompaniesController@showCompany');
+
 Route::get('/stack/{slug}', 'ToolsController@showTool');
+
+Route::get('/job/{slug}', 'JobsController@showJob');
+
 
 Route::get('/remote-companies-using-{slug}', 'ToolsController@showTool');
 
@@ -26,7 +30,7 @@ Route::get('/scraper/weworkremotely', 'ScraperController@scrapeWeWorkRemotely');
 Route::get('/scraper/remoteok', 'ScraperController@scrapeRemoteOK');
 
 Route::get('/scraper/twitter-url', 'ScraperController@scrapeTwitterUrl');
-Route::get('/scraper/twitter-profile', 'ScraperController@scrapeTwitterProfile');
+Route::get('/scraper/twitter-profile', 'ScraperController@scrapeTwitterAPI');
 
 Route::get('/scraper/glassdoor-ratings', 'ScraperController@scrapeRatingsOnGlassDoor');
 Route::get('/scraper/glassdoor-company', 'ScraperController@scrapeCompanyOnGlassDoor');

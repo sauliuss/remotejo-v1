@@ -1,6 +1,15 @@
 <template>
   <form class="form--alert" action="post">
       <label class="label label--light">Be the first to know about new remote jobs at&nbsp;<b>{{company_name}}</b></label>
+      <div class="fieldset fieldset--notify fieldset--full-width">
+          <label v-for="category in job_categories" :for="'c'+category.id" class="field-checkbox field--full-width">
+            <span class="input-checkbox">
+              <input  v-model="selection" :value="category" :id="'c'+category.id" type="checkbox">
+              <label :for="'c'+category.id" class="input-select"></label>
+            </span>
+            <span class="label label--checkbox label--inline">{{ category.name }} jobs</span>
+          </label>
+      </div>
       <div class="input-wrapper input-wrapper--alert">
         <input id="email-alert" class="input input--wrapped input--alert" type="email" placeholder="Enter your email address">
         <button type="submit" @click.prevent="submit(company_name)" class="btn btn--yellow btn--medium btn--job-alert">
@@ -26,11 +35,11 @@ export default {
         loading: false,
         active: false,
         error: false,
-      }
+      },
+      selection: [],
     }
   },
   watch: {
-
   },
   computed: {
 
@@ -40,8 +49,11 @@ export default {
   },
   props: {
     company_name: {
-                required: true, 
-            }
+      required: true, 
+    },
+    job_categories: {
+      required: true
+    }
   },
   methods: {
     submit(){

@@ -1,29 +1,42 @@
 <div class="loadbar"></div>
-<nav class="nav">
-    <div class="nav-menu">
+<nav class="nav-wrapper">
+    <div class="nav">
         <a href="/" class="logo">
             <svg class="logo__img" id="logo" aria-hidden="true">
                  <use xlink:href="{{ asset('img/svg_symbols.svg#logo')}}"></use>
             </svg>
         </a>
-        <div class="nav-menu__group">
-            <a href="/companies" class="nav-menu__item"><span class="link">Remote Companies</span></a>
-            <a href="/stacks" class="nav-menu__item"><span class="link">Remote Jobs</span></a>
-            <a href="/review" class="nav-menu__item"><span class="link">Review a Company</span></a>
-            <a href="/salary" class="nav-menu__item"><span class="link">Add a Salary</span></a>
+        <div class="nav__menu">
+            <a href="/companies" class="nav__menu__item"><span class="link">Remote Companies</span></a>
+            <a href="/stacks" class="nav__menu__item"><span class="link">Remote Jobs</span></a>
         </div>
-            <a href="/new-job" class="btn btn--small btn--yellow">Post a job</a>
-            <a href="#" class="btn-menu">
-                <svg role="img" class="icon icon icon--fill icon-menu" aria-hidden="true">
-                    <use xlink:href="/img/svg_symbols.svg#icon-menu"></use>
-                </svg>
-            </a>
-{{--         <div class="nav-menu__item btn-show-menu">
-            <a href="#" class="link in-menu">Menu</a>
-            <svg class="icon-menu" id="icon-menu" aria-hidden="true">
-                <use xlink:href="{{ asset('img/svg_symbols.svg#icon-menu')}}"></use>
+        <div class="nav__menu">
+            <a href="/review" class="nav__menu__item"><span class="link">Review a Company</span></a>
+            <a href="/add-company" class="nav__menu__item"><span class="link">Add a Company</span></a>
+            <a href="/new-job" class="btn btn--small btn--yellow btn--post">Post a job</a>
+        </div>
+        <button type="button" href="#" tabindex="9999" class="btn-menu">
+            <svg role="img" class="icon icon icon--fill icon-menu" aria-hidden="true">
+                <use xlink:href="/img/svg_symbols.svg#icon-menu"></use>
             </svg>
-        </div> --}}
+            <ul class="popup-menu">
+                <li class="popup-menu__item">
+                    <a href="/review">Remote companies</a>
+                </li>
+                <li class="popup-menu__item">
+                    <a href="/review">Remote jobs</a>
+                </li>
+                <li class="popup-menu__item">
+                    <a href="/review">Review a company</a>
+                </li>
+                <li class="popup-menu__item">
+                    <a href="/add-company">Add a company</a>
+                </li>
+                <li class="popup-menu__item popup-menu__item--yellow">
+                    <a href="/new-job">Post a job</a>
+                </li>
+            </ul>
+        </button>
 <!--        <div class="btn-show-menu-user">
             <img class="avatar__img is-circle is-small" src="/assets/img/user-1.jpeg" alt="">
             <a href="#" class="link in-menu">John Doe</a>   

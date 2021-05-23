@@ -20,6 +20,26 @@
 }
 
 
+@mixin loading-placeholder-secondary(){
+  animation: loading-gradient 1500ms infinite linear;
+  position: relative;
+  background: hsl(0, 0%, 95%);
+
+
+  @keyframes loading-gradient{
+    0%{
+      background: hsl(0, 0%, 95%);
+    }
+    50%{
+      background: hsl(0, 0%, 90%);
+    }
+    100%{
+      background: hsl(0, 0%, 95%);
+    }
+  }
+}
+
+
 /* Loader icon animation */
 @mixin loader($bgcolor) {
   $color: #fff;
@@ -109,7 +129,7 @@
 $body: 16px;
 
 $sm: 26;
-$md: 42;
+$md: 54;
 $lg: 65;
 $xl: 114;
 

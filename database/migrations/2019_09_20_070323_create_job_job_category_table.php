@@ -13,7 +13,7 @@ class CreateJobJobCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_category_job', function (Blueprint $table) {
+        Schema::create('job_job_category', function (Blueprint $table) {
             $table->bigInteger('job_category_id')->unsigned();
             $table->foreign('job_category_id')->references('id')->on('job_categories');
             $table->bigInteger('job_id')->unsigned();
@@ -28,6 +28,6 @@ class CreateJobJobCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_category_job');
+        Schema::dropIfExists('job_job_category');
     }
 }

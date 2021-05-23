@@ -4,8 +4,46 @@
 
       <transition name="slideright">
         <div v-if="slug !== ''" class="dialog-wrapper">
-        <!-- <div v-if="slug !== ''" class="dialog-wrapper"> -->
-          <div class="dialog dialog--semi-full">
+          <div v-if="this.state.loading" class="dialog dialog--semi-full">
+           <button class="btn-close btn-close--dialog" @click="close()">
+             <icon :name="'close--large'"></icon>
+           </button>
+
+           <div class="hero">
+             <div class="hero__container hero__container--dialog">
+                 <div class="avatar avatar--dialog is-loading">
+                        <span class="avatar "></span>
+                 </div>
+                 <div class="overview">
+                   <div class="loading loading--md"></div>
+                   <div class="loading loading--sm loading--margin-no"></div>
+                 </div>
+             </div>
+           </div>
+             <div class="content content--company content--dialog">
+                 <div class="sidebar sidebar--left">
+                     <ul class="list list--remote-info">
+                         <li class="loading loading--sm"></li>
+                         <li class="loading loading--sm"></li>
+                         <li class="loading loading--sm"></li>
+                         <li class="loading loading--sm"></li>
+                         <li class="loading loading--sm"></li>
+                      </ul>
+                 </div>
+                 <div class="main main--company main--company--about">
+                     <div class="loading loading--xl loading--margin-lg"></div>
+                 </div>
+                 <div class="main main--company">
+                   <div class="loading loading--lg"></div>
+                   <div class="loading loading--xl loading--margin-lg"></div>
+                   <div class="loading loading--lg"></div>
+                   <div class="loading loading--xl loading--margin-lg"></div>
+                   <div class="loading loading--lg"></div>
+                   <div class="loading loading--xl loading--margin-lg"></div>
+                 </div>
+             </div>
+          </div>
+          <div v-if="!this.state.loading" class="dialog dialog--semi-full">
             <button class="btn-close btn-close--dialog" @click="close()">
               <icon :name="'close--large'"></icon>
             </button>
@@ -23,76 +61,74 @@
                          <span class="avatar "></span>
                   </div>
                   <div class="overview">
-                      <div class="overview__header">
-                          <div class="company-title company-title--large">
-                            {{ company.name }}
-                            <span v-if="company.is_claimed" class="badge badge--verified">
-                                <svg role="img" class="icon icon-verified" aria-hidden="true">
-                                    <use xlink:href="/img/svg_symbols.svg#icon-verified"></use>
-                                </svg>                
-                            </span>
-                          </div>
-                          <modalclaim v-if="!company.is_claimed" :company_logo="company.logo" :company_url="company.url_host" :company_name="company.name"></modalclaim>
-                          <!-- <div class="rating" v-if="company.rating !== undefined ||  company.rating.length !== 0"> -->
-                          <div class="overview__rating">
-                            <div class="overview__rating__header">
-                              <span class="overview__rating__number">4.1</span>
-                              <svg role="img" class="overview__rating__img" aria-hidden="true">
-                                  <use xlink:href="/img/ratings.svg#rating-1"></use>
-                              </svg>
-                            </div>
-                            <div class="overview__rating__body">
-                              <span class="overview__rating__total">10 reviews</span>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="overview__info">
-                        <div class="grid" :class="{'is-loading': this.state.loading}">
-                            <div v-if="company.type !== null" class="grid__item">
-                                <div class="title title--light">
-                                    <svg role="img" class="icon icon--fill icon--left" aria-hidden="true">
-                                        <use xlink:href="/img/svg_symbols.svg#icon-type"></use>
-                                    </svg>
-                                    <span>
-                                        {{ company.type_alias }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div v-if="company.size !== null" class="grid__item">
-                                <div class="title title--light">
-                                    <svg role="img" class="icon icon--left icon--fill" aria-hidden="true">
-                                        <use xlink:href="/img/svg_symbols.svg#icon-people"></use>
-                                    </svg>
-                                    <span>
-                                        {{ company.size_alias }}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div v-if="company.founding_years !== null" class="grid__item">
-                                <div class="title title--light">
-                                    <svg role="img" class="icon icon--left icon--fill" aria-hidden="true">
-                                        <use xlink:href="/img/svg_symbols.svg#icon-founded"></use>
-                                    </svg>
-                                    <span>
-                                        {{ company.founding_years }}
-                                    </span>
-                                </div>
-                            </div>
+                    <div v-if="this.state.loading" class="loading loading--md"></div>
+                    <div v-if="!this.state.loading" class="overview__header">
+                        <div class="company-title company-title--large">
+                          {{ company.name }}
+                          <span v-if="company.is_claimed" class="badge badge--verified">
+                              <svg role="img" class="icon icon-verified" aria-hidden="true">
+                                  <use xlink:href="/img/svg_symbols.svg#icon-verified"></use>
+                              </svg>                
+                          </span>
                         </div>
-                      </div>
+                        <modalclaim v-if="!company.is_claimed" :company_logo="company.logo" :company_url="company.url_host" :company_name="company.name"></modalclaim>
+                        <!-- <div class="rating" v-if="company.rating !== undefined ||  company.rating.length !== 0"> -->
+                        <div class="overview__rating">
+                          <div class="overview__rating__header">
+                            <span class="overview__rating__number">4.1</span>
+                            <svg role="img" class="overview__rating__img" aria-hidden="true">
+                                <use xlink:href="/img/ratings.svg#rating-1"></use>
+                            </svg>
+                          </div>
+                          <div class="overview__rating__body">
+                            <span class="title title--light">10 reviews</span>
+                          </div>
+                        </div>
+                    </div>
+                    <div v-if="this.state.loading" class="loading loading--sm loading--margin-no"></div>
+                    <div v-if="!this.state.loading" class="overview__info">
+                      <div class="grid">
+                          <div v-if="company.type !== null" class="grid__item">
+                              <div class="title title--light">
+                                  <svg role="img" class="icon icon--fill icon--left" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-type"></use>
+                                  </svg>
+                                  <span>
+                                      {{ company.type_alias }}
+                                  </span>
+                              </div>
+                          </div>
 
+                          <div v-if="company.size !== null" class="grid__item">
+                              <div class="title title--light">
+                                  <svg role="img" class="icon icon--left icon--fill" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-people"></use>
+                                  </svg>
+                                  <span>
+                                      {{ company.size_alias }}
+                                  </span>
+                              </div>
+                          </div>
+
+                          <div v-if="company.founding_years !== null" class="grid__item">
+                              <div class="title title--light">
+                                  <svg role="img" class="icon icon--left icon--fill" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-founded"></use>
+                                  </svg>
+                                  <span>
+                                      {{ company.founding_years }}
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
                   </div>
               </div>
             </div>
               <div class="content content--company content--dialog">
                   <div class="sidebar sidebar--left">
                       <ul class="list list--remote-info">
-                          <li v-if="this.state.loading" class="list__item is-loading"></li>
-                          <li v-if="this.state.loading" class="list__item is-loading"></li>
-                          <li v-if="this.state.loading" class="list__item is-loading"></li>
-                          <li v-if="company.remote_level !== null" class="list__item list__item--remote-info">
+                          <li class="list__item list__item--remote-info">
                             <div class="title">
                               <svg role="img" v-if="company.remote_level == 0" class="icon icon--fill icon--left icon-level" aria-hidden="true">
                                   <use xlink:href="/img/svg_symbols.svg#icon-level--friendly"></use>
@@ -117,26 +153,28 @@
                           </li>
 
                           <li v-if="company.timezones.length !== 0 || company.regions.length !== 0" class="list__item list__item--remote-info">
-                              <div class="title">
-                                  <svg role="img" class="icon icon icon--fill icon--left" aria-hidden="true">
-                                      <use xlink:href="/img/svg_symbols.svg#icon-people"></use>
-                                  </svg>
-                                  <span>
-                                    Hires remotely
-                                  </span>
+                              <div v-if="!this.state.loading">
+                                <div class="title">
+                                    <svg role="img" class="icon icon icon--fill icon--left" aria-hidden="true">
+                                        <use xlink:href="/img/svg_symbols.svg#icon-people"></use>
+                                    </svg>
+                                    <span>
+                                      Hires remotely
+                                    </span>
+                                </div>
+                                <ul class="list list--regions">
+                                  <li class="list__item list__item--regions" v-for="timezone in company.timezones">
+                                    GMT{{ timezone.name }}<span class="middot">&nbsp;&middot;&nbsp;</span>
+                                  </li>
+                                  <li class="list__item list__item--regions" v-for="region in company.regions">
+                                     <span>{{ region.emoji }}</span> <span>{{ region.name }}</span>
+                                     <span class="middot">&nbsp;&middot;&nbsp;</span>
+                                  </li>
+                                </ul>
                               </div>
-                              <ul class="list list--regions">
-                                <li class="list__item list__item--regions" v-for="timezone in company.timezones">
-                                  GMT{{ timezone.name }}<span class="middot">&nbsp;&middot;&nbsp;</span>
-                                </li>
-                                <li class="list__item list__item--regions" v-for="region in company.regions">
-                                   <span>{{ region.emoji }}</span> <span>{{ region.name }}</span>
-                                   <span class="middot">&nbsp;&middot;&nbsp;</span>
-                                </li>
-                              </ul>
                           </li>
 
-                          <li v-if="company.headquaters !== null && company.headquaters !== 'null'" class="list__item list__item--remote-info">
+                          <li v-if="company.headquaters !== null && company.headquaters !== 'null' && !this.state.loading" class="list__item list__item--remote-info">
                               <div class="title">
                                   <svg role="img" class="icon icon icon--fill icon--left" aria-hidden="true">
                                       <use xlink:href="/img/svg_symbols.svg#icon-location"></use>
@@ -151,30 +189,22 @@
                           </li>
                        </ul>
                   </div>
-                  <ul class="list list--footer">
-                    <li class="list__item">
-                        <span class="title title--disclaimer">
-                            This profile was updated last time by {{ company.is_verified ? company.name : 'community' }} {{ company.updated_at}}
-                        </span>
-                     </li>
-                     <li class="list__item">
-                         <button class="btn btn--light btn--small btn-report">
-                          <svg role="img" class="icon icon icon--fill icon--left" aria-hidden="true">
-                              <use xlink:href="/img/svg_symbols.svg#icon-flag"></use>
-                          </svg>
-                          <span class="btn__text">Report this page</span>   
-                         </button>
-                      </li>
-                  </ul>
+                  <div class="sidebar--footer"  v-if="!this.state.loading">
+                    <span class="title title--disclaimer">
+                        This profile was updated last time by {{ company.is_verified ? company.name : 'community' }} {{ company.updated_at}}
+                    </span>
+                    <modalreport></modalreport>
+                  </div>
                   <div class="main main--company main--company--about">
-                      <ul v-if="company.industries !== undefined && company.industries.length > 0" class="industries">
+                      <div v-if="this.state.loading" class="loading loading--xl loading--margin-lg"></div>
+                      <ul v-if="company.industries !== undefined && company.industries.length > 0 && !this.state.loading" class="industries">
                         <li v-for="(industry, key) in company.industries">
                           <a class="link link--industry" :href="'/industries/'+industry.slug">{{industry.name}}</a><span class="middot">&nbsp;&middot;&nbsp;</span>
                         </li>
                       </ul>
-                      <p v-if="company.description_full !== undefined && company.description_full !== null" class="company-description">{{ company.description_full }}</p>
-                      <p v-else class="company-description">{{ company.description_short }}</p>
-                      <div class="grid grid--micro grid--links">
+                      <p v-if="company.description_full !== undefined && company.description_full !== null && !this.state.loading" class="company-description">{{ company.description_full }}</p>
+                      <p v-else-if="!this.state.loading" class="company-description">{{ company.description_short }}</p>
+                      <div v-if="!this.state.loading" class="grid grid--micro grid--links">
                           <div class="grid__item grid__item--micro company-link">
                             <a class="link-url-icon" target="_blank" :href="company.url">
                               <svg role="img" class="icon icon--fill icon--left icon-social" aria-hidden="true">
@@ -207,86 +237,94 @@
                               </a>
                           </div>
                       </div>
-                      <span v-if="this.state.loading" class="company-description is-loading"></span>
                   </div>
                   <div class="main main--company">
-                      <!-- <div v-if="company.tools.length !== 0" class="main__section section"> -->
-                      <div class="main__section section">
-                          <h2 class="section__title">Reviews</h2>
-
-                         <div class="section__body">
-                            <ul class="reviews">
-                              <div class="review">
-                                <div class="review__header">
-                                  <span>By <b>current employee</b></span>
-                                  <span>2 days ago</span>
-                                </div>
-                                <div class="review__body">
-                                  <p class="review__text">
-                                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque explicabo earum quo recusandae soluta voluptate voluptates veniam, fuga cupiditate magni dolor dolorem quaerat eius, saepe facere minus reiciendis est consectetur!</p>
-<!--                                   <div class="grid">
-                                    <div class="grid__item">
-                                      <h3 class="section__subtitle">Pros</h3>
-                                      <div class="review__proscons"></div>     
-                                    </div>
-                                    <div class="grid__item">
-                                      <h3 class="section__subtitle">Cons</h3>
-                                      <div class="review__proscons"></div>
-                                    </div>
-                                  </div> -->
-                                  <ul class="ratings">
-
-                                    <li class="rating rating--total">
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-1"></use>
-                                      </svg>
-                                      <span class="rating__number">4.1</span>
-                                    </li>
-                                    <li class="rating">
-                                      <span class="rating__category">Remote culture</span>
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-5"></use>
-                                      </svg>
-                                    </li>
-                                    <li class="rating">
-                                      <span class="rating__category">Career growth</span>
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-2"></use>
-                                      </svg>
-                                    </li>
-                                    <li class="rating">
-                                      <span class="rating__category">Life and work balance</span>
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-4"></use>
-                                      </svg>
-                                    </li>
-                                    <li class="rating">
-                                      <span class="rating__category">Compensation and benefits</span>
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-1"></use>
-                                      </svg>
-                                    </li>
-                                    <li class="rating">
-                                      <span class="rating__category">Management</span>
-                                      <svg role="img" class="rating__img" aria-hidden="true">
-                                          <use xlink:href="/img/ratings.svg#rating-3"></use>
-                                      </svg>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </ul>
-                          </div>
-                      </div>
                       <div class="main__section section">
                           <h2 class="section__title">Jobs</h2>
 
-                          <formalert :company_name="company.name"></formalert>
+                          <formalert :company_name="company.name" :job_categories="company.job_categories"></formalert>
 
                           <div v-if="company.jobs == undefined ||  company.jobs.length == 0" class="section__body section__body--empty">
-                            <h3 class="section__subtitle">Yikes! There is no open remote roles at {{company.name}} at the moment</h3>
+                            <h3 class="section__subtitle section__subtitle--empty">Yikes! There is no open remote roles at {{company.name}} at the moment</h3>
                             <p>Set a job alert and receive the latest remote jobs from {{company.name}}. No spam. Just opportunities in your inbox.</p>
+                          </div>
+                          <div v-else class="section__body">
+                            <div v-for="job in company.jobs">
+                              <a :href="/job/+job.job_slug">{{job.job_title}}</a>
+                            </div>
+                          </div>
+                      </div>
+                      <div  class="main__section section">
+                          <h2 class="section__title">Reviews</h2>
 
+                         <div class="section__body">
+
+                            <ul class="reviews">
+                              <li class="review">
+                                <div class="review__header">
+                                  <!-- <span>By <b>current employee</b><span class="middot">&nbsp;&middot;&nbsp;</span><span>Senior software engineer</span></span>
+                                  <span class="middot">&nbsp;&middot;&nbsp;</span> --><span>Posted 2 days ago</span>
+                                  <li class="review__rating">
+                                    <span class="review__rating__number">4.1</span>
+                                    <svg role="img" class="review__rating__img" aria-hidden="true">
+                                        <use xlink:href="/img/ratings.svg#rating-5"></use>
+                                    </svg>
+                                  </li>
+                                </div>
+                                <div class="review__body">
+                                  <h3 class="review__title">"Amazing company to work in. All remote team with a great product and culture"</h3>
+                                  <ul class="ratings">
+                                    <li class="rating">
+                                      <div class="rating__header">
+                                        <h3 class="rating__title">Remote culture</h3>
+                                        <svg role="img" class="rating__img" aria-hidden="true">
+                                            <use xlink:href="/img/ratings.svg#rating-5"></use>
+                                        </svg>
+                                      </div>
+                                      <span class="rating__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, molestias. Ea eum dicta amet impedit placeat autem tenetur eius. Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, molestias. Ea eum dicta amet impedit placeat autem tenetur eius.</span>
+                                    </li>
+                                    <li class="rating">
+                                      <div class="rating__header">
+                                        <h3 class="rating__title">Career growth</h3>
+                                        <svg role="img" class="rating__img" aria-hidden="true">
+                                            <use xlink:href="/img/ratings.svg#rating-2"></use>
+                                        </svg>
+                                      </div>
+                                      <span class="rating__comment">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, voluptatum magni suscipit expedita? Eius voluptates quo consequuntur maiores dignissimos, odio error, hic at a nisi fuga praesentium neque, eveniet, iste?</span>
+                                    </li>
+                                    <li class="rating">
+                                      <div class="rating__header">
+                                        <h3 class="rating__title">Life and work balance</h3>
+                                        <svg role="img" class="rating__img" aria-hidden="true">
+                                            <use xlink:href="/img/ratings.svg#rating-4"></use>
+                                        </svg>
+                                      </div>
+                                    </li>
+                                    <li class="rating">
+                                      <div class="rating__header">
+                                        <h3 class="rating__title">Compensation and benefits</h3>
+                                        <svg role="img" class="rating__img" aria-hidden="true">
+                                            <use xlink:href="/img/ratings.svg#rating-1"></use>
+                                        </svg>
+                                      </div>
+                                    </li>
+                                    <li class="rating">
+                                      <div class="rating__header">
+                                        <h3 class="rating__title">Management</h3>
+                                        <svg role="img" class="rating__img" aria-hidden="true">
+                                            <use xlink:href="/img/ratings.svg#rating-3"></use>
+                                        </svg>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="section__footer">
+                            <button class="btn btn--light btn--medium btn--load-more">
+                              <span class="btn__text">Show all reviews</span>   
+                            </button>
                           </div>
                       </div>
                       <div v-if="company.tools.length !== 0" class="main__section section">
@@ -368,42 +406,13 @@
                               </h3>
                               <ul class="list list--benefits">
                                 <li class="list__item list__item--benefits" v-for="benefit in company.benefits.other">
-                                  <a :href="benefit.slug" class="link link--list">
-                                    <svg role="img" class="icon icon--left icon-tick" aria-hidden="true">
-                                        <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
-                                    </svg>
-                                    {{ benefit.name }}
-                                  </a>
+                                  <svg role="img" class="icon icon--left icon-tick" aria-hidden="true">
+                                      <use xlink:href="/img/svg_symbols.svg#icon-tick"></use>
+                                  </svg>
+                                  {{ benefit.name }}
                                 </li>
                               </ul>
                             </div>
-<!--                             <div v-for="benefit in company.benefits" class="grid__item grid__item--benefits">
-                                <a :href="'/benefits/' + benefit.slug" class="thumbnail thumbnail--benefit">
-                                    <div class="icon-container">
-                                        <svg role="img" v-if="benefit.parent_id == 1" class="icon-benefit" aria-hidden="true">
-                                                <use xlink:href="/img/svg_symbols.svg#icon-health"></use>
-
-                                        </svg>
-                                        <svg role="img" v-else-if="benefit.parent_id == 7" class="icon-benefit" aria-hidden="true">
-                                                <use xlink:href="/img/svg_symbols.svg#icon-money"></use>
-                                        </svg>
-                                        <svg role="img" v-else-if="benefit.parent_id == 12" class="icon-benefit" aria-hidden="true">
-                                                <use xlink:href="/img/svg_symbols.svg#icon-timeoff"></use>
-                                        </svg>
-                                        <svg role="img" v-else-if="benefit.parent_id == 19" class="icon-benefit" aria-hidden="true">
-                                                <use xlink:href="/img/svg_symbols.svg#icon-other"></use>
-                                        </svg>
-
-                                        <span v-if="benefit.parent_id == 1" class="icon-health"></span>
-                                        <span v-if="benefit.parent_id == 7" class="icon-health"></span>
-                                        <span v-if="benefit.parent_id == 12" class="icon-health"></span>
-                                        <span v-if="benefit.parent_id == 19" class="icon-health"></span>
-                                    </div>
-                                    <span class="name">
-                                        {{ benefit.name }}
-                                    </span>
-                                </a>
-                              </div> -->
                           </div>
                       </div>
                   </div>
@@ -423,6 +432,7 @@ import axios from 'axios';
 import {APP_CONFIG} from '../config.js';
 import icon from './Icon';
 import modalclaim from './ModalClaim';
+import modalreport from './ModalReport';
 import formalert from './FormAlert';
 import tooltip from './Tooltip';
 export default {
@@ -432,7 +442,7 @@ export default {
       company: '',
       reviews_list: [],
       state: {
-        loading: false,
+        loading: true,
         active: false,
       }
     }
@@ -520,15 +530,14 @@ export default {
       axios
       .post('/api/v1/company/'+this.slug)
       .then(response => {
-        this.state.loading = false;
         this.company = response.data.data;
-
+        this.state.loading = false;
       })
       .catch(error => {
 
       })
     }
   },
-  components: {icon, modalclaim, formalert, tooltip}
+  components: {icon, modalclaim, formalert, tooltip, modalreport}
 }
 </script>
